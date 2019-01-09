@@ -1,0 +1,199 @@
+
+/* 1.0.0 */
+
+/* *{
+	margin: 0px;
+	padding: 0px;
+	font-family: arial,sans-serif;
+	line-height: 1.4;
+	color: #545454;
+	font-size: 11pt;
+}*/
+
+a{
+	color: #133dd9;
+}
+
+body{
+	padding: 20px;
+	font-size: 12pt;
+}
+
+.block_content{
+	//margin-top: -30px;
+}
+
+.tpl_about{
+	position: absolute;
+	right: 20px;
+	top: 5px;
+}
+
+.oxs_footer_div{
+	text-align: right;
+	margin-bottom: 20px;
+}
+
+.main_name{
+	padding: 5px 10px 5px 10px;
+	background: #91B4FD;
+	color: white;
+}
+
+.menu_container{
+	width: 100%;
+	display: table;
+}
+
+.block_menu{
+	position: absolute;
+	right: 20px;
+	display: inline-block;
+	margin-top: -50px;
+}
+
+.block_menu div{
+	display: table-cell;
+	margin-right: 10px;
+	height: 40px;
+	border-left:1px solid white;
+	vertical-align: middle;
+	text-align: center;	
+}
+
+.oxs_history_element{
+	padding: 10px;
+	color: white;
+}
+
+.block_menu div:hover{
+	background: #CFDEFF;
+	cursor: pointer;
+}
+
+.main_menu div{
+	display: table-cell;
+	margin: 10px;
+	height: 30px;
+	border-left:1px solid white;
+	vertical-align: middle;
+	text-align: center;	
+}
+
+.no_klick{
+	cursor: default;
+}
+
+
+/*Таблица контента*/
+.content_table_list{
+	width: 100%;
+}
+
+.content_table_list_first_tr{
+	font-weight: bold;
+}
+
+/*ФОрма поиска*/
+.oxs_form_search , .found_result{
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+/*Навигация*/
+.oxs_navigation_item_my{
+	display: table-cell;
+	border: 1px solid #ccc;
+	width: 35px;
+	height: 35px;
+	vertical-align: middle;
+	text-align: center;
+	border-spacing:10px;
+}
+
+.oxs_navigation_active{
+	background: #ccc;
+}
+
+.oxs_navigation_item_outer{
+	display: inline-block;
+	margin: 5px;
+}
+
+.oxs_navigation_item_outer:hover{
+	background: #ccc;
+	cursor: pointer;
+}
+
+.oxs_navigation_my{
+	text-align: center;
+}
+
+.oxs_line_big{
+	margin: auto;
+	width: 500px;
+	border-color: #CFDEFF;;
+}
+
+.oxs_line_small{
+	margin: auto;
+	width: 300px;
+	border-color: #CFDEFF;;
+}
+
+/*	Форма добавления	*/
+
+.oxs_main_form{
+	width: 100%;	
+}
+
+.oxs_main_form_inner{
+	width: 700px;
+	margin:auto;
+}
+
+.oxs_main_form_text{
+	width: 100%;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.oxs_main_form_value{
+	width: 100%;
+}
+
+/* Окно ифномации */
+
+.oxs_info_win_inner{
+	background: #91B4FD;
+	padding: 10px;
+	margin: 0px;
+	color: white;
+}
+
+.oxs_info_win_inner div , .oxs_info_win_inner li{
+	color: white;
+}
+
+.oxs_info_win_inner ul , .oxs_info_win_inner li{
+	list-style-type: disc;
+}
+
+.oxs_info_win_inner li{
+	padding-left: 10px;
+	margin-bottom: 4px;
+	text-align: justify;
+	text-indent: 20px;
+}
+
+.oxs_info_win_inner div{
+	font-weight: bold;
+}
+
+.oxs_info_window .header_frame{
+	background: #91B4FD;
+}
+
+.oxs_info_win_inner .oxs_windows_text{
+	padding: 0px;
+}

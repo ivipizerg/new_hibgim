@@ -1,0 +1,79 @@
+.oxs_logger_window{
+width: 100%;
+}
+
+.oxs_debug_window {
+	background-color: #000000;
+	color:white;
+	width: 100%;
+	border: none;	
+
+	font-family: monospace ;
+	font-size: 11pt;
+	line-height: 19px;
+	letter-spacing: 0px;
+
+	padding: 10px;
+	height: 50vh;		
+	word-wrap:break-word;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+
+.oxs_oxs_debug_window_button{
+	cursor: pointer;	
+	position: absolute;
+	right: 022px;
+	top: 6px;
+	color:white;
+}
+
+.oxs_windows_text{
+	//padding: 10px;
+}
+
+.oxs_debug_window_chanel{
+	width: 110px;
+	display: inline-block;
+	text-align: right;
+	display:none;
+}
+
+.oxs_debug_window_ul{
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.oxs_debug_window_object_create{
+	color: #618eca;
+}
+
+
+.oxs_debug_window_message{
+	color:#fff;
+}
+
+.oxs_debug_window_good{
+	color:#64ce64;
+}
+
+.oxs_debug_window_warning{
+	color:orange;
+}
+
+.oxs_debug_window_error{
+	color:#f9745d;
+}
+
+.oxs_debug_window_fatal_error{
+	color:red;
+}
+
+.oxs_debug_window_object_delete{
+	text-decoration:underline;
+}
+
+.oxs_debug_window_db_query{
+	color: #d203d2;
+}

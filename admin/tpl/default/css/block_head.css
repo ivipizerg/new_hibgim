@@ -1,0 +1,67 @@
+.oxs_block_head{	
+	border-bottom: 1px solid #91b4fd;	
+	padding-top: 37px;
+}
+
+.oxs_active_style{
+	cursor: pointer;	
+}
+
+.oxs_active_style:hover{
+	color: #91b4fd;
+}
+
+.block_menu{
+	height: 26px;	
+}
+
+
+.block_menu ul li , .block_menu ul li:hover{
+	background: none;
+	margin-top: 5px;
+}
+
+.oxs_head_buttons{	
+	text-align: right;
+}
+
+.block_menu ul ul li .oxs_active_style:hover{
+	color: white;		
+}
+
+.block_menu ul ul{
+	min-width: 10px;
+}
+
+.block_menu ul ul li{
+	color: white;
+	background: #91b4fd;
+	padding: 6px;	
+	margin: 0px;
+	border-left:1px solid white;
+}
+
+.block_menu ul ul li:hover{
+	color: white;
+	background: #CFDEFF;
+	padding: 6px;	
+	cursor: pointer;
+	margin: 0px;
+}
+
+.oxs_head_buttons div{
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.block_menu ul ul li div{
+	display: block;
+	margin-left: 0px;
+	text-align:left; 
+	margin-left: 4px;
+}
+
+.menu_container{
+	position: absolute;	
+}
+

@@ -1,0 +1,15 @@
+.oxs_dialog_window_text{
+	max-width: 400px;
+	text-align: center;
+
+	border: 1px solid #b1b1b1;	
+	margin: 20px;
+	padding: 30px;
+	background: white;
+	
+}
+
+.dialog_window{
+	z-index: 110;
+}
+

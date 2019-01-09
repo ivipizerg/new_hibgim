@@ -1,0 +1,50 @@
+.oxs_smatr_table{
+	width: 100%;
+}
+
+.oxs_smatr_table .oxs_table_tr_0 td{	
+	padding: 4px;
+}
+
+.oxs_smatr_table .oxs_table_tr_0{
+	background: #eae8e8;
+	font-weight: bold;		
+}
+
+.oxs_smatr_table  tr{
+	border-top:1px solid #ddd;
+}
+
+.oxs_smatr_table td{
+	font-size: 10pt;
+	padding-left: 4px;
+	cursor: default;
+}
+
+.oxs_drag_zone{	
+	width: 20px;
+	cursor: move;	
+}
+
+.oxs_smatr_table-placeholder{	
+	width: 500;
+	padding: 200px;
+}
+
+.oxs_navigation{		
+	padding: 10px;
+	border-top: 1px solid #91b4fd;
+	text-align: center;
+}
+
+.oxs_my_navigation_item{	
+	width: 25px;	
+	color: #91b4fd;
+	display: inline-block;
+	margin:0px;	
+}
+
+.oxs_my_navigation_item:hover{
+	color: #333;
+}
+

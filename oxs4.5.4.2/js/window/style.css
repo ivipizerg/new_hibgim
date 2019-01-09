@@ -1,0 +1,56 @@
+.oxs_window{
+	position: fixed;
+	width: auto;
+	height: auto;
+	z-index: 110;	
+}
+
+.move_cursor{
+	cursor: auto;
+}
+
+.move_cursor:hover{
+	cursor: move;
+}
+
+.oxs_window_bar_style{	
+	//border: 1px solid blue;
+	padding: 5px;	
+}
+
+.oxs_bar_movier_style{
+	width: 20px;	
+	height: 30px;
+	padding-right: 5px;
+	padding-left: 5px;
+	//border: 1px solid blue;	
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 25px;
+	background: white;
+	border: 1px solid #ccc;
+	
+}
+
+.oxs_bar_movier_spacer{
+	display: table-cell;
+	width: 2px;
+}
+
+.oxs_window_bar_style .oxs_window_bar_item{
+	height: 30px;
+	width: 200px;
+	border: 1px solid #ccc;
+	display: table-cell;
+	vertical-align: middle;
+	padding-left:10px;
+	cursor: pointer;
+	background: #eee;
+
+	font-family: monospace ;
+	font-size: 11pt;
+	line-height: 19px;
+	letter-spacing: 0px;	
+}
+

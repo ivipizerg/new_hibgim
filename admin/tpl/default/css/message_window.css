@@ -1,0 +1,47 @@
+.message_window{
+	border: 1px solid #b1b1b1;	
+	margin: 20px;
+	padding: 10px;
+	background: white;
+}
+
+/*.oxs_message_window_counter{
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: -10px;
+	right: -10px;
+	border: 1px solid #ccc;
+	background: white;
+	text-align: center;
+	border-radius: 999px;
+	font-size: 11px;
+	padding-top: 2px;
+	color: #666;
+}*/
+
+.oxs_logger_ul_style_error{
+	list-style: none;	
+	padding: 0px;
+	margin: 0px;
+}
+
+.oxs_logger_ul_style_error li{
+	color: red;
+}
+
+.oxs_logger_ul_style_good{
+	list-style: none;	
+	padding: 0px;
+	margin: 0px;
+}
+
+.oxs_logger_ul_style_good li{
+	color: green;
+}
+
+.oxs_logger_ul_style_info{
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
