@@ -98,9 +98,12 @@
 
 			<script type="text/javascript">
 					
-				$(function(){
+				$(function(){											
+
 					DBTree.setAim(".DBTree_menu");
+					DBTree.setSubAim(".oxs_DBTree_menu_sub_menu");				
 					DBTree.useHorisontMenu("left");
+
 				});
 
 			</script>
@@ -110,15 +113,15 @@
 			return "<div class=block_menu><STYLE>.DBTree_menu{display:none;}</STYLE>".$Tree->GetUl($List,array( "ulstyle" => "DBTree_menu", 
 				"treangle" => function($Item){
 					if($Item["level"]<=2){
-						return "<div style='margin-top:-17px;margin-left:-0px;font-size:18px; '>⏷</div>";
+						return "<div class='oxs_DBTree_menu_sub_menu' style='cursor:default;margin-top:-17px;margin-left:-0px;font-size:18px; '>⏷</div>";
 					}
 
 					if($Item["level"]>2)
-						return "<div style='margin-top:-21px;margin-left:-0px;font-size:14px; '>⏴</div>";
+						return "<div class='oxs_DBTree_menu_sub_menu' style='cursor:default;margin-top:-21px;margin-left:-0px;font-size:14px; '>⏴</div>";
 				},
 				"Foo" => function($Item){
 				
-				return "<div class='oxs_active oxs_active_style ".$Item["ui_class"]."' data-route=".(explode("?",$Item["action"])[0])." data-mode=".(explode("?",$Item["action"])[1]).">&nbsp&nbsp".$Item["name"]."</div>";
+				return "<div class='oxs_active' ".$Item["ui_class"]."' data-route=\"".(explode("?",$Item["action"])[0])."\" data-mode=\"".(explode("?",$Item["action"])[1])."\">&nbsp&nbsp".$Item["name"]."</div>";
 					
 			} ))."</div>".Oxs::G("BD")->getEnd();			
 			

@@ -94,7 +94,7 @@
 		function addCheckBox(& $Fields,& $Data){
 			Oxs::I("field");
 			//	Чекбокс главный
-			array_unshift($Fields,array( "system_name" => "oxs_checkBoxMainTable" , "filters" => "class /d oxs_no_click , style /f \"width:20px;text-align:center;\" /d \"width:20px;text-align:center;padding:0px;\"" ,  "name"=>field::Checkbox("oxs_checkBoxMainTable"  ) ));
+			array_unshift($Fields,array( "system_name" => "oxs_checkBoxMainTable" , "filters" => "class /d oxs_no_click , style /f \"width:20px;text-align:center;\" /d \"width:20px;text-align:center;padding:0px;\"" ,  "name"=>field::Checkbox("oxs_checkBoxMainTable",NULL) ));
 
 			$T = count($Data);
 			for($i=0;$i<$T;$i++){

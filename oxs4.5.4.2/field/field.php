@@ -176,8 +176,8 @@
 			return $R;
 		}
 
-		static function Checkbox($Name,$Value=0,$Param=NULL){			
-			if($Value==1 or $Value=="on")
+		static function Checkbox($Name,$Value=NULL,$Param=NULL){
+			if( $Value==1 or $Value=="on" )
 				return "<input type=checkbox style=\"".$Param["style"]."\" class=\"".$Param["class"]."\" name=".$Name." ".$Param["attr"]." checked>";
 			else
 				return "<input type=checkbox style=\"".$Param["style"]."\" class=\"".$Param["class"]."\" name=".$Name." ".$Param["attr"].">";

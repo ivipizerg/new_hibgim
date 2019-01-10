@@ -31,6 +31,7 @@
 
 .block_menu ul ul{
 	min-width: 10px;
+	list-style: none;
 }
 
 .block_menu ul ul li{
@@ -47,6 +48,10 @@
 	padding: 6px;	
 	cursor: pointer;
 	margin: 0px;
+}
+
+.block_menu .oxs_active{
+	cursor: pointer;
 }
 
 .oxs_head_buttons div{
