@@ -191,8 +191,5 @@
 		static function Button($name , $Value = "Кнопка",$Param=NULL){
 			return "<button name = \"".$name."\" class=\"".$Param["class"]."\" style=\"".$Param["style"]."\" ".$Param["attr"]." \">".$Value."</button>";
 		}
-
-
-
 }
 ?>
