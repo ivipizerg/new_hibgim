@@ -100,9 +100,27 @@
 					
 				$(function(){											
 
-					DBTree.setAim(".DBTree_menu");
-					DBTree.setSubAim(".oxs_DBTree_menu_sub_menu");				
+					//	Система мипель, ловим событие наведеняи на пункт меню, обламывем его
+					//	Устанавлвиаем флаг, вызвваем открытие меню. С флагом оно ткроеться
+					window["oxs_DBTree_menu_sub_menu_open"]=0;
+					window["oxs_DBTree_menu_sub_menu_open_item"]=0;
+
+					DBTree.setAim(".DBTree_menu");						
 					DBTree.useHorisontMenu("left");
+
+					DBTree.beforeShow = function(t,e){
+						if(window["oxs_DBTree_menu_sub_menu_open"]==0) return false;
+						if(window["oxs_DBTree_menu_sub_menu_open"]==1) return true;
+					}
+
+					oxs_events.add(".oxs_DBTree_menu_sub_menu","mouseenter",function(){
+						window["oxs_DBTree_menu_sub_menu_open"]=1;
+						DBTree.useMenu();
+					});
+
+					oxs_events.add(".oxs_DBTree_menu_sub_menu","mouseleave",function(){
+						window["oxs_DBTree_menu_sub_menu_open"]=0;						
+					});
 
 				});
 
@@ -121,7 +139,15 @@
 				},
 				"Foo" => function($Item){
 				
-				return "<div class='oxs_active' ".$Item["ui_class"]."' data-route=\"".(explode("?",$Item["action"])[0])."\" data-mode=\"".(explode("?",$Item["action"])[1])."\">&nbsp&nbsp".$Item["name"]."</div>";
+				//	Если действия нет, то доабвим класс для актвиации открытия меню так как 
+				//	пункт всервно не актвиный пусть хотя бы открыает сразу меню
+				if(empty($Item["action"])){
+					$oxs_DBTree_menu_sub_menu="oxs_DBTree_menu_sub_menu";
+				}else{
+					$oxs_DBTree_menu_sub_menu="";
+				}
+
+				return "<div class='oxs_active ".$oxs_DBTree_menu_sub_menu."' ".$Item["ui_class"]."' data-route=\"".(explode("?",$Item["action"])[0])."\" data-mode=\"".(explode("?",$Item["action"])[1])."\">&nbsp&nbsp".$Item["name"]."</div>";
 					
 			} ))."</div>".Oxs::G("BD")->getEnd();			
 			
