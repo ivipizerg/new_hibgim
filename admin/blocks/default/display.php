@@ -24,7 +24,7 @@
 			Oxs::G("dialog")->Init();			
 
 			Oxs::G("oxs_obj")->G("default.js.display:position");
-			//Oxs::G("js.loader")->ReGetObject("default.tree.js:fixing");					
+			Oxs::G("js.loader")->ReGetObject("default.js.display:fixing");					
 		}
 
 		function getLimits($Page){

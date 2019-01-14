@@ -2,24 +2,16 @@ oxs_default_js_collect_cheked_id = function(){
 
  	var _this = this; 	
 
- 	//	ckearStore = false - только снять выделение
- 	//	ckearStore = true - снять выделение и очистить сторе
- 	this.clear = function(ckearStore){
- 		if(ckearStore==undefined) ckearStore = false;
-
- 		jQuery("[name=oxs_checkBoxMainTableItem]").removeAttr("checked");
-
- 		if(!ckearStore){
- 			ex_storage.remove("oxs_selected_id");
- 		}
+ 	this.uncheckAll = function(){ 		
+ 		jQuery("[name=oxs_checkBoxMainTableItem]").prop('checked', false); 		
+ 	}
+ 	
+ 	this.clear = function(){ 	
+ 		ex_storage.remove("oxs_selected_id"); 		
  	} 	
- }
 
-  $(function(){	
-  	//	Собираем нажатые ячейки если они есть
-	//////////////////////////////////////////////////	
 
-	oxs_events.add("[name=oxs_checkBoxMainTableItem]","change",function(){ 
+ 	this.collectItems = function(){ 		
 
 		ex_storage.add( "oxs_selected_id" , "" , 1 );  	
 		
@@ -31,9 +23,29 @@ oxs_default_js_collect_cheked_id = function(){
 
 			ex_storage.add( "oxs_selected_id" , ex_storage.get("oxs_selected_id").substring(0, ex_storage.get("oxs_selected_id").length - 1 ) , 1  );  			
 		}
-	});
+ 	}
 
-	////////////////////////////////////////////////// 		
+ 	//	фнкционал главног очекбокса инвертировать выеделенное
+ 	oxs_events.add("[name=oxs_checkBoxMainTable]","click",function(){
+ 		
+ 		if(jQuery(this).prop('checked')==true){
+ 			jQuery("[name=oxs_checkBoxMainTableItem]").prop('checked', true); 
+ 		}else{
+ 			jQuery("[name=oxs_checkBoxMainTableItem]").prop('checked', false); 
+ 		}
+
+ 		_this.collectItems();
+ 	}); 
+
+ }
+
+  $(function(){	  		
+	oxs_events.add("[name=oxs_checkBoxMainTableItem]","change",function(){ 
+
+		
+
+		default_js_collect_cheked_id.collectItems();		
+	});	
   });
 
  

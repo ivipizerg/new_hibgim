@@ -207,7 +207,8 @@
 						"bid" => $LastId,
 						"displayin" => $this->getD("system_name").":display",
 						"action" => "",
-						"access" => 1000		
+						"access" => 1000,
+						"ui_class" => "oxs_buttons_fixing"	
 					));
 
 
@@ -223,7 +224,7 @@
 							"displayin" => $this->getD("system_name").":display",
 							"action" => $this->getD("system_name").":fixing?mode=1",
 							"access" => 1000,
-							"ui_class" => "oxs_copy_past"		
+							"ui_class" => "oxs_buttons_fixing"	
 						));
 
 				//	Доабвить в дисплее
@@ -235,8 +236,8 @@
 							"bid" => $LastId,
 							"displayin" => $this->getD("system_name").":display",
 							"action" => $this->getD("system_name").":fixing?mode=2",
-							"access" => 1000,
-							"ui_class" => "oxs_copy_past"			
+							"access" => 1000,							
+							"ui_class" => "oxs_buttons_fixing"		
 						));
 
 				//	Доабвить в дисплее
@@ -249,7 +250,7 @@
 							"displayin" => $this->getD("system_name").":display",
 							"action" => $this->getD("system_name").":fixing?mode=3",
 							"access" => 1000,
-							"ui_class" => "oxs_copy_past"			
+							"ui_class" => "oxs_buttons_fixing"			
 						));
 			}else{
 				//	Доабвить в дисплее
@@ -262,7 +263,7 @@
 							"displayin" => $this->getD("system_name").":display",
 							"action" => $this->getD("system_name").":fixing?mode=1",
 							"access" => 1000,
-							"ui_class" => "oxs_copy_past"			
+							"ui_class" => "oxs_buttons_fixing"			
 						));
 
 				//	Доабвить в дисплее
@@ -275,7 +276,7 @@
 							"displayin" => $this->getD("system_name").":display",
 							"action" => $this->getD("system_name").":fixing?mode=2",
 							"access" => 1000,
-							"ui_class" => "oxs_copy_past"			
+							"ui_class" => "oxs_buttons_fixing"			
 						));
 
 				//	Доабвить в дисплее
@@ -288,7 +289,7 @@
 							"displayin" => $this->getD("system_name").":display",
 							"action" => $this->getD("system_name").":fixing?mode=3",
 							"access" => 1000,
-							"ui_class" => "oxs_copy_past"			
+							"ui_class" => "oxs_buttons_fixing"			
 						));
 			}
 

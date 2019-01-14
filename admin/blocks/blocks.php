@@ -128,7 +128,7 @@
 
 			<?php
 
-			return "<div class=block_menu><STYLE>.DBTree_menu{display:none;}</STYLE>".$Tree->GetUl($List,array( "ulstyle" => "DBTree_menu", 
+			return "<div class=block_menu><STYLE>.DBTree_menu{display:none;}</STYLE>".$Tree->GetUl($List,array( "ulstyle" => "DBTree_menu ", 
 				"treangle" => function($Item){
 					if($Item["level"]<=2){
 						return "<div class='oxs_DBTree_menu_sub_menu' style='cursor:default;margin-top:-17px;margin-left:-0px;font-size:18px; '>⏷</div>";
@@ -147,7 +147,7 @@
 					$oxs_DBTree_menu_sub_menu="";
 				}
 
-				return "<div class='oxs_active ".$oxs_DBTree_menu_sub_menu."' ".$Item["ui_class"]."' data-route=\"".(explode("?",$Item["action"])[0])."\" data-mode=\"".(explode("?",$Item["action"])[1])."\">&nbsp&nbsp".$Item["name"]."</div>";
+				return "<div class='oxs_active ".$oxs_DBTree_menu_sub_menu." ".$Item["ui_class"]."' data-route=\"".(explode("?",$Item["action"])[0])."\" data-mode=\"".(explode("?",$Item["action"])[1])."\">&nbsp&nbsp".$Item["name"]."</div>";
 					
 			} ))."</div>".Oxs::G("BD")->getEnd();			
 			

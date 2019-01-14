@@ -70,9 +70,9 @@ oxs_DBTree = function(){
 
 		if(mode=="left"){
 			if($(t).find("ul:first").length!=0 ){
-				console.log($(t).find("ul:first").offset().left);
+				/*console.log($(t).find("ul:first").offset().left);
 				console.log($(t).find("ul:first").width());
-				console.log($(t).width());
+				console.log($(t).width());*/
 				$(t).find("ul:first").offset( { left: ( ($(t).offset().left) - ($(t).find("ul:first").width()) ) } );
 				$(t).find("ul:first").offset( { top:  $(t).offset().top  } );								
 			}				
@@ -97,16 +97,16 @@ oxs_DBTree = function(){
 			_this.action = "main";
 			_this.TMPthis = this;
 			//console.log("Основной список");
-			if(!_this.beforeShow(e)){ console.log("false");  }
-			else { console.log("true"); _this.useMenu();}	
+			if(!_this.beforeShow(e)){  }
+			else {  _this.useMenu();}	
 		});
 
 		//	Вешаем событие на подсписки
 		$( _this.aim + " ul  li ").mouseenter(function(e){
 			_this.action = "sub";
 			//console.log("Подсписок");
-			if(!_this.beforeShow(e)){ console.log("false"); }
-			else { console.log("true"); _this.useMenu();}
+			if(!_this.beforeShow(e)){  }
+			else { _this.useMenu();}
 		});
 
 
