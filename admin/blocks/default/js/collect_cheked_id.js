@@ -37,12 +37,40 @@ oxs_default_js_collect_cheked_id = function(){
  		_this.collectItems();
  	}); 
 
- }
+ } 
 
-  $(function(){	  		
-	oxs_events.add("[name=oxs_checkBoxMainTableItem]","change",function(){ 
 
+  $(function(){	  
+  
+  	//	Вешаем событие для поиска шифта
+  	oxs_events.add("html","keydown",function(){
+  		window["oxs_display_shift_on"]=1;
+  	});
+
+  	oxs_events.add("html","keyup",function(){
+  		window["oxs_display_shift_on"]=0;
+  	});
+  	///////////////////////////////////
+
+
+  	window["oxs_display_last_chekbox"]=-1;
+	oxs_events.add("[name=oxs_checkBoxMainTableItem]","change",function(e){ 
 		
+		if(window["oxs_display_shift_on"]){
+
+			if(window["oxs_display_last_chekbox"]<jQuery(this).attr("num")){
+				for(i=window["oxs_display_last_chekbox"];i<=jQuery(this).attr("num");i++){
+					jQuery("[name=oxs_checkBoxMainTableItem]:eq(" + i + ")").prop('checked', true); 
+				}
+			}else{
+				for(i=jQuery(this).attr("num");i<=window["oxs_display_last_chekbox"];i++){
+					jQuery("[name=oxs_checkBoxMainTableItem]:eq(" + i + ")").prop('checked', true); 
+				}
+			}
+		}
+
+
+		window["oxs_display_last_chekbox"] = jQuery(this).attr("num");
 
 		default_js_collect_cheked_id.collectItems();		
 	});	

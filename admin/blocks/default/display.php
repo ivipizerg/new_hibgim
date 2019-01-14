@@ -98,7 +98,7 @@
 
 			$T = count($Data);
 			for($i=0;$i<$T;$i++){
-				 if( empty($Data[$i]["checkbox_template"]) && $Data[$i]["checkbox_template"] != "no_chekbox"  ) $Data[$i]["oxs_checkBoxMainTable"] = field::Checkbox( "oxs_checkBoxMainTableItem"  , null , array(  "attr" => "data-id=".$Data[$i]["id"] ));
+				 if( empty($Data[$i]["checkbox_template"]) && $Data[$i]["checkbox_template"] != "no_chekbox"  ) $Data[$i]["oxs_checkBoxMainTable"] = field::Checkbox( "oxs_checkBoxMainTableItem"  , null , array(  "attr" => "num = ".$i." data-id=".$Data[$i]["id"] ));
 				 else
 				 	if($Data[$i]["checkbox_template"] != "no_chekbox")
 				 		$Data[$i]["oxs_checkBoxMainTable"] = $Data[$i]["checkbox_template"];
