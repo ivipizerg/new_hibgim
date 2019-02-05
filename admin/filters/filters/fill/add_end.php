@@ -11,7 +11,7 @@
 		function Exec($Command,& $Fields , & $Data){			
 
 			if(empty($Data[$Fields["system_name"]])){				
-				$this->Msg(Oxs::G("languagemanager")->T( "notFill" , $Fields["name"] ),"FILTER.ERROR");	
+				$this->Msg(Oxs::G("languagemanager")->T( "notFill" , $Fields["name"] ),"ERROR.FILTER");	
 			}			
 			
 			return 0;

@@ -13,7 +13,7 @@
 			$Field_name = Oxs::G("filters_manager")->EjectValue($Command,"field")[0];
 			
 			if($Field_name==NULL){
-				$this->Msg("Не найден параметр field" , "ERROR");
+				$this->Msg( Oxs::G("languagemanager")->T("noField" ),"ERROR.FILTER" );				
 				return 0;
 			}		
 

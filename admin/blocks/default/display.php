@@ -177,7 +177,12 @@
 			$this->addDradArea($this->Fields,$this->Data);
 			
 			//	Применяем фильтры			
-			Oxs::G("filters_manager")->Exec($this->Fields,$this->Data);			
+			Oxs::G("filters_manager")->Exec($this->Fields,$this->Data);
+
+			if(Oxs::G("filters_manager")->DecodeFilterMessage()==TRUE){
+				$this->SetAjaxCode(-1);	
+				return TRUE;
+			}			
 
 			//	Выводим содержимое
 			echo $MainTable->Show($this->Fields,$this->Data);			

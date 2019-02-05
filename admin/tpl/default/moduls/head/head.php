@@ -26,7 +26,7 @@
 		echo Oxs::G("js.history")->GetObject("H");	
 
 		//	Создаем обьект для работы через аякс
-		if(Oxs::G("setting_manager")->get("debug_mode")=="да"){
+		if(Oxs::G("setting_manager")->getOption("debug_mode")=="1"){
 			echo Oxs::G("js.ajaxexec")->GetObject("aj_auth" , array( "start_code" => "application") );
 		}else{
 			echo Oxs::G("js.ajaxexec")->GetObject("aj_auth" , array( "log" => "off" , "start_code" => "application") );

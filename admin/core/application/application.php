@@ -40,7 +40,7 @@
 
 			echo Oxs::G("templatemanager")->ShowTemplate();	
 
-			if(Oxs::G("setting_manager")->get("debug_mode")=="да" && Oxs::G("usermanager")->CurrentUser->IfAuth()){
+			if(Oxs::G("setting_manager")->getOption("debug_mode")=="1" && Oxs::G("usermanager")->CurrentUser->IfAuth()){
 				echo Oxs::ShowLog();	
 			}	
 		}

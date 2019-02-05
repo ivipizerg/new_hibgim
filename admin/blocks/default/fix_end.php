@@ -26,7 +26,8 @@
 			//	Выполняем фильтры
 			Oxs::G("filters_manager")->Exec($Fields,$this->getD());
 
-			if($this->GetAjaxCode()==-1){
+			if(Oxs::G("filters_manager")->DecodeFilterMessage()==TRUE){
+				$this->SetAjaxCode(-1);	
 				return TRUE;
 			}
 		}	

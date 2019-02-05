@@ -12,8 +12,8 @@
 			
 			$Mode = Oxs::G("filters_manager")->EjectValue($Command,"mode")[0];
 			
-			if($Mode==NULL){
-				$this->Msg("Не найден параметр mode" , "ERROR");
+			if($Mode==NULL){	
+				$this->Msg( Oxs::G("languagemanager")->T("noMode" ),"ERROR.FILTER" );
 				return 0;
 			}			
 

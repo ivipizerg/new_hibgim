@@ -21,11 +21,11 @@
 			//	Выполняем фильтры
 			Oxs::G("filters_manager")->Exec($this->Fields,$this->getD());
 
-			if(Oxs::G("logger")->get("FILTER")!=FALSE){
-				$this->SetAjaxCode(-1);		
-				$this->SetAjaxText( Oxs::G("message_window")->ErrorUl("FILTER") );
+			if(Oxs::G("filters_manager")->DecodeFilterMessage()==TRUE){
+				$this->SetAjaxCode(-1);	
 				return TRUE;
-			}			
+			}
+				
 		}
 		
 		function Exec(){			

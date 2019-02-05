@@ -11,16 +11,14 @@
 		function Exec($Command,& $Fields , & $Data){			
 
 			if(!Oxs::G("cheker")->Int($Data[$Fields["system_name"]])){
-				$this->SetAjaxCode(-1);				
-				$this->SetAjaxText( Oxs::G("languagemanager")->T( "notInteger" , $Fields["name"] ) );
+				$this->Msg( Oxs::G("languagemanager")->T("notInteger", $Fields["name"] ),"ERROR.FILTER" );				
 			}			
 
 			$min = Oxs::G("filters_manager")->EjectValue($Command,"min")[0];
 			if(empty($min))	{
 				$min = 0;
 				if($Data[$Fields["system_name"]]<$min){
-					$this->SetAjaxCode(-1);				
-					$this->SetAjaxText( Oxs::G("languagemanager")->T( "integerSoSmal" , $Fields["name"] ) );
+					$this->Msg( Oxs::G("languagemanager")->T("integerSoSmal", $Fields["name"] ),"ERROR.FILTER" );	
 				}	
 			}			
 
@@ -28,8 +26,7 @@
 		
 			if($max!=NULL){
 				if($Data[$Fields["system_name"]]>$max){
-					$this->SetAjaxCode(-1);				
-					$this->SetAjaxText( Oxs::G("languagemanager")->T( "integerSoBig" , $Fields["name"] ) );
+					$this->Msg( Oxs::G("languagemanager")->T("integerSoBig", $Fields["name"] ),"ERROR.FILTER" );
 				}				
 			}
 			

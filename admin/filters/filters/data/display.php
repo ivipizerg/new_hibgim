@@ -13,7 +13,7 @@
 			$m = Oxs::G("filters_manager")->EjectValue($Command,"m")[0];
 			
 			if($m==NULL){
-				$this->Msg("Не найден параметр m" , "WARNING");
+				$this->Msg( Oxs::G("languagemanager")->T("noM" ),"ERROR.FILTER" );				
 				return 0;
 			}else{		
 				

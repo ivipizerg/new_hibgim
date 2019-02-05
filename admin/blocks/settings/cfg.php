@@ -28,7 +28,7 @@
 			return array( 0 => array( "cfg_file" => Oxs::G("file")->Read("cfg.php") ) );
 		}
 
-		function ExecBefore(& $Params = NULL){
+		function ExecBefore(){
 
 			//	Если пусто выводим фомру
 			if(empty($Params["masterPassword"])){
@@ -52,8 +52,5 @@
 			<?php
 			
 		}
-
-		function Destruct(& $Param=null){			
-			$this->AddAjaxData("clear","masterPassword");			
-		}	 
+		
 	}

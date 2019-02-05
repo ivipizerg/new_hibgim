@@ -174,6 +174,15 @@
 			//var_dump($ReturnCommand);
 			return $ReturnCommand;
 		}
+
+		function DecodeFilterMessage(){
+			
+			if(Oxs::G("logger")->get("ERROR.FILTER")!=FALSE){					
+				$this->SetAjaxText( Oxs::G("message_window")->ErrorUl("ERROR.FILTER") );
+				return TRUE;
+			}		
+
+		}
 	}
 
 ?>

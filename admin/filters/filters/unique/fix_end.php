@@ -10,9 +10,10 @@
 			parent::__construct($Path);
 		}	
 
-		function Exec($Command,& $Fields , & $Data){	
+		function Exec($Command,& $Fields , & $Data){
+
 			
-			$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__oxs:sql` WHERE `id` = 'oxs:id'" , Oxs::G("datablocks_manager")->RealCurrentBlockName , $Data["fixingId"])[0];
+			$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__oxs:sql` WHERE `id` = 'oxs:id'" , Oxs::G("datablocks_manager")->RealCurrentBlockName , Oxs::G("default:display")->getP("fixingId"))[0];
 
 			if( $R[$Fields["system_name"]] == $Data[$Fields["system_name"]]) return 0;			
 
