@@ -3,9 +3,15 @@
 
 	class default_remove extends BlocksSingleLibSelectable{	
 
+		private $oxs_remove_dialog;
+
 		function __construct($Path){	
 			parent::__construct($Path);			
-		}			
+		}		
+
+		function LoadMyJS(){
+			$this->oxs_remove_dialog = Oxs::L("dialog");		
+		}	
 
 		function ExecBefore(){	
 			
@@ -13,7 +19,7 @@
 
 			//	Спрашиваем подтверждение
 			if( empty($this->getP("oxs_dialog_ask_yes")) ){
-				Oxs::G("dialog")->AskUser("oxs_dialog_ask_yes",Oxs::G("languagemanager")->T("areYouShureDelete"));
+				$this->oxs_remove_dialog->AskUser(Oxs::G("languagemanager")->T("areYouShureDelete"),"oxs_dialog_ask_yes");				
 				return TRUE;
 			}
 		}

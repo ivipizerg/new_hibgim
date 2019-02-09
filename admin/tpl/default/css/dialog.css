@@ -1,4 +1,4 @@
-.oxs_dialog_window_text{
+.oxs_all_dialogs{
 	max-width: 400px;
 	text-align: center;
 
@@ -9,7 +9,7 @@
 	
 }
 
-.dialog_window{
+.oxs_all_dialogs{
 	z-index: 110;
 }
 

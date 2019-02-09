@@ -4,12 +4,29 @@
 
 	class _dialog {
 
-		private $HTML = "";
+		private $uiNmae;		
 
-		function __construct(){
+		private $HTML = "";
+		private $CSS = "";
+		private $JS = "";
+
+		function __construct($uiName){
+			$this->uiNmae = $uiName;
 			Oxs::G("field");			
 		}
 		
+		function Css($cssFile){		
+			Oxs::G("BD")->Start();
+			$this->CSS .= Oxs::G("dom")->LoadCSSOnce($cssFile);
+			$this->JS .= Oxs::G("BD")->getEnd();
+		}
+
+		function js($C , $farVar){
+			Oxs::G("BD")->Start();
+			Oxs::G("oxs_obj")->G($C,array($this->uiNmae , $farVar),"oxs_".$$C.$this->uiNmae);
+			$this->JS .= Oxs::G("BD")->getEnd();
+		}		
+
 		function addButton($Text,$Name,$Param=null){
 			if(empty($Param["class"]))$Param["class"] = "btn btn-default"; 
 			$this->HTML .= field::Button($Name,$Text,$Param);
@@ -31,75 +48,68 @@
 			$this->HTML .= "<br>";
 		}
 
-		function getHtml(){
-			return $this->HTML;
-		}
+		function build($unique){
 
-		function setCloseButton($Class){
 			Oxs::G("BD")->Start();
+
+			//	Обернем диолог в оконце
+			Oxs::G("js.window")->GetObject("dialog_window_".$unique);		
+			
+			echo $this->CSS;
+			echo $this->JS;
+
 			?>
+			
 			<script type="text/javascript">
-				$(function(){
-					sys_dialog.setCloseEvent("<?php echo $Class;?>");
-				});
-			</script>
-			<?php
-			$this->HTML .= Oxs::G("BD")->GetEnd();
-		}
+					
+					$(function(){
+						dialog_window_<?php echo $unique;?>.set("<div class='oxs_all_dialogs oxs_dialog_<?php echo $unique;?>'>" + (decodeURIComponent("<?php echo rawurlencode($this->HTML);?>")) + "</div>");						
+						dialog_window_<?php echo $unique;?>.stick("center","center");
+						dialog_window_<?php echo $unique;?>.show();
+						oxs_black_screen.On();
 
-		function setRoute($Class,$Route){
-			Oxs::G("BD")->Start();
-			?>
+						oxs_black_screen.addCode(function(){
+							dialog_window_<?php echo $unique;?>.hide();
+						});
 
-				<script type="text/javascript">
-					jQuery(function(){
-						jQuery("<?php echo $Class;?>").attr("data-route","<?php echo $Route;?>");
-						//jQuery("<?php echo $Class;?>").addClass("oxs_active");
-						jQuery("<?php echo $Class;?>").addClass("oxs_active_dialog");
-						sys_dialog.setRoute("<?php echo $Class;?>");
 					});
-				</script>
 
-			<?php
+			</script>
 
-			//	На вскйи случай подключим active_buttons, вдруг они не подключены
-			//Oxs::G("js.loader")->GetObject("default.js:active_buttons");	
+			<?php			
 
-			$this->HTML .= Oxs::G("BD")->GetEnd();
-		}
+			return Oxs::G("BD")->getEnd();			
+		}	
 	}
 
-	class dialog extends CoreSingleLib{	
+	class dialog extends CoreMultiLib{	
 		
+		private $uniqueName;
+
 		function __construct($_Path,$Params=null){
+			$this->uniqueName = Rand();				
 			parent::__construct($_Path,$Params);				
-		}
+		}		
 
-		function BuildDialog( _dialog $D){				
-			return $D->getHtml();
-		}
+		function AskUser($Text,$farVar){
 
-		function AskUser($Varibale,$Text){
-
-			$D  = new _dialog();
+			$D  = new _dialog($this->uniqueName);
 			$D->addText($Text);
 			$D->addBr();
 			$D->addBr();			
-			$D->addButton(Oxs::G("languagemanager")->T("yes"),$Varibale,array("style" => "width:70px;"));
+			$D->addButton(Oxs::G("languagemanager")->T("yes"),"oxs_dialog_button_yes_".$this->uniqueName,array("style" => "width:70px;"));
 			$D->addHtml("&nbsp;&nbsp;");
-			$D->addButton(Oxs::G("languagemanager")->T("no"),"oxs_dialog_no",array("style" => "width:70px;"));
-			$D->setCloseButton("[name=oxs_dialog_no]");
-			$D->setRoute("[name=".$Varibale."]",Oxs::G("datablocks_manager")->CurrentBlock);
-			
-			$this->SetAjaxCode(2);		
-			$this->SetAjaxData("dialog",$this->BuildDialog($D));	
+			$D->addButton(Oxs::G("languagemanager")->T("no"),"oxs_dialog_button_no_".$this->uniqueName,array("style" => "width:70px;"));
+			$D->Css("admin/tpl/default/css/dialog.css");			
+			$D->js( "dialog:dialog_yes_no" , $farVar);				
+
+			$this->buildDialog($D);
 		}	
 
-		function Init(){
-			Oxs::G("dom")->LoadCSSOnce("admin/tpl/default/css/dialog.css");		
-			Oxs::G("js.window")->GetObject("dialog_window");		
-			Oxs::G("oxs_obj")->G("dialog",NULL,"sys_dialog");
-		}
+		function buildDialog(_dialog $D){
+			$this->SetAjaxCode(2);			
+			$this->SetAjaxData("dialog",$D->build($this->uniqueName));
+		}		
 	}
 
 ?>

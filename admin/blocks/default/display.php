@@ -20,8 +20,7 @@
 			Oxs::G("oxs_obj")->G("default.js:collect_cheked_id");
 			Oxs::G("oxs_obj")->G("default.js:active_buttons");		
 			
-			Oxs::G("search")->Init();			
-			Oxs::G("dialog")->Init();			
+			Oxs::G("search")->Init();
 
 			Oxs::G("oxs_obj")->G("default.js.display:position");
 			Oxs::G("js.loader")->ReGetObject("default.js.display:fixing");					

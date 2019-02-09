@@ -1,6 +1,9 @@
 oxs_datablocks_manager = function(){
 
-     var _this = this;      
+     var _this = this; 
+
+     var _lastBlock = "";
+     var _lastURL = "";     
 
      //   no_calcel_message - не убирать сообщение, нужн оесли вы делаете редирект на другой блок
      //   а сообщенеи с предыдущего вам убирать не нужно
@@ -8,6 +11,9 @@ oxs_datablocks_manager = function(){
      this._ExecBlock = function(Block,Param,URL,replace,no_calcel_message){ 
 
           console.log(Block,Param,URL);
+
+          _this._lastBlock = Block;
+          _this._lastURL = URL;
 
           if(replace==undefined) replace = false;
           if(no_calcel_message==undefined) no_calcel_message = false;
@@ -29,7 +35,7 @@ oxs_datablocks_manager = function(){
                     _this._ExecBlock( Data["nextStep"] , Param , "admin/" + Data["nextStep"] + ".html" , false ,true);                     
                //   Диалог
                }else if(Code==2){                                            
-                    sys_dialog.show(Data["dialog"]); 
+                     jQuery(".oxs_main_container_dialog").append(  Data["dialog"] );  
                }else{                    
                     H.GoTo(function(){                           
                          

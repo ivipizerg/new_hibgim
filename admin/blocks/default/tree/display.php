@@ -13,8 +13,7 @@
 			Oxs::G("oxs_obj")->G("default.js.display:fix");
 			Oxs::G("oxs_obj")->G("default.js.display:navigation");
 
-			Oxs::G("search")->Init();	
-			Oxs::G("dialog")->Init();		
+			Oxs::G("search")->Init();				
 			
 			Oxs::G("oxs_obj")->G("default.js:collect_cheked_id");		
 			Oxs::G("oxs_obj")->G("default.js:active_buttons");	
