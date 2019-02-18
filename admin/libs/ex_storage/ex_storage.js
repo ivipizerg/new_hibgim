@@ -14,7 +14,7 @@ function oxs_ex_storage(log){
 			TTL = 2
 		}
 
-		storage.add(ParamName, { "value" : ParamValue , "TTL" :  TTL } );
+		storage.add( ParamName, { "value" : ParamValue , "TTL" :  TTL } );
 	}
 
 	this.get = function(ParamName){

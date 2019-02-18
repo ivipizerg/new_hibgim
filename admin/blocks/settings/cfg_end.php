@@ -16,7 +16,7 @@
 			
 		}	
 
-		function Exec(& $Param=null){			
+		function Exec(){			
 
 			//	Если есть введенный пароль то проверяем его
 			if( !empty($this->getP("oxs_masterPassword")) ){				
@@ -35,9 +35,9 @@
 						$this->SetAjaxCode(-1);						
 						$this->SetAjaxText(Oxs::G("languagemanager")->T("cfgNotWriteable"));
 						return TRUE;
-					}	
+					}					
 					
-					Oxs::G("file")->Write("cfg.php" , $this->getP("cfg_file") );
+					Oxs::G("file")->Write("cfg.php" , $this->getD("cfg_file") );
 
 					if(!Oxs::G("logger")->Get("ERROR")){
 						$this->SetAjaxCode(1);
@@ -45,7 +45,7 @@
 						$this->SetAjaxText(Oxs::G("languagemanager")->T("defaultFixGood"));
 					}else{
 						$this->SetAjaxCode(-1);				
-						$this->SetAjaxText(Oxs::G("message_window")->getErrorUl("ERROR"));
+						$this->SetAjaxText(Oxs::G("message_window")->ErrorUl("ERROR"));
 					}
 
 					return TRUE;

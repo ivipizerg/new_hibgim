@@ -196,13 +196,25 @@
 
 		//	Быстрая запись в файл с перезписью
 		function Write($FileName,$Data=NULL,$Param=NULL){			
-			$File = fopen(Oxs::GetBack().$FileName,"w+");
-			fwrite($File,"%s",$Data);
+			$File = fopen(Oxs::GetBack().$FileName,"w");
+			if($File == FALSE){
+				$this->Msg("Файл \"".$FileName."\" для записи не найден или нет доступа","ERROR");			
+			}			
+
+			if(fwrite($File,$Data) == FALSE){
+				$this->Msg("Файл \"".$FileName."\" не удалось записать","ERROR");			
+			}
+
 			fclose($File);
 		}
 
 		function Read($FileName){			
 			$File = fopen(Oxs::GetBack().$FileName,"r");
+
+			if($File == FALSE){
+				$this->Msg("Файл \"".$FileName."\" для чтения не найден или нет доступа","ERROR");			
+			}
+
 			$Ret = fread($File,filesize(Oxs::GetBack().$FileName));
 			fclose($File);
 			return $Ret;

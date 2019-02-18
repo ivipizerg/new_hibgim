@@ -21,7 +21,7 @@
 			$this->JS .= Oxs::G("BD")->getEnd();
 		}
 
-		function js($C , $farVar){
+		function js($C , $farVar=null){
 			Oxs::G("BD")->Start();
 			Oxs::G("oxs_obj")->G($C,array($this->uiNmae , $farVar),"oxs_".$$C.$this->uiNmae);
 			$this->JS .= Oxs::G("BD")->getEnd();
