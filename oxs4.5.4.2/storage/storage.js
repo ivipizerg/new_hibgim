@@ -1,7 +1,8 @@
 function oxs_storage(__log){	
 
 	var _this=this;
-	this._log = __log;
+	
+	this._log = __log;	
 	if(this._log==undefined) this._log = true;
 		
 	this.ParamMass={};
@@ -9,9 +10,9 @@ function oxs_storage(__log){
 	//	Добавить паарметры дял передачи в выполянемый код
  	this.AddParam = function(ParamName,ParamValue){  	 	
  		if(this._log){
- 			console.log("Добавляю данные в хранилище: " + ParamName);		
- 			console.log("Значение данных: ");	
- 			console.log(ParamValue);		
+ 			 console.log("Добавляю данные в хранилище: " + ParamName);		
+ 			 console.log("Добавляемые данные: ");	
+ 			 console.log(ParamValue);		
  		}
  		
  		_this.ParamMass[ParamName] = ParamValue; 		

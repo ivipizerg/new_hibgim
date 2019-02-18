@@ -1,31 +1,26 @@
-oxs_settings_cfg_file_edit = function(){	
+oxs_settings_cfg_file_edit = function(uniqueName,farVar){	
 
-	//	Дефалтный обработчик должен пробежать по всем полям , собрать занчения value 
-	//	и запихнуть в параметры дял передачи в скрипт обработчик	
-	codebox_global_buttons.AddCode(function(){			
+	//	Обработка клика yes
+	oxs_events.add("[name=oxs_dialog_ask_master_password_ok_" + uniqueName+"]","click" , function(){
+		console.log("Нажата ДА");
+		
+		console.log(ex_storage.get());
+		
+		ex_storage.add("oxs_masterPassword",$("[name=oxs_dialog_ask_master_password_edit_" + uniqueName+"]").val(),1);
+		
+		oxs_black_screen.Off();
+		
+		//	продолжаем выполнение приостановленного запроса		
+		datablocks_manager.ExecBlock(datablocks_manager._lastBlock,ex_storage.get(),datablocks_manager._lastURL);
+	} );
 
-		codebox_global_buttons.ParamMass = {};
+	//	Обработка клика No
+	oxs_events.add("[name=oxs_dialog_ask_master_password_cancel_" + uniqueName+"]","click" , function(){
+		console.log("Нажата НЕТ");	
 
-		jQuery(".oxs_fields_table .oxs_field_value").each(function(E){
-			//	Если есть класс auto_clear_ch занчит поле пустое, там значенеи посдказка
-			if(jQuery(this).hasClass("auto_clear_ch")){
-				codebox_global_buttons.AddParam(jQuery(this).attr("name"),null);
-			}
-			else {
-				//	Чекбокс так просто не отдаст све значение
-				if(jQuery(this).attr("type")=="checkbox"){
-					if(jQuery(this).prop("checked")){						
-						codebox_global_buttons.AddParam(jQuery(this).attr("name"),"on");
-					}
-					else{						
-						codebox_global_buttons.AddParam(jQuery(this).attr("name"),"off");
-					}
-				}else{
-					codebox_global_buttons.AddParam(jQuery(this).attr("name"),jQuery(this).val());
-				}
-			}
-		}); 		
-
-	},"click","add");	
+		//	ЗАтем закрываем диалог
+		oxs_black_screen.Off();		
+	} );
+	
 	
 } 

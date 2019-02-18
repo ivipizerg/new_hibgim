@@ -36,8 +36,12 @@
 			$this->HTML .= $Text;
 		}
 
-		function addTextField(){
-			//$HTML .= field::Text($Name,$Text,array( "attr"=>$attr , "class"=>"form-control oxs_field_value" , "style" => "margin-top:3px;".$Field["field_style"] , "auto_clear" => $Field["form_name"]) );
+		function addPassword($Name,$Text=NULL,$Desc=null,$Param=null){
+			$this->HTML .= field::Password($Name,$Text,array( "attr"=> $Param["attr"] , "class"=>"form-control ".$Param["class"] , "style" => "margin-top:3px; ".$Param["style"] , "auto_clear" => $Desc) );
+		}
+
+		function addEdit($Name,$Text=NULL,$Desc=null,$Param=null){
+			$this->HTML .= field::Text($Name,$Text,array( "attr"=> $Param["attr"] , "class"=>"form-control ".$Param["class"] , "style" => "margin-top:3px; ".$Param["style"] , "auto_clear" => $Desc) );
 		}
 
 		function addHtml($html){
@@ -84,7 +88,7 @@
 
 	class dialog extends CoreMultiLib{	
 		
-		private $uniqueName;
+		public $uniqueName;
 
 		function __construct($_Path,$Params=null){
 			$this->uniqueName = Rand();				

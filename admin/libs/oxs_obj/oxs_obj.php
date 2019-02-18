@@ -8,8 +8,9 @@
 			parent::__construct($Path);			
 		}
 
-		function Init(){
-			Oxs::G("js.loader")->GetObject("oxs_obj",null,"oxs_obj");	
+		function Init($_log=true){
+			$_log = ($_log) ? 'true' : 'false';
+			Oxs::G("js.loader")->GetObject("oxs_obj",array("notString:".$_log),"oxs_obj");	
 		}
 
 		function G($ObjName,$Param=null,$Name=null){

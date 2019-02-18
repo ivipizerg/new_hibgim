@@ -84,7 +84,7 @@
 		}
 
 		//	Подключить js файл
-		function JS($F=NULL,$ui_name=NULL){
+		function JS($F=NULL,$ui_name=NULL,$Params=null){
 
 			if($F==NULL){
 				$Comp = $this->LibComponent;
@@ -95,7 +95,7 @@
 				$Comp = $F;
 			}			
 			
-			Oxs::G("js.loader")->GetObject($this->LibName.":".$Comp,NULL,$ui_name);
+			Oxs::G("js.loader")->GetObject($this->LibName.":".$Comp,$Params,$ui_name);
 			
 		}
 

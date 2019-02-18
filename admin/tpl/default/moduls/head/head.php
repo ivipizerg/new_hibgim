@@ -3,7 +3,7 @@
 	function head_modul($Param=NULL){
 
 		//	Добавим сови собственные источники
-		Oxs::AddSource("admin/tpl/elements/");
+		//Oxs::AddSource("admin/tpl/elements/");
 
 		echo Oxs::G("dom")->ShowBase();	
 
@@ -49,12 +49,12 @@
 		Oxs::G("storage")->add("MainAction",$MainAction);	
 		
 		//	Обьект хранилище, в нем будут храниться даныне в js фрагментах кода
-		Oxs::G("ex_storage")->GetObject();
+		Oxs::G("ex_storage")->GetObject(null,"true");
 
 		//	Система устанвоки событий
-		Oxs::G("js.loader")->GetObject("js.oxs_events",null,"oxs_events");	
+		Oxs::G("js.loader")->GetObject("js.oxs_events",array("notString:true"),"oxs_events");	
 		//	Система получения обьектов
-		Oxs::G("oxs_obj")->Init();	
+		Oxs::G("oxs_obj")->Init(true);	
 
 		echo Oxs::G("message_window")->Init();		
 	}

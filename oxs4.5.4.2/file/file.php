@@ -71,11 +71,15 @@
 
 		//	Проверить доступ к файлу
 		function Access($FileName){		
-						
-			if(!@fopen(Oxs::GetBack().$FileName,"w+")){
+			
+			$F = @fopen(Oxs::GetBack().$FileName,"a");	
+
+			if(!$F){
+				fclose($F);
 				return false;
 			}						
 
+			fclose($F);
 			return true;
 		}
 		
@@ -191,9 +195,8 @@
 		}
 
 		//	Быстрая запись в файл с перезписью
-		function Write($FileName,$Data=NULL,$Param=NULL){
-			$this->Delete($FileName);
-			$File = fopen(Oxs::GetBack().$FileName,"w");
+		function Write($FileName,$Data=NULL,$Param=NULL){			
+			$File = fopen(Oxs::GetBack().$FileName,"w+");
 			fwrite($File,"%s",$Data);
 			fclose($File);
 		}

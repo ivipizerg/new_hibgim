@@ -8,7 +8,7 @@ function oxs_js_oxs_event_item (code_on,code_off,code_string){
 }
 
 
-function oxs_js_oxs_event_type (obj,Type){
+function oxs_js_oxs_event_type (obj,Type,_log){
 	
 	var _this=this;	
 
@@ -20,7 +20,7 @@ function oxs_js_oxs_event_type (obj,Type){
 
 		for(z=0;z<_this.itemsList.length;z++){
 			if(_this.itemsList[z].code_string==F.toString().replace(/\s+/g,'')){
-				console.log("!!!!дубликат кода  у типа "  + _this.Type + " обьекта " + this.Obj);
+				if(_log) console.log("!!!!дубликат кода  у типа "  + _this.Type + " обьекта " + this.Obj);
 				return true;
 			}
 		}
@@ -31,7 +31,7 @@ function oxs_js_oxs_event_type (obj,Type){
 	this.add = function(F){
 		if(this._add(F)) return;
 
-		console.log(">> добавляю код к типу "  + this.Type);
+		if(_log) console.log(">> добавляю код к типу "  + this.Type);
 		
 		this.itemsList.push(new oxs_js_oxs_event_item(
 		function(){
@@ -73,14 +73,14 @@ function oxs_js_oxs_event_type (obj,Type){
 		if(F == undefined){
 			//console.log("Очищаю все коды...");		
 			for (var key in _this.itemsList) {
-				console.log("Очищаю и выполняю код обьекта " +  this.Obj + " типа " + this.Type);	
+				if(_log) console.log("Очищаю и выполняю код обьекта " +  this.Obj + " типа " + this.Type);	
 			  	_this.itemsList[key].code_off();
 				delete _this.itemsList[key];
 			}
 		}else{
 			for (var key in _this.itemsList) {				
 				if(_this.itemsList[key].code_string==F.toString().replace(/\s+/g,'')){
-					console.log("Очищаю и выполняю код обьекта " +  this.Obj + " типа " + this.Type);	
+					if(_log) console.log("Очищаю и выполняю код обьекта " +  this.Obj + " типа " + this.Type);	
 					_this.itemsList[key].code_off();
 					delete _this.itemsList[key];
 				}	
@@ -89,7 +89,7 @@ function oxs_js_oxs_event_type (obj,Type){
 	}
 }
 
-function oxs_js_oxs_event_obj(Obj){
+function oxs_js_oxs_event_obj(Obj,_log){
 
 	var _this=this;	
 
@@ -98,7 +98,7 @@ function oxs_js_oxs_event_obj(Obj){
 
 	this._add = function(Type){		
 		if(this.typesList[Type]==undefined)
-			this.typesList[Type] = new oxs_js_oxs_event_type(Obj,Type);		
+			this.typesList[Type] = new oxs_js_oxs_event_type(Obj,Type,_log);		
 	}
 
 	this.add = function(Type,F){
@@ -122,7 +122,7 @@ function oxs_js_oxs_event_obj(Obj){
 		if(Type == undefined){
 			//console.log("Очищаю все типы...");		  	
 			for (var key in _this.typesList) {
-				console.log("Очищаю тип: " + key);		  				  	
+				if(_log) console.log("Очищаю тип: " + key);		  				  	
 			  	_this.typesList[key].clear();
 				delete _this.typesList[key];
 			}
@@ -133,20 +133,24 @@ function oxs_js_oxs_event_obj(Obj){
 	}
 }
 
-function oxs_js_oxs_events(){	
+function oxs_js_oxs_events(_log){	
 
 	var _this=this;
+
+	if( _log == undefined ){
+		_log = true;
+	}		
 	
 	this.mobjList = [];
 
 	this._add = function(mObj){
 		if(this.mobjList[mObj]==undefined)
-			this.mobjList[mObj] = new oxs_js_oxs_event_obj(mObj);
+			this.mobjList[mObj] = new oxs_js_oxs_event_obj(mObj,_log);
 	}
 
 	this.add = function(mObj,Type,F){	
 
-		console.log(">> Вешаю событие на обьект " + mObj + " тип " + Type);
+		if(_log) console.log(">> Вешаю событие на обьект " + mObj + " тип " + Type);
 
 		this._add(mObj);		
 		this.mobjList[mObj].add(Type,F);
@@ -165,7 +169,7 @@ function oxs_js_oxs_events(){
 			//console.log("Очищаю все обьекты...");		  	
 			
 			for (var key in _this.mobjList){	
-				console.log("Очищаю обьект: " + key);		  	
+				if(_log) console.log("Очищаю обьект: " + key);		  	
 			  	this.mobjList[key].clear();
 			  	delete this.mobjList[key];
 			}

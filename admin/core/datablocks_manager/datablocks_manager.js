@@ -10,7 +10,10 @@ oxs_datablocks_manager = function(){
      //   replace - перехзаписать текущюу ссылку
      this._ExecBlock = function(Block,Param,URL,replace,no_calcel_message){ 
 
-          console.log(Block,Param,URL);
+          console.log("Запрос на сервер...");
+          console.log("Блок: " + Block);
+          console.log(Param);
+          console.log("URL:" + URL);
 
           _this._lastBlock = Block;
           _this._lastURL = URL;
@@ -20,7 +23,7 @@ oxs_datablocks_manager = function(){
 
           function Foo(Msg,Code,Text,Data){  
 
-               console.log("Дата пришла");
+               console.log("В ответе есть массив Data");
                console.log(Data);
 
                if(!no_calcel_message) oxs_message.LoadingStop();               
@@ -39,7 +42,7 @@ oxs_datablocks_manager = function(){
                }else{                    
                     H.GoTo(function(){                           
                          
-                         console.log("Clearing data... ");     
+                         console.log("Очищаю все ресурсы блока...");     
                         
                          //   Очищаем все события
                          oxs_events.clear();  
@@ -66,9 +69,8 @@ oxs_datablocks_manager = function(){
                }
           } 
 
-          if(!no_calcel_message) oxs_message.Loading();          
-
-          //   Включаем Вывод лога
+          if(!no_calcel_message) oxs_message.Loading();  
+         
           aj_auth.Exec( "datablocks_manager:ajax" ,  { block: Block , param:Param }  , Foo );
      } 
 

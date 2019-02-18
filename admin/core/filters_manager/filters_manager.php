@@ -24,16 +24,7 @@
 		function Exec(& $Fields , & $Data){	
 			//	Бежим по полям и разбираем фильтры на команды
 			for($i=0;$i<count($Fields);$i++){
-				if(!empty($Fields[$i]["filters"])){
-
-					//	Если задана группа фильтра то выполняем фильт из указанной группы
-					///////////////////////////////////////////////////////////////////////////
-					/*if(empty($Fields[$i]["filter_group"]))
-						$filter_group = Oxs::G("datablocks_manager")->CurrentBlockAction;
-					else{
-						$filter_group = $Fields[$i]["filter_group"];
-					}*/
-					///////////////////////////////////////////////////////////////////////////
+				if(!empty($Fields[$i]["filters"])){				
 
 					//echo "Найдена строка: ".$Fields[$i]["filters"]."<br>";
 					$CommandsTmp = $this->ParceFilterString($Fields[$i]["filters"]);
@@ -43,10 +34,16 @@
 						
 						//echo "Исполняю команду: ".$CommandsTmp[$j]->name."<br>";
 
-						if(Oxs::isExist("filters.".$CommandsTmp[$j]->name.":".Oxs::G("datablocks_manager")->CurrentBlockAction)){
-							Oxs::G("filters.".$CommandsTmp[$j]->name.":".Oxs::G("datablocks_manager")->CurrentBlockAction)->Exec($CommandsTmp[$j],$Fields[$i],$Data);
+						if(empty($Fields[$i]["filter_context"])){
+							$TF = Oxs::G("datablocks_manager")->CurrentBlockAction;
 						}else{
-							$this->Msg("Фильтр \"filters.".($CommandsTmp[$j]->name.":".Oxs::G("datablocks_manager")->CurrentBlockAction)."\" не найден","MESSAGE");
+							$TF = $Fields[$i]["filter_context"];
+						}
+
+						if(Oxs::isExist("filters.".$CommandsTmp[$j]->name.":".$TF)){
+							Oxs::G("filters.".$CommandsTmp[$j]->name.":".$TF)->Exec($CommandsTmp[$j],$Fields[$i],$Data);
+						}else{
+							$this->Msg("Фильтр \"filters.".($CommandsTmp[$j]->name.":".$TF)."\" не найден","MESSAGE");
 						}
 					}
 				}

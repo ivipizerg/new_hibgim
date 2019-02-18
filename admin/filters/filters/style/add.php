@@ -9,7 +9,7 @@
 		}
 
 		function Exec($Command,& $Fields , & $Data){	
-			
+
 			$Value= trim(Oxs::G("filters_manager")->EjectValue($Command,"v")[0],"\"");			
 			$Fields["field_style"] = $Value;
 

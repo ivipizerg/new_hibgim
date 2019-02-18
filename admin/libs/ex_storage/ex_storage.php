@@ -8,9 +8,9 @@
 			parent::__construct($_Path,$Params);				
 		}
 
-		function GetObject($Name="ex_storage"){
+		function GetObject($Name="ex_storage",$log = "true"){
 			//	Нам необходим обычный сторадж из фреймворка
-			echo Oxs::G("storage")->JS("storage","storage");
+			echo Oxs::G("storage")->JS("storage","storage",array($log));
 			$this->JS();			
 		}
 	}
