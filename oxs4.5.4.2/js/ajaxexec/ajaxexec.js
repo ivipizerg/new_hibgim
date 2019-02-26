@@ -1,4 +1,4 @@
-oxs_js_ajaxexec = function(Path,SOURCES,Code,WinObj,ajax_object){
+oxs_js_ajaxexec = function(Path,Code,WinObj,ajax_object){
 
 	var _this = this;	
 
@@ -6,8 +6,7 @@ oxs_js_ajaxexec = function(Path,SOURCES,Code,WinObj,ajax_object){
 
 		Param = {};
 
-		Param.Lib = Lib;
-		Param.SOURCES = SOURCES;
+		Param.Lib = Lib;		
 		Param.P = P;
 		Param.Code = Code;	
 		Param.WinObj = WinObj;			

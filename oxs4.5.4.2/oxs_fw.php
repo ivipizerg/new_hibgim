@@ -11,13 +11,12 @@
 		function __construct(){			
 		}
 
-		function Init(...$Path){
+		function setSourses(...$Path){
 
 			if(empty($Path[0])){
 				$this->Error("Ошибка при инициализации OXS: не передан не один путь");
 			}else{
-				$this->Path[0] = $Path[0];
-				define("OXS_PATH",ltrim($Path[0],"/"));
+				$this->Path[0] = $Path[0];				
 			}
 
 			if(count($Path)>=2){
@@ -37,6 +36,10 @@
 			}
 		}
 
+		function getOxsPath(){
+			return $this->Path[0];
+		}
+
 		function AddSource($Path){			
 		
 			$LibName = explode("/",$Path);
@@ -53,6 +56,8 @@
 		//	Путь заканчиаеться слешем обязательно
 		//	sample/ или /
 		function SetRoot($Path = NULL){
+
+			$this->BackPath="";
 
 			if(empty($Path))$Path = "/" ;			
 
@@ -75,15 +80,17 @@
 				}				
 			}else{
 				$Request = str_replace($Path,"",$Request)."/";
+				$Request = str_replace("//","/",$Request);
+				//echo "!".$Request."!";
 				$this->Root = $Path ;
 				if($Request=="/"){
 					$this->BackPath = ""; 					
 				}else{					
-					for($i=0;$i<count(explode("/",$Request))-2 ;$i++){					
+					for($i=0;$i<count(explode("/",$Request))-1 ;$i++){					
 						$this->BackPath.="../";
 					}
 				}
-			}
+			}			
 		}
 
 		function GetRoot(){
@@ -254,8 +261,14 @@
 	}
 
 	//	Обертка для эстетичности кода
-	class Oxs{
-		static $Oxs;
+	class Oxs{		
+
+		//	Функция старта
+		static function Start(){
+			global $Oxs;												
+			$Oxs = new oxs_fw();				
+			return $Oxs;
+		}
 
 		static function AddSource($Path){
 			return Oxs()->AddSource($Path);
@@ -305,8 +318,8 @@
 			return Oxs()->ShowErrors($Mode);
 		}
 
-		static function Init(...$Path){
-			return Oxs()->Init(...$Path);
+		static function setSourses(...$Path){
+			return Oxs()->setSourses(...$Path);
 		}
 
 		static function GetRoot(){
@@ -337,6 +350,10 @@
 			return Oxs()->GetVersion();
 		}
 
+		static function getOxsPath(){
+			return Oxs()->getOxsPath();
+		}
+
 		static function Error($Text){
 			die( "<!DOCTYPE html><meta charset=\"UTF-8\"><title>Ошибка фреймворка</title>Программа остановлена: ".$Text."" );
 		}
@@ -346,8 +363,5 @@
 		global $Oxs;
 		return $Oxs;
 	}
-
-	$Oxs = new oxs_fw();
-	Oxs::$Oxs = $Oxs;
 
 ?>

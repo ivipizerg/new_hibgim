@@ -5,7 +5,7 @@
 	global $GlobalUtc;
 	$GlobalUtc = FALSE;
 
-	Oxs::IFO( OXS_PATH . "/calendar/oxs_data.php");	
+	Oxs::IFO( Oxs::getOxsPath() . "/calendar/oxs_data.php");	
 	Oxs::I("calendar:getHelper");
 
 	class calendar extends calendar_getHelper{

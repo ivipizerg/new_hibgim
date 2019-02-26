@@ -6,7 +6,7 @@
 
 function oxs_ex_storage(log){
 	var _this = this;
-	storage._log = true;
+	storage._log = log;
 
 	this.add = function(ParamName,ParamValue,TTL){
 		

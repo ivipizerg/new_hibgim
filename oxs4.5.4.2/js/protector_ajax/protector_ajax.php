@@ -12,7 +12,7 @@ class js_protector_ajax extends SingleLib{
 		$D=Oxs::GetLib("dom");
 		$D->jQuery();		
 
-		$D->LoadJsOnce(OXS_PATH."/js/protector_ajax/protector_ajax.js");
+		$D->LoadJsOnce(Oxs::getOxsPath()."/js/protector_ajax/protector_ajax.js");
 
 		$Pr=Oxs::LoadLib("protector");
 		$Pr->SetToken("js_protector_ajax");

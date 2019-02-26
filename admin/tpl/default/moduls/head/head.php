@@ -49,12 +49,12 @@
 		Oxs::G("storage")->add("MainAction",$MainAction);	
 		
 		//	Обьект хранилище, в нем будут храниться даныне в js фрагментах кода
-		Oxs::G("ex_storage")->GetObject(null,"true");
+		Oxs::G("ex_storage")->GetObject(null,"false");
 
 		//	Система устанвоки событий
-		Oxs::G("js.loader")->GetObject("js.oxs_events",array("notString:true"),"oxs_events");	
+		Oxs::G("js.loader")->GetObject("js.oxs_events",array("notString:false"),"oxs_events");	
 		//	Система получения обьектов
-		Oxs::G("oxs_obj")->Init(true);	
+		Oxs::G("oxs_obj")->Init(false);	
 
 		echo Oxs::G("message_window")->Init();		
 	}

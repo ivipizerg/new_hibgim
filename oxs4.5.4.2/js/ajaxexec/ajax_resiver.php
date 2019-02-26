@@ -2,14 +2,16 @@
           
      define("OXS_PROTECT",TRUE);
 
-     session_start();  
-
      include("../../oxs_fw.php");
-     Oxs::SetRoot($_POST["OXS_AJAX_ROOT"]);
-     $SOURCES = explode( "," ,  $_POST["SOURCES"]);    
+     
+     session_start();      
 
-     Oxs::Init(...$SOURCES);
+     global $Oxs;
+     $Oxs = $_SESSION["OXS"];  
+     //unset($_SESSION["OXS"]);       
 
+     Oxs::SetRoot($_POST["OXS_AJAX_ROOT"]);    
+    
      Oxs::L("protector")->CheckToken();
 
      $JSON = Oxs::L("JSON");

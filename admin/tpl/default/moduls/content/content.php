@@ -10,8 +10,8 @@
 		$A = "{"; foreach ($_GET as $key => $value) $A .= $key.":\"".$value."\","; $A = trim($A,","); $A .= "}";
 
 		//	Майн актион расчитываеться в head
-    	$MainAction = Oxs::G("storage")->get("MainAction");
-    	
+    	$MainAction = Oxs::G("storage")->get("MainAction");   
+
 		?>
 
 		<div class=container_for_load_content></div>
