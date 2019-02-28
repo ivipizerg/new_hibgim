@@ -21,7 +21,7 @@ class js_protector_ajax extends SingleLib{
 			<script>
 				jQuery(function(){
 					if(typeof <?php echo $Name;?> == "undefined")
-						<?php echo $Name;?>=new oxs_js_protector_ajax("js_protector_ajax","<?php echo $Pr->GetToken("js_protector_ajax");?>" , "<?php echo Oxs::GetBack(); ?>" , "<?php echo Oxs::GetRoot(); ?>");
+						<?php echo $Name;?>=new oxs_js_protector_ajax("js_protector_ajax","<?php echo $Pr->GetToken("js_protector_ajax");?>" ,  "<?php echo Oxs::GetRoot(); ?>");
 
 				});
 			</script>

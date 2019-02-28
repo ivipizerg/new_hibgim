@@ -27,7 +27,7 @@
 		}
 
 		function getLimits($Page){
-			$this->Msg("Пришла странциа" + $Page, "MESSAGE");
+			$this->Msg("Пришла странциа" . $Page , "MESSAGE");
 			if($Page==-1) return ;
 			if(empty($Page)) $Page=1;
 			return "LIMIT ".(($Page*$this->postsInPage)-$this->postsInPage.",".($this->postsInPage));	

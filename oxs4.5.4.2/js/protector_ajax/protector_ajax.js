@@ -1,4 +1,4 @@
-function oxs_js_protector_ajax(TokenName,Token,BackPath,RootPath){
+function oxs_js_protector_ajax(TokenName,Token,RootPath){
 
 	var _this = this;
 
@@ -11,25 +11,29 @@ function oxs_js_protector_ajax(TokenName,Token,BackPath,RootPath){
 			var obj = jQuery.parseJSON(Msg);
 		}catch(err){
 			console.log("Не смог прпарсить JSON ответ:" + Msg);			
-			Data.value = Msg ;  Data.code= 0 ;
+			Data.Msg = Msg ;  Data.code= -1000 ;
 			return Data;
 		}		
 
 		if(obj.value!=undefined){
-			Data.value = obj.value;
+			Data.Msg = obj.value;
 		}
 
 		if(obj.code!=undefined){
-			Data.code = obj.code;
+			Data.Code = obj.code;
 		}
 
 		if(obj.ErrorText!=undefined){
-			Data.ErrorText = obj.ErrorText;
+			Data.Text = obj.ErrorText;
 		}
 
 		if(obj.AjaxData!=undefined){
-			Data.AjaxData = obj.AjaxData;
-		}		
+			Data.Data = obj.AjaxData;
+		}
+
+		if(obj.logger_item!=undefined){
+			Data.Logger_item = obj.logger_item;
+		}			
 
 		//	Если есть окно для лога то добалвяем лог
 		if(_this.WinObj!=""){			
@@ -54,12 +58,12 @@ function oxs_js_protector_ajax(TokenName,Token,BackPath,RootPath){
 		return 1;
 	}
 
-	this.Success = function(Msg,Code,ErrorText,AjaxData){
-		console.log("Код:" + Code);
-		console.log("Информация:" +  Msg);
-		console.log("Текст:" +  ErrorText);
+	this.Success = function(Input){
+		console.log("Код:" + Input.Code);
+		console.log("Информация:" +  Input.Msg);
+		console.log("Текст:" +  Input.ErrorText);
 		console.log("AjaxData:");
-		console.log(AjaxData);
+		console.log(Input.AjaxData);
 		return 1;
 	}
 
@@ -73,11 +77,11 @@ function oxs_js_protector_ajax(TokenName,Token,BackPath,RootPath){
 			Data = {};
 		}
 
-		Data.OXS_TOKEN_NAME = TokenName;
-		Data.OXS_TOKEN = Token
-		Data.OXS_AJAX_ROOT = RootPath;
+		Data.oxs_system_ajax_data.OXS_TOKEN_NAME = TokenName;
+		Data.oxs_system_ajax_data.OXS_TOKEN = Token
+		Data.oxs_system_ajax_data.OXS_AJAX_ROOT = RootPath;
 
-		_this.WinObj = Data.WinObj; 
+		_this.WinObj = Data.oxs_system_ajax_data.WinObj; 
 
 		if(func==undefined){
 			func = this.Success;
@@ -90,7 +94,7 @@ function oxs_js_protector_ajax(TokenName,Token,BackPath,RootPath){
 		  async : true,
 		  success: function(Msg){
 			  Data = _this.ParceData(Msg);
-			  func(Data["value"],Data["code"],Data["ErrorText"],Data["AjaxData"]);
+			  func(Data);
 		  }		  
 		});
 	}

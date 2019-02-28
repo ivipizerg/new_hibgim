@@ -60,8 +60,13 @@
 			
 			//	start_code - некий код который выполняеться каждый раз при запросах
 			//	Например инициализация базы данных или еще что то 
+			$SOURCES="";
+			for($i=0;$i<=Oxs::GetPathCount();$i++){
+				$SOURCES .= Oxs::GetPath($i).",";
+			}$SOURCES = str_replace(",,","",$SOURCES);
+
 			Oxs::G("js.loader")->GetObject("js.ajaxexec",
-				array(  $this->Path ,  $Param["start_code"] , $WinObj , "protector_ajax_".$Name  )
+				array(  $this->Path ,  $Param["start_code"] , $SOURCES ,  $WinObj , "protector_ajax_".$Name  )
 			,$Name);
 		}
 

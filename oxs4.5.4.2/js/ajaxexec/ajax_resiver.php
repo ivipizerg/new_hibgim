@@ -1,48 +1,55 @@
 <?php
           
-     define("OXS_PROTECT",TRUE);
+     define("OXS_PROTECT",TRUE);     
 
      include("../../oxs_fw.php");
      
-     session_start();      
+     Oxs::Start();   
 
-     global $Oxs;
-     $Oxs = $_SESSION["OXS"];  
-     //unset($_SESSION["OXS"]);       
+     Oxs::SetRoot($_POST["oxs_system_ajax_data"]["OXS_AJAX_ROOT"]);  
+     $SOURCES = explode( "," , $_POST["oxs_system_ajax_data"]["SOURCES"] );
+     Oxs::setSourses(...$SOURCES);
 
-     Oxs::SetRoot($_POST["OXS_AJAX_ROOT"]);    
-    
-     Oxs::L("protector")->CheckToken();
+     session_start(); 
+
+     Oxs::L("protector")->CheckToken($_POST["oxs_system_ajax_data"]["OXS_TOKEN_NAME"],$_POST["oxs_system_ajax_data"]["OXS_TOKEN"]);
 
      $JSON = Oxs::L("JSON");
           
-     try{
-          Oxs::G("BD")->Start(); 
-          if(!empty($_POST["Code"]))Oxs::G($_POST["Code"])->AjaxExec($_POST["P"]);
+     try{        
+
+          Oxs::G("BD")->Start();          
+
+          if(!empty($_POST["oxs_system_ajax_data"]["Code"]))Oxs::G($_POST["oxs_system_ajax_data"]["Code"])->AjaxExec($_POST["P"]);
           
-          Oxs::G($_POST["Lib"])->AjaxExec($_POST["P"]);
-          $Return = Oxs::G("BD")->GetEnd();
+          Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->AjaxExec($_POST["P"]);
+          $Return = Oxs::G("BD")->GetEnd();        
 
           $JSON->Add( $Return , "value" );
-          $JSON->Add( Oxs::G($_POST["Lib"])->GetAjaxCode($_POST["P"]) , "code" );
+          $JSON->Add( Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxCode($_POST["P"]) , "code" );
 
           $C=Oxs::L("calendar");
-          $JSON->Add( "[".$C->GetDataTime()."] Ответ из: ".$_POST["Lib"] . "<br>Параметры:".($JSON->GetFromText($_POST["P"]))." <br>Код возврата: ". Oxs::G($_POST["Lib"])->GetAjaxCode($_POST["P"]) ."<br>". Oxs::G($_POST["Lib"])->GetAjaxText($_POST["P"]) , "logger" ); 
-          $JSON->Add( "". Oxs::G($_POST["Lib"])->GetAjaxText($_POST["P"]) , "ErrorText" ); 
-          $JSON->Add( Oxs::G($_POST["Lib"])->GetAjaxData() , "AjaxData" ); 
+          $JSON->Add( "[".$C->GetDataTime()."] Ответ из: ".$_POST["oxs_system_ajax_data"]["Lib"] . "<br>Параметры:".($JSON->GetFromText($_POST["P"]))." <br>Код возврата: ". Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxCode($_POST["P"]) ."<br>". Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxText($_POST["P"]) , "logger" ); 
+          $JSON->Add( "". Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxText($_POST["P"]) , "ErrorText" ); 
+          $JSON->Add( Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxData() , "AjaxData" ); 
          
           echo $JSON->GetJSONWithLog();
-     }catch(Throwable $e){           
+     }catch(\Throwable $e){     
           Oxs::G("BD")->CloseAll();
           $JSON->Add( -999 , "code" );
-          $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> Ошибка при выполнении ".$_POST["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger" );            
+          $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> 999 Ошибка при выполнении ".$_POST["oxs_system_ajax_data"]["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger" );  
+          $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> 999 Ошибка при выполнении ".$_POST["oxs_system_ajax_data"]["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger_item" );            
           echo $JSON->GetJSONWithLog();
-     } catch (Exception $e) {
+          return false;
+     } catch (\Exception $e) {
           //   php 5
-           Oxs::G("BD")->CloseAll();          
+          echo "Хуй2";
+          Oxs::G("BD")->CloseAll();          
           $JSON->Add( -998 , "code" );
-          $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> Ошибка при выполнении ".$_POST["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger" );
+          $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> 998 Ошибка при выполнении ".$_POST["oxs_system_ajax_data"]["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger" );
+          $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> 998 Ошибка при выполнении ".$_POST["oxs_system_ajax_data"]["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger_item" );     
           echo $JSON->GetJSONWithLog();
+          return false;
      }      
 
      

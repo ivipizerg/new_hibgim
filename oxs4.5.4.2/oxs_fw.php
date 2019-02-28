@@ -13,6 +13,7 @@
 
 		function setSourses(...$Path){
 
+
 			if(empty($Path[0])){
 				$this->Error("Ошибка при инициализации OXS: не передан не один путь");
 			}else{
@@ -239,12 +240,12 @@
 			return $this->GetLib("logger")->ShowLog($Mode);
 		}
 
-		function GetPaths(){
+		/*function GetPaths(){
 			for($i=0;$i<=$this->GetPathCount();$i++){
 				$T .= $this->GetPath($i).",";
 			}
 			return trim($T,",");
-		}
+		}*/
 
 		function GetPath($i=0){
 			return $this->Path[$i];
@@ -255,7 +256,7 @@
 		}
 
 		function GetVersion(){
-			return Oxs::GetLib("cfg")->Get("Version",OXS_PATH."version.php");
+			return Oxs::GetLib("cfg")->Get("Version",$this->getOxsPath()."version.php");
 		}
 
 	}
@@ -342,9 +343,9 @@
 			return Oxs()->GetPathCount();
 		}
 
-		static function GetPaths(){
+		/*static function GetPaths(){
 			return Oxs()->GetPaths();
-		}
+		}*/
 
 		static function GetVersion(){
 			return Oxs()->GetVersion();

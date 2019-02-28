@@ -23,18 +23,16 @@
 			return Oxs::G("fields:model")->GetFieldsForBlock();
 		}	
 
-		function ShowNavigation($page){
-
-			function FooNavigation($i,$Data,$obj){
-				return "<div class='oxs_my_navigation_item oxs_active oxs_active_style' data-route=\"".(Oxs::G("datablocks_manager")->RealCurrentBlockName).":display\">".$i."</div>";
-			}
+		function ShowNavigation($page){		
 
 			$Nav = Oxs::L("navigation",array(
 				"all" => $this->GetCount(),
 				"interval" => 5 ,
 				"count" => $this->postsInPage,
 				"page" => $page,
-				"Foo" => FooNavigation
+				"Foo" => function($i,$Data,$obj){
+					return "<div class='oxs_my_navigation_item oxs_active oxs_active_style' data-route=\"".(Oxs::G("datablocks_manager")->RealCurrentBlockName).":display\">".$i."</div>";
+				}
 			));		
 
 			echo $Nav->Show();

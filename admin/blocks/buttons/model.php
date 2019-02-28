@@ -10,13 +10,11 @@
 		function GetButtonsForBlock($Block){
 			$Tree=Oxs::L("DBTree",array("db" => Oxs::G("DBLIB.IDE")->DB() , "table" => "#__buttons"));
 
-			function Foo($DB,$Params){
+			$UL=$Tree->GetTreeEx( array( "Foo" => function($DB,$Params){
 				//	Мы берем уже сформированный запрос и отсекаем в нем все не нужное по параметрам
 				$DB->SetQ("SELECT * FROM (".$DB->GetQ().") as T WHERE T.`displayin` = 'oxs:sql' and `status` = '1'" , $Params["Block"]);					
-				return $DB;				
-			}
-
-			$UL=$Tree->GetTreeEx( array( "Foo" => Foo , "Params" => Array("Block" => $Block)) );
+				return $DB;		
+			} , "Params" => Array("Block" => $Block)) );
 
 			return $UL;
 		}

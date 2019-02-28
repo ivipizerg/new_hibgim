@@ -21,24 +21,32 @@ oxs_datablocks_manager = function(){
           if(replace==undefined) replace = false;
           if(no_calcel_message==undefined) no_calcel_message = false;
 
-          function Foo(Msg,Code,Text,Data){  
+          //   Msg , Code , Text , Data , log_item
+          function Foo(Input){  
 
                console.log("В ответе есть массив Data");
-               console.log(Data);
+               console.log(Input.Data);
 
                if(!no_calcel_message) oxs_message.LoadingStop();               
                
+               //   Ошбика PHP
+               if(Input.Code==-1000){
+                    oxs_message.show(Input.Msg);          
+               }else
+               if(Input.Code==-999){
+                    oxs_message.show(Input.Logger_item);          
+               }else               
                //   -1 Вывод информации без перехода
-               if(Code==-1){                               
-                    oxs_message.show(Text);                   
+               if(Input.Code==-1){                               
+                    oxs_message.show(Input.Text);                   
                //   1 - вывод информаци ис переходом   
-               }else if(Code==1){                    
-                    if(Text!="undefined" && Text!="")
-                         oxs_message.show(Text); 
-                    _this._ExecBlock( Data["nextStep"] , Param , "admin/" + Data["nextStep"] + ".html" , false ,true);                     
+               }else if(Input.Code==1){                    
+                    if(Input.Text!="undefined" && Input.Text!="")
+                         oxs_message.show(Input.Text); 
+                    _this._ExecBlock( Input.Data["nextStep"] , Param , "admin/" + Input.Data["nextStep"] + ".html" , false ,true);                     
                //   Диалог
-               }else if(Code==2){                                            
-                     jQuery(".oxs_main_container_dialog").append(  Data["dialog"] );  
+               }else if(Input.Code==2){                                            
+                     jQuery(".oxs_main_container_dialog").append(  Input.Data["dialog"] );  
                }else{                    
                     H.GoTo(function(){                           
                          
@@ -51,18 +59,18 @@ oxs_datablocks_manager = function(){
                          //   Уменьшаем TTL жизни обьектов в хранилище
                          ex_storage.TTLdeciment();
 
-                         ex_storage.add("block_name",Data["block_name"]);
-                         ex_storage.add("block_action",Data["block_action"]);                           
+                         if(Input.Data!=undefined)ex_storage.add("block_name",Input.Data["block_name"]);
+                         if(Input.Data!=undefined)ex_storage.add("block_action",Input.Data["block_action"]);                           
                                                 
-                         jQuery(".container_for_load_content").html(Msg);  
+                         jQuery(".container_for_load_content").html(Input.Msg);  
                              
                          //   Шлем событие ресайза
                          //   Обычным Jquery Оно не шлеться
                          window.dispatchEvent(new Event('resize'));                     
 
-                         if(Code == 3){
-                              if(Text!="undefined" && Text!="")
-                              oxs_message.show(Text); 
+                         if(Input.Code == 3){
+                              if(Input.Text!="undefined" && Input.Text!="")
+                              oxs_message.show(Input.Text); 
                          } 
                          
                     }, URL  );                  
