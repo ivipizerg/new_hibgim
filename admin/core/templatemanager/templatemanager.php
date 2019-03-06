@@ -11,8 +11,8 @@
 		public $mode = "admin";
 	
 
-		function __construct($Path){
-			parent::__construct($Path);
+		function __construct($Path,$Params=null){
+			parent::__construct($Path,$Params);			
 		}
 
 		//	Получить ранее выбранный шаблон
@@ -20,12 +20,19 @@
 			return $this->TplCode;
 		}
 
-		//	выбрать и прогнать шаблон по умолчанию
-		function ChoiseDefaultTemplate($mode="admin"){
-				
-			$this->mode = $mode;
+		function setTemplateMode($mode="admin"){
+			$this->mode = $mode;			
+		}
 
-			$name_default_template = Oxs::G("templatemanager:model")->GetDefaultTemplateName($mode);
+		function getTemplateMode(){
+			return $this->mode;
+		}
+
+		//	выбрать и прогнать шаблон по умолчанию
+		function ChoiseDefaultTemplate(){
+
+			$name_default_template = Oxs::G("templatemanager:model")->GetDefaultTemplateName($this->mode);			
+
 			if($name_default_template==null){
 				$this->Msg("Не найден шаблон по умолчанию или проблема с базой данных","ERROR");
 			}
@@ -34,16 +41,13 @@
 		}
 
 		//	Выбрать и прогнать шаблон
-		function ChoiseTemplate($TemplateName,$Param=null){
-				
-			if(empty($Param["mode"])) $this->mode = "admin";
-			else $this->mode = $Param["mode"];
+		function ChoiseTemplate($TemplateName){					
 
-			$this->LoadTemplate($TemplateName);			
+			$this->LoadTemplate($TemplateName);	
 
 			$Moduls=$this->GetModuls();			
-
-			for($i=0;$i<count($Moduls);$i++){								
+			$countModuls = count($Moduls);
+			for($i=0;$i<$countModuls;$i++){								
 				try{			
 					$this->InsertModulResult($Moduls[$i],Oxs::G("modulmanager")->ExecModul("admin/tpl/".$TemplateName."/moduls/".$Moduls[$i]."/".$Moduls[$i].".php"));	
 				}catch(Throwable $e){
@@ -51,12 +55,19 @@
 					echo $e;
 					die();
 				}
-			}
+			}		
+
+			//	js обьект добавляющий информацию о шаболоне в хранилище
+			Oxs::G("BD")->Start();
+			$this->JS(NULL,NULL,array($TemplateName));
+			$C = Oxs::G("BD")->getEnd();	
+			//////////////////////////////////////////////////////////////
+			$this->TplCode .= $C;
 
 			$this->TplCode = str_replace("{oxs:head}",$this->Head,$this->TplCode);
 		}
 
-		function LoadTemplate($TemplateName){
+		private function LoadTemplate($TemplateName){
 			Oxs::G("BD")->Start();
 				
 			$this->TemplateName=$TemplateName;	
@@ -71,7 +82,7 @@
 			$this->TplCode = Oxs::G("BD")->GetEnd();
 		}
 
-		function GetModuls(){				
+		private function GetModuls(){				
 			
 			if($this->TplCode==NULL){
 				$this->Msg("Шаблон не загружен","FATAL_ERROR");

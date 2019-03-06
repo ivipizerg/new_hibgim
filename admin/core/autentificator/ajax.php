@@ -8,7 +8,7 @@ class autentificator_ajax extends CoreSingleLib{
 		parent::__construct($Path);										
 	}	
 
-	function AjaxExec($Param=NULL){
+	function AjaxExec($Param=NULL){		
 
 		switch($Param["action"]){
 			case "getform": echo Oxs::G("autentificator:forms")->GetAuthForm(); break;

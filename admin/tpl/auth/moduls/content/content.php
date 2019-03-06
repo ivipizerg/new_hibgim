@@ -11,8 +11,8 @@
 						
 						oxs_history.GoTo(function(){	
 							
-							aj_auth.Exec("autentificator:ajax",{ action: "getform" },function(T){
-								jQuery(".container_for_load_content").html(T);
+							aj_auth.Exec("autentificator:ajax",{ action: "getform" },function(T){								
+								jQuery(".container_for_load_content").html(T.Msg);
 							});
 
 						},"admin/",true);	
@@ -39,7 +39,7 @@
 						oxs_history.GoTo(function(){	
 							
 							aj_auth.Exec("autentificator:ajax",{ action: "getform" },function(T){
-								jQuery(".container_for_load_content").html(T);
+								jQuery(".container_for_load_content").html(T.Msg);
 							});
 
 						},"",true);	

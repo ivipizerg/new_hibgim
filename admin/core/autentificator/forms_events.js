@@ -24,15 +24,13 @@ oxs_autentificator_forms_events = function(){
 			login: jQuery("[name=login]").val() , 
 			password: jQuery("[name=password]").val(),
 			cookie: js_cookie.get_cookie("antispam")
-		},function(T,Code,Text){
+		},function(T){
 
 			oxs_message.LoadingStop();
 
-			oxs_message.show(Text);
-			
-			console.log(T);	
+			oxs_message.show(T.Text);	
 
-			if(Code==1){	
+			if(T.Code==1){	
 				//	Обновляем страничку
 				setTimeout(function(){
 					location.reload(true);

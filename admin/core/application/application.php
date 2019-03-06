@@ -23,14 +23,16 @@
 			//	Глобальный часовой пояс с севрера
 			Oxs::I("calendar");			
 			Oxs::G("storage")->add("UTC",calendar::GetServerUtc());
+
+			Oxs::G("templatemanager")->setTemplateMode("admin");
 		}
 
 		function AjaxExec(){
 			$this->Init();
 		}
 
-		function Run(){
-		
+		function Run(){	
+
 			//	Защита вторизацией
 			if(!Oxs::G("usermanager")->CurrentUser->IfAuth()){	
 				Oxs::G("templatemanager")->ChoiseTemplate("auth");

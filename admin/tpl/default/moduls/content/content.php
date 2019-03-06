@@ -7,7 +7,8 @@
 
 		//	Строим массив параметров
 		/////////////////////////////////////////////		
-		$A = "{"; foreach ($_GET as $key => $value) $A .= $key.":\"".$value."\","; $A = trim($A,","); $A .= "}";
+		/*$A = "{"; foreach ($_GET as $key => $value) $A .= $key.":\"".$value."\","; $A = trim($A,","); $A .= "}";
+		*/
 
 		//	Майн актион расчитываеться в head
     	$MainAction = Oxs::G("storage")->get("MainAction");   
@@ -22,7 +23,7 @@
 		?>
 		<script type="text/javascript">				
 				jQuery( function(){						
-					datablocks_manager.ExecBlock("<?php echo $MainAction;?>",<?php echo $A;?>,"admin/<?php echo $MainAction.".html";?>" , true);
+					datablocks_manager.ExecBlock("<?php echo $MainAction;?>",ex_storage.get(),"admin/<?php echo $MainAction.".html";?>" , true);
 				});
 		</script>
 		<?php	

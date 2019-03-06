@@ -15,6 +15,13 @@
 			if(!$R) return null;
 			return $R[0]["system_name"];
 		}
+
+		function getCurentTemplateName(){		
+			if(Oxs::G("templatemanager")->getTemplateMode()=="admin")	
+				return $_SESSION["tpl"]["admin"]["current_template_name"];	
+			else	
+				return $_SESSION["tpl"]["front"]["current_template_name"];	
+		}
 	}
 
 ?>

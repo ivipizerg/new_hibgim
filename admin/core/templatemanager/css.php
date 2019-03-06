@@ -10,8 +10,8 @@
 
 		function loadCss($dir,$nameFile){
 			
-			echo Oxs::G("templatemanager")->getTemplateName() . "/" . $nameFile;
-			echo Oxs::G("dom")->LoadCssOnce( Oxs::G("templatemanager")->getTemplateName() . "/" . $nameFile );
+			//	GetDefaultTemplateName тут должно быть CurrentName	
+			echo Oxs::G("dom")->LoadCssOnce( "admin/tpl/" . Oxs::G("current")->getP("templateInfo")["templateName"] . "/css/" . $dir . "/" . $nameFile.".css");
 			
 		}	
 	} 
