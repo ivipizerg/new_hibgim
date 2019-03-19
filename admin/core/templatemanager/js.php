@@ -2,22 +2,23 @@
 	
 	define("OXS_PROTECT",TRUE);
 
-	class templatemanager_css extends CoreSingleLib{		
+	class templatemanager_js extends CoreSingleLib{		
 		
 		function __construct($_Path,$Params=null){
 			parent::__construct($Path,$Params);	
 		}	
 
-		function loadCss($dir,$nameFile){			
-
+		function loadJs($dir,$nameFile){
+			
 			//	тут мы смотрим есть откуда брать данные, если мы выполняемся не в аякс запросе данные доступны напряму
-			$template_name = @Oxs::G("current")->getP("templateInfo")["templateName"];
-			if(empty($template_name)) $template_name = Oxs::G("templatemanager")->GetTemplateName();		
+			$template_name =  @Oxs::G("current")->getP("templateInfo")["templateName"];
+			if(empty($template_name)) $template_name = Oxs::G("templatemanager")->GetTemplateName();
 
 			//	GetDefaultTemplateName тут должно быть CurrentName	
-			echo Oxs::G("dom")->LoadCssOnce( "admin/tpl/" . $template_name . "/css/" . $dir . "/" . $nameFile.".css");
+			echo Oxs::G("dom")->LoadJsOnce( "admin/tpl/" . $template_name . "/JS/" . $dir . "/" . $nameFile.".js");
 			
 		}	
 	} 
 
 
+ 

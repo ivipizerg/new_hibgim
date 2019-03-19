@@ -17,6 +17,7 @@ oxs_oxs_obj = function(_log){
           for(var j = 0; j < this.i; j++ ){
                if(_log)  console.log("Удаляю обьект " + this.ObjList[j]);
                //eval("try{"+this.ObjList[j] + ".Destruct();} catch(err){}");
+               //console.log(" delete " + this.ObjList[j]);
                eval(" delete " + this.ObjList[j]);
           }
 

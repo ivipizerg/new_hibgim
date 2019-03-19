@@ -174,8 +174,10 @@ function oxs_js_oxs_events(_log){
 			  	delete this.mobjList[key];
 			}
 		}else{
-			this.mobjList[mObj].clear(Type,F);
-			delete this.mobjList[mObj];
+			if(this.mobjList[mObj]!=undefined){
+				this.mobjList[mObj].clear(Type,F);
+				delete this.mobjList[mObj];
+			}
 		}
 	}
 }

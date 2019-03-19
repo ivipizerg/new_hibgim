@@ -55,14 +55,7 @@
 					echo $e;
 					die();
 				}
-			}		
-
-			//	js обьект добавляющий информацию о шаболоне в хранилище
-			Oxs::G("BD")->Start();
-			$this->JS(NULL,NULL,array($TemplateName));
-			$C = Oxs::G("BD")->getEnd();	
-			//////////////////////////////////////////////////////////////
-			$this->TplCode .= $C;
+			}	
 
 			$this->TplCode = str_replace("{oxs:head}",$this->Head,$this->TplCode);
 		}

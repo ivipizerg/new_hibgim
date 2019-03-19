@@ -1,1 +1,18 @@
- 
+.oxs_doc_tags_fieldsTyps{	
+	border: 1px solid red;
+	padding: 5px;
+} 
+
+.oxs_doc_tags_fieldsTyps_add_list{
+	border: 1px solid blue;	
+}
+
+.oxs_doc_tags_fieldsTyps_add_list_items{
+	border: 1px solid grey;
+	background: #eef;
+	border-radius: 4px;
+	display: inline-block;
+	padding: 4px;
+	margin: 4px;
+	cursor: pointer;
+}

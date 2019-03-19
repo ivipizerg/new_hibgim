@@ -13,6 +13,18 @@
 			Oxs::G("js.loader")->GetObject("oxs_obj",array("notString:".$_log),"oxs_obj");	
 		}
 
+		function add($ObjName){
+			?>
+
+				<script type="text/javascript">
+					$(function(){
+						oxs_obj.add("<?php echo $ObjName; ?>");
+					});
+				</script>
+
+			<?php	
+		}
+
 		function G($ObjName,$Param=null,$Name=null){
 			$T = Oxs::G("js.loader")->GetObject($ObjName,$Param,$Name);
 			?>

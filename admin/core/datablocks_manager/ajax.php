@@ -8,8 +8,8 @@
                parent::__construct($Path);
           }
 
-          function AjaxExec($Param){          	
-               echo Oxs::G("datablocks_manager")->ExecAction($Param["block"],$Param["param"]);            
+          function AjaxExec($Param){             
+            echo Oxs::G("datablocks_manager")->ExecAction($Param["block"],$Param["param"]);            
           }
 
      }

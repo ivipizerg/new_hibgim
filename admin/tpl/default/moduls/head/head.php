@@ -1,9 +1,6 @@
 <?php
 
-	function head_modul($Param=NULL){
-
-		//	Добавим сови собственные источники
-		//Oxs::AddSource("admin/tpl/elements/");
+	function head_modul($Param=NULL){		
 
 		echo Oxs::G("dom")->ShowBase();	
 
@@ -17,10 +14,7 @@
 		Oxs::G("dom")->LoadCSSOnce("admin/tpl/default/css/message_window.css");				
 
 		Oxs::G("dom")->LoadCssOnce("admin/tpl/default/css/main_table.css");
-		Oxs::G("dom")->LoadCssOnce("admin/tpl/default/css/fields_table.css");
-
-		Oxs::G("dom")->LoadCss("admin/tpl/default/JS/superfishmenu/superfish.css");
-		Oxs::G("dom")->LoadJsOnce("admin/tpl/default/JS/superfishmenu/superfish.min.js");	
+		Oxs::G("dom")->LoadCssOnce("admin/tpl/default/css/fields_table.css");			
 
 		//	Создаем обьект истории	
 		echo Oxs::G("js.history")->GetObject("H");	
@@ -57,6 +51,11 @@
 		Oxs::G("oxs_obj")->Init(false);	
 
 		echo Oxs::G("message_window")->Init();		
+
+		//	js обьект добавляющий информацию о шаболоне в хранилище	
+		//	Необходим для корректнйо работы обьекта templatemanager 	
+		Oxs::G("templatemanager")->JS(NULL,NULL,  array( Oxs::G("templatemanager")->GetTemplateName() )  );	
+		
 	}
 
 ?>

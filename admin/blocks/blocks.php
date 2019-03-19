@@ -38,7 +38,10 @@
 			echo $Nav->Show();
 		}
 
-		function getP($Name){
+		function getP($Name=null){
+			if($Name==null){
+				return Oxs::G("datablocks_manager")->Params;
+			}
 			return Oxs::G("datablocks_manager")->Params[$Name]["value"];
 		}
 

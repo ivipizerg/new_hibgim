@@ -1,7 +1,10 @@
 <?php
 
-	function menu_modul($Param=NULL){
+	function menu_modul($Param=NULL){		
 
+		Oxs::G("templatemanager:css")->loadCss("../JS/superfishmenu","superfish");
+		Oxs::G("templatemanager:js")->loadJs("/JS/superfishmenu","superfish.min");
+				
 		//	Майн актион расчитываеться в head
     	$MainAction = Oxs::G("storage")->get("MainAction");			
 
