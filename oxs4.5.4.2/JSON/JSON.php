@@ -33,11 +33,21 @@
 			return json_encode($this->Mass);
 		}
 
+		//	legacy
 		static function GetFromJSON($Text){			
 			return json_decode($Text,true);
 		}
 
+		//	legacy
 		static function GetFromText($JSON){
+			return json_encode($JSON);
+		}	
+
+		static function E($JSON){
+			return json_encode($JSON);
+		}
+
+		static function D($JSON){
 			return json_encode($JSON);
 		}
 

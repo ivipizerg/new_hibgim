@@ -10,7 +10,7 @@
 		function text($Field,$Data){			
 			Oxs::I("field");	
 			if($Field["no_change"]) $attr = " disabled ";
-			return $Field["description"].field::Text($Field["system_name"],$Data,array( "attr"=>$attr , "class"=>"form-control oxs_field_value" , "style" => "margin-top:3px;".$Field["field_style"] , "auto_clear" => $Field["form_name"]) );			
+			return $Field["description"].field::Text($Field["system_name"],$Data,array( "attr"=>$attr , "class"=>"form-control oxs_field_value ".$Field["setting"]["class"] , "style" => "margin-top:3px;".$Field["field_style"] , "auto_clear" => $Field["form_name"]) );			
 		}
 
 		function textArea($Field,$Data){			

@@ -31,7 +31,29 @@ class js_loader extends SingleLib{
 			<script>
 				jQuery(function(){
 					if(typeof <?php echo $ui_name;?> == "undefined")
-						<?php echo $ui_name;?>=new oxs_<?php echo $class_name;?>( <?php for($i=0;$i<count($Param);$i++){ if( strripos($Param[$i],"notString:") === 0 ) echo str_replace("notString:", "", $Param[$i]); else echo "\"".$Param[$i]."\""; if($i!=count($Param) - 1) echo ",";} ?> );
+						<?php echo $ui_name;?>=new oxs_<?php echo $class_name;?>( <?php 
+							for($i=0;$i<count($Param);$i++){ 
+								
+								if(!is_array($Param[$i])){
+									if( strripos($Param[$i],"notString:") === 0 ) 								
+									echo str_replace("notString:", "", $Param[$i]); 
+									else echo "\"".$Param[$i]."\""; 	
+								}else{
+									echo "{";
+
+									Oxs::G("BD")->Start();
+									foreach ($Param[$i] as $key => $value) {									   
+
+									    if( strripos($value,"notString:") === 0 ) 								
+											echo $key.":".str_replace("notString:", "", $value).","; 
+										else echo $key.":\"". $value."\",";
+									}
+									echo trim(Oxs::G("BD")->getEnd(),",");
+									echo "}";
+								}
+
+								if($i!=count($Param) - 1) echo ",";								
+							} ?> );
 
 				});
 			</script>

@@ -35,7 +35,7 @@ oxs_field_autoclear = function(Name,text,ch_class,Value){
                jQuery("[name=" + Name +"]").addClass(ch_class); 
 
                jQuery("[name=" + Name +"]").val(text);
-          }
+          }        
      });
 
      if(Value!=undefined && Value!=""){         

@@ -1,10 +1,15 @@
 .oxs_doc_tags_fieldsTyps{	
-	border: 1px solid red;
-	padding: 5px;
+	//border: 1px solid red;	
 } 
 
 .oxs_doc_tags_fieldsTyps_add_list{
-	border: 1px solid blue;	
+	border-bottom: 1px solid #ccc;	
+	
+	border-left: 1px solid transparent;
+	border-right: 1px solid transparent;
+    border-image: linear-gradient(to bottom, transparent 20% , #ccc 100% );
+    border-image-slice: 1;
+    padding: 5px;   
 }
 
 .oxs_doc_tags_fieldsTyps_add_list_items{
@@ -14,5 +19,21 @@
 	display: inline-block;
 	padding: 4px;
 	margin: 4px;
+	margin-left: 0px;
 	cursor: pointer;
+}
+
+.oxs_doc_tags_fieldsTyps_add_list_item_selected{
+	border: 1px solid green;
+	background-color: #90EE90;
+	display: inline-block;
+	border-radius: 4px;
+	padding: 5px;
+	margin: 4px;	
+	color: #006400;
+	cursor: pointer;
+}
+
+.oxs_doc_tags_fieldsTyps_input{	
+	width: 100%;
 }
