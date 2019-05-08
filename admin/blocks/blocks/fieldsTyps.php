@@ -48,14 +48,12 @@
 			}			
 
 			//	Получаем список блоков
-			$Tree=Oxs::L("DBTree",array("db" => Oxs::G("DBLIB.IDE")->DB() , "table" => "#__blocks"));
+			$Tree=Oxs::L("DBTree",array("db" => Oxs::G("DBLIB.IDE")->DB() , "table" => "#__blocks"));			
 
-			function Foo_blocks_fields($DB,$Params){
+			$UlArray = $Tree->GetTreeEx(array( "Foo" => function($DB,$Params){
 				$DB->SetQ("SELECT * FROM (".($DB->GetQ()).") AS T WHERE `status` = '1' and `system_name` != 'ROOT'");
 				return $DB;
-			}
-
-			$UlArray = $Tree->GetTreeEx(array( "Foo" => Foo_blocks_fields ));				
+			} ));				
 
 			if($Field["no_change"]) $attr = " disabled ";
 
@@ -71,14 +69,12 @@
 			}			
 
 			//	Получаем список блоков
-			$Tree=Oxs::L("DBTree",array("db" => Oxs::G("DBLIB.IDE")->DB() , "table" => "#__blocks"));
+			$Tree=Oxs::L("DBTree",array("db" => Oxs::G("DBLIB.IDE")->DB() , "table" => "#__blocks"));			
 
-			function Foo_blocks_fields($DB,$Params){
+			$UlArray = $Tree->GetTreeEx(array( "Foo" => function ($DB,$Params){
 				$DB->SetQ("SELECT * FROM (".($DB->GetQ()).") AS T WHERE `status` = '1' and `system_name` != 'ROOT'");
 				return $DB;
-			}
-
-			$UlArray = $Tree->GetTreeEx(array( "Foo" => Foo_blocks_fields ));				
+			} ));				
 
 			if($Field["no_change"]) $attr = " disabled ";
 

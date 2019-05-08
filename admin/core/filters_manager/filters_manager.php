@@ -50,8 +50,10 @@
 			}				
 		}
 
-		function EjectValue($Command,$Filter_name){
-			
+		function EjectValue($Command,$Filter_name){	
+
+			if($Command->Params==NULL) return NULL;
+
 			for($i=0;$i<count($Command->Params);$i++){				
 				if($Command->Params[$i]->Name == $Filter_name){
 					return $Command->Params[$i]->Value;

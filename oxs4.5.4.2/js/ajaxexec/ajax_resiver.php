@@ -2,6 +2,15 @@
           
      define("OXS_PROTECT",TRUE);     
 
+     if($_POST["form"]==1){
+          $_POST["oxs_system_ajax_data"]["OXS_AJAX_ROOT"] = $_POST["RP"];
+          $_POST["oxs_system_ajax_data"]["Lib"] = $_POST["Lib"];
+          $_POST["oxs_system_ajax_data"]["Code"] = $_POST["Code"];
+          $_POST["oxs_system_ajax_data"]["SOURCES"] = $_POST["SOURCES"];
+          $_POST["oxs_system_ajax_data"]["OXS_TOKEN_NAME"] = $_POST["TN"];
+          $_POST["oxs_system_ajax_data"]["OXS_TOKEN"] = $_POST["T"];
+     }    
+
      include("../../oxs_fw.php");
      
      Oxs::Start();   
@@ -38,7 +47,6 @@
           Oxs::G("BD")->CloseAll();
           $JSON->Add( -999 , "code" );
           $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> 999 Ошибка при выполнении ".$_POST["oxs_system_ajax_data"]["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger" );  
-          $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> 999 Ошибка при выполнении ".$_POST["oxs_system_ajax_data"]["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger_item" );            
           echo $JSON->GetJSONWithLog();
           return false;
      } catch (\Exception $e) {
@@ -47,7 +55,6 @@
           Oxs::G("BD")->CloseAll();          
           $JSON->Add( -998 , "code" );
           $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> 998 Ошибка при выполнении ".$_POST["oxs_system_ajax_data"]["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger" );
-          $JSON->Add( "<br>Параметры:".($JSON->GetFromText($_POST["P"]))."<br> 998 Ошибка при выполнении ".$_POST["oxs_system_ajax_data"]["Lib"].": <br> <br> ".$e." <br> <br>"  , "logger_item" );     
           echo $JSON->GetJSONWithLog();
           return false;
      }      

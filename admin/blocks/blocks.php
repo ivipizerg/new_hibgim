@@ -14,6 +14,10 @@
 			parent::__construct($Path,$params);			
 		}
 
+		function loadMyCss(){			
+			return ;
+		}
+
 		//	Подгрузка необходимых JS обработичков и блиотек
 		function LoadMyJS(){
 			return ;

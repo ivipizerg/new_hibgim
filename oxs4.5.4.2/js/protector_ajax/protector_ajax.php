@@ -9,6 +9,7 @@ class js_protector_ajax extends SingleLib{
 	}
 
 	function GetObject($Name="js_protector_ajax"){
+		
 		$D=Oxs::GetLib("dom");
 		$D->jQuery();		
 

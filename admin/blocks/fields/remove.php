@@ -14,8 +14,8 @@
 			if(parent::ExecBefore()) return TRUE;
 
 			//	Спрашиваем подтверждение
-			if( empty($this->getP("oxs_dialog_ask_yes_fields_remove")) ){
-				Oxs::G("dialog")->AskUser("oxs_dialog_ask_yes_fields_remove",Oxs::G("languagemanager")->T("confirm_remove_field"));				
+			if( empty($this->getP("oxs_dialog_ask_yes")) ){
+				$this->oxs_remove_dialog->AskUser(Oxs::G("languagemanager")->T("confirm_remove_field"),"oxs_dialog_ask_yes");				
 				return TRUE;
 			}
 		}

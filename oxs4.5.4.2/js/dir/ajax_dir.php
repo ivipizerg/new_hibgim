@@ -1,13 +1,12 @@
 <?php			
 		
-	session_start();
-
 	include("../../oxs_fw.php");
-	Oxs::SetRoot($_POST["oxs_root"]);
-	Oxs::Init($_POST["my_path"]);
 
-	$Pr=Oxs::LoadLib("protector");	
-	$Pr->CheckToken();
+	Oxs::Start();   
+    Oxs::SetRoot($_POST["oxs_system_ajax_data"]["OXS_AJAX_ROOT"]); 	   
+    Oxs::setSourses($_POST["my_path"]);	
+	session_start();
+	Oxs::L("protector")->CheckToken($_POST["oxs_system_ajax_data"]["OXS_TOKEN_NAME"],$_POST["oxs_system_ajax_data"]["OXS_TOKEN"]);
 
 	//	Получить список файлов директории
 	function GetDir($Path){
@@ -79,8 +78,8 @@
 			GetDir("../../".$_POST["back"].$_POST["path"]);
 		}
 
-		if($_POST["act"]=="chekdir"){
-			CheckWritable("../../".$_POST["back"].$_POST["path"]);
+		if($_POST["act"]=="chekdir"){			
+			CheckWritable(Oxs::GetBack().$_POST["path"]);
 		}
 
 		if($_POST["act"]=="save"){

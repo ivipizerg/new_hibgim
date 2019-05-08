@@ -1,0 +1,25 @@
+.docs_files_board_main{
+	border: 1px solid red;
+	width: 100%;
+}
+
+.docs_files_board_add_files{
+	border: 1px solid blue;
+	width: 100%;
+}
+
+.oxs_dialog_load_files_zone{	
+	padding: 10px;
+	border: 2px dashed grey;
+	position: relative;	
+}
+
+.oxs_dialog_load_files_zone_input{
+	opacity: 0;
+	position: absolute;
+	border: 1px solid red;		
+	height: 100%;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+}

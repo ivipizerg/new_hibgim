@@ -16,59 +16,29 @@
 				$WinObj="";				
 			}
 			else{ 
-				$WW = Rand();
-				$WinObj = "winobj_" . $WW;
-				Oxs::GetLib("js.window")->GetObject($WinObj);
-				Oxs::G("logger")->Css();
+				
+				$old_name = $Name;
+				
+				if(!empty($Param["window_name"])){
+					$Name = $Param["window_name"];					
+				}
 
-				?>
+				//	Создаем отладочное окно
+				$WinObj = Oxs::G("logger.debug_window")->Init($Name);			
 
-					<script type="text/javascript">							
-						jQuery(function(){
+				//	Создаем обьект для аякс
+				Oxs::G("js.protector_ajax")->GetObject("protector_ajax_".$Name);
+				
+				//	Готовим список источников
+				$SOURCES="";
+				for($i=0;$i<=Oxs::GetPathCount();$i++){
+					$SOURCES .= Oxs::GetPath($i).",";
+				}$SOURCES = str_replace(",,","",$SOURCES);
 
-							if(typeof log_window_bar == "undefined"){
-								log_window_bar = new oxs_js_window_window_bar("false");									
-							}	
-
-							<?php echo "winobj_" . $WW;?>.UserResize = function(Wi){					
-								//	Мальца подпарвлям ширину оконца					
-								Wi.w.width(document.documentElement.clientWidth);						
-							}
-
-							<?php echo $WinObj;?>.setWindowBar(log_window_bar);
-							
-							<?php echo $WinObj;?>.set("<div class=oxs_debug_window><div class=id_window_" + ( <?php echo $WinObj;?>.uiid ) + ">Ожидаем аякс запросы...<hr></div><div class='oxs_oxs_debug_window_button <?php echo $WinObj;?>_fold_button'>__</div></div>");
-
-							<?php echo $WinObj;?>.stick("left","bottom");
-							<?php echo $WinObj;?>.static();							
-							<?php echo $WinObj;?>.addClass("<?php echo $Name;?>");
-							<?php echo $WinObj;?>.setName("<?php echo "AJAX ($Name)"; ?>");
-							<?php echo $WinObj;?>.folding(".<?php echo $WinObj;?>_fold_button");
-							<?php echo $WinObj;?>.fold();
-							log_window_bar.Window.stick("right","top");
-							
-
-						});
-					</script>
-
-				<?php
+				Oxs::G("js.loader")->GetObject("js.ajaxexec",
+					array(  $this->Path ,  $Param["start_code"] , $SOURCES ,   $WinObj , "protector_ajax_".$Name  )
+				,$old_name);
 
 			}
-			///////////////////////////////////////////////////////////	
-
-			Oxs::G("js.protector_ajax")->GetObject("protector_ajax_".$Name);
-			
-			//	start_code - некий код который выполняеться каждый раз при запросах
-			//	Например инициализация базы данных или еще что то 
-			$SOURCES="";
-			for($i=0;$i<=Oxs::GetPathCount();$i++){
-				$SOURCES .= Oxs::GetPath($i).",";
-			}$SOURCES = str_replace(",,","",$SOURCES);
-
-			Oxs::G("js.loader")->GetObject("js.ajaxexec",
-				array(  $this->Path ,  $Param["start_code"] , $SOURCES ,  $WinObj , "protector_ajax_".$Name  )
-			,$Name);
 		}
-
 	}
-?>

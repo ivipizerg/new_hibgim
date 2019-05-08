@@ -1,7 +1,7 @@
 
 var OXS_BACK_PATH="";
 
-function oxs_js_dir_init(_TN,_T,_BackPath,_RootPath,_MyPath){
+function oxs_js_dir(_TN,_T,_BackPath,_RootPath,_MyPath,Post_max_size,Upload_max_filesize,Max_file_uploads){
 
 	this.BackPath=_BackPath;
 	this.RootPath=_RootPath;
@@ -77,10 +77,9 @@ function oxs_js_dir_init(_TN,_T,_BackPath,_RootPath,_MyPath){
 	};
 
 	//	Проверить директорию на запись
-	this.ChekDir = function(path,Foo){
+	this.ChekDir = function(path,Foo){		
 		console.log("Проверяю директорию на запись " + path);
-		dir_ajax.Success = Foo;
-		dir_ajax.POST(_this.MyPath + "js/dir/ajax_dir.php" ,{ act: "chekdir"  , path: path , oxs_root : _this.RootPath , my_path: _this.MyPath , back: _this.BackPath });
+		dir_ajax.POST(_this.MyPath + "js/dir/ajax_dir.php" ,{ act: "chekdir"  , path: path , oxs_root : _this.RootPath , my_path: _this.MyPath , back: _this.BackPath },Foo);
 	};
 
 	this.LocalChekFile = function( file, i , oxs_Error){
@@ -226,6 +225,7 @@ function oxs_js_dir_init(_TN,_T,_BackPath,_RootPath,_MyPath){
 		var http = new XMLHttpRequest();
 		// Процесс загрузки
 	    if (http.upload && http.upload.addEventListener) {
+	        
 	        http.upload.addEventListener(
 	        'progress',
 	        function(e) {

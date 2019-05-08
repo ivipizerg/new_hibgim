@@ -35,7 +35,7 @@ oxs_doc_tags_js_tag_selector = function(Param){
 
 	this.AJAX_send = function(){
 
-			aj_auth.Exec("doc_tags:ajax",{ action: "search" , settings: { no_tag_search_result: Param.no_tag_search_result , prefix:Param.prefix , table_name: Param.table_name , field_name:Param.field_name , search_fields: Param.search_fields }, value: $(".oxs_doc_tags_fieldsTyps_input_" + Param.prefix).val() },function(Input){
+			aj_no_log.Exec("doc_tags:ajax",{ action: "search" , settings: { no_tag_search_result: Param.no_tag_search_result , prefix:Param.prefix , table_name: Param.table_name , field_name:Param.field_name , search_fields: Param.search_fields }, value: $(".oxs_doc_tags_fieldsTyps_input_" + Param.prefix).val() },function(Input){
 				$(".oxs_doc_tags_fieldsTyps_add_list_" + Param.prefix).html( Input.Msg );
 				ajax_finish=true;				
 				
@@ -71,7 +71,7 @@ oxs_doc_tags_js_tag_selector = function(Param){
 					//	Добавляем элемент в выбранные
 					//	Удаляем выбранный элемент из списка предложенных
 					$(".oxs_doc_tags_fieldsTyps_" + Param.prefix).append("<div value = \"" + $(this).attr("value") + "\" class=\"oxs_doc_tags_fieldsTyps_add_list_item_selected oxs_doc_tags_fieldsTyps_add_list_item_selected_" + Param.prefix + "\">" + $(this).text() + " ❌</div>" );
-					$(this).remove();
+					//$(this).remove();
 					
 					//	Клик на удаление элемента
 					///////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ oxs_doc_tags_js_tag_selector = function(Param){
 
 	//	Клик по полю ввода
 	//	Мы должны проверить открыт ли выпадающий список, если нет то открыть
-	oxs_events.add(".oxs_doc_tags_fieldsTyps_" + Param.prefix,"click",function(){		
+	oxs_events.add(".oxs_doc_tags_fieldsTyps_" + Param.prefix + " input","click",function(){		
 		if(!popup_status){	
 			
 			popup_status=true;	

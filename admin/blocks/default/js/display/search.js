@@ -1,4 +1,4 @@
- oxs_default_js_display_search = function(){  	
+ oxs_default_js_display_search = function(){  	 	
 
  	var _this = this; 	
 
@@ -9,8 +9,8 @@
  	oxs_search_window.static(); 	
 	oxs_search_window.stick("center","bottom");		
 							
-	aj_no_log.Exec("search:ajax",{action:"getform"},function(Output,Code,Text,Data){
-		oxs_search_window.set("<div class=oxs_search_form >" + Output + "</div>");
+	aj_no_log.Exec("search:ajax",{action:"getform"},function(Input){		
+		oxs_search_window.set("<div class=oxs_search_form >" + Input.Msg + "</div>");
 		oxs_search_window.stick();	
 	});
 							
@@ -19,15 +19,18 @@
 	//	Очищаем поиск
 	//storage.AddParam("searchString","");								 	
 
- 	this.Foo = function(e){	 		
+ 	this.Foo = function(e){	
 
  		if(!_this.active) return ;
 
  		//	Если юзер что то где то водит то нам не стоит перехватывать клавишы
 		if(jQuery("input:focus").length!=0 && jQuery("input:focus").attr("name")!="oxs_search") return;
 
+
  		//	Исключаем контолы шифры альты и прочую нечисть
- 		if( e.keyCode==9 || e.keyCode==20 || e.keyCode==16 || e.keyCode==17  || e.keyCode==18 || e.keyCode==91  || e.keyCode==93 || e.keyCode==39 || e.keyCode==37 || e.keyCode==40 || e.keyCode==38) return;
+ 		if( e.ctrlKey==true ||  e.keyCode==9  || e.keyCode==20 || e.keyCode==16 || e.keyCode==17  ||
+ 			e.keyCode==18   ||  e.keyCode==91 || e.keyCode==93 || e.keyCode==39 || e.keyCode==37  || 
+ 			e.keyCode==40   || e.keyCode==38 ) return;
 
  		if(_this.WorkerAction!=ex_storage.get("block_action")) return;
 

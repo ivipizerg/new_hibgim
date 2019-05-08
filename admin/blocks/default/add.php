@@ -5,8 +5,9 @@
 		
 		function __construct($Path){	
 			parent::__construct($Path);					
-		}
-		
+		}		
+
+
 		function LoadMyJS(){	
 			Oxs::G("js.loader")->GetObject("default.js:active_buttons");
 			Oxs::G("js.loader")->GetObject("default.js:add");

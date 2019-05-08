@@ -52,12 +52,12 @@
 			$this->HTML .= "<br>";
 		}
 
-		function build($unique){
+		function build(){
 
 			Oxs::G("BD")->Start();
 
 			//	Обернем диолог в оконце
-			Oxs::G("js.window")->GetObject("dialog_window_".$unique);		
+			Oxs::G("js.window")->GetObject("dialog_window_".$this->uiNmae);		
 			
 			echo $this->CSS;
 			echo $this->JS;
@@ -67,14 +67,14 @@
 			<script type="text/javascript">
 					
 					$(function(){
-						dialog_window_<?php echo $unique;?>.set("<div class='oxs_all_dialogs oxs_dialog_<?php echo $unique;?>'>" + (decodeURIComponent("<?php echo rawurlencode($this->HTML);?>")) + "</div>");						
-						dialog_window_<?php echo $unique;?>.stick("center","center");
-						dialog_window_<?php echo $unique;?>.show();
+						dialog_window_<?php echo $this->uiNmae;?>.set("<div class='oxs_all_dialogs oxs_dialog_<?php echo $this->uiNmae;?>'>" + (decodeURIComponent("<?php echo rawurlencode($this->HTML);?>")) + "</div>");						
+						dialog_window_<?php echo $this->uiNmae;?>.stick("center","center");
+						dialog_window_<?php echo $this->uiNmae;?>.show();
 						oxs_black_screen.On();
 
 						oxs_black_screen.addCode(function(){
-							dialog_window_<?php echo $unique;?>.hide();
-						});
+							dialog_window_<?php echo $this->uiNmae;?>.hide();
+						},"dialog");
 
 					});
 
@@ -112,7 +112,7 @@
 
 		function buildDialog(_dialog $D){
 			$this->SetAjaxCode(2);			
-			$this->SetAjaxData("dialog",$D->build($this->uniqueName));
+			$this->SetAjaxData("dialog",$D->build());
 		}		
 	}
 

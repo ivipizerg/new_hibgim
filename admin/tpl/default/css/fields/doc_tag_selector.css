@@ -17,20 +17,24 @@
 	background: #eef;
 	border-radius: 4px;
 	display: inline-block;
-	padding: 4px;
+	padding: 5px;
+	padding-right: 10px;
+	padding-left: 10px;
 	margin: 4px;
 	margin-left: 0px;
 	cursor: pointer;
 }
 
 .oxs_doc_tags_fieldsTyps_add_list_item_selected{
-	border: 1px solid green;
-	background-color: #90EE90;
+	//border: 1px solid green;
+	background-color: #5ab75a;
 	display: inline-block;
 	border-radius: 4px;
 	padding: 5px;
+	padding-right: 10px;
+	padding-left: 10px;
 	margin: 4px;	
-	color: #006400;
+	color: white;
 	cursor: pointer;
 }
 

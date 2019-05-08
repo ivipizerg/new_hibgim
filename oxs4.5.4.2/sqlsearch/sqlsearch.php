@@ -37,4 +37,3 @@ class sqlsearch extends MultiLib{
 		}
 
 }
-?>
