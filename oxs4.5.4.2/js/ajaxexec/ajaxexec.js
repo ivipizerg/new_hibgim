@@ -56,7 +56,7 @@ oxs_js_ajaxexec = function(Path,Code,SOURCES,WinObj,ajax_object){
 			Data = _this.parceData(Input);
 
 			//	Если есть окно для лога то добалвяем лог
-			if(_this.WinObj!=""){				
+			if(WinObj!=""){				
 				if(!no_log) window[WinObj].insert(Data.logger);			
 			}	
 
@@ -77,13 +77,16 @@ oxs_js_ajaxexec = function(Path,Code,SOURCES,WinObj,ajax_object){
 				Data = _this.parceData(e.target.response);		
 
 				if(Data.code==-1000){
-					window[WinObj].insert(Data.Msg);
-					console.log(Data.Msg);
+					if(WinObj!=""){	
+						window[WinObj].insert(Data.Msg);
+						console.log(Data.Msg);
+					}					
 				}else{
-					window[WinObj].insert(Data.logger);
-					console.log(Data);
-				}
-				
+					if(WinObj!=""){	
+						window[WinObj].insert(Data.logger);
+						console.log(Data);
+					}
+				}				
 			}       
 	    };	   
 

@@ -204,32 +204,20 @@ class logger extends SingleLib{
 		//	Получаем обернутые сообщения
 		$Msssages = $this->WrapMessages();
 
+		$WinObj = Oxs::G("logger.debug_window")->Init($class_name,$Header);		
+
+		echo $WinObj;
+
 		?>
 			<SCRIPT>
-				jQuery(function(){
-										
-					if(typeof log_window_bar == "undefined"){
-						log_window_bar = new oxs_js_window_window_bar("false");	
-					}					
+				jQuery(function(){	
 
-					<?php echo "winobj_" . $WW;?>.UserResize = function(Wi){					
-						//	Мальца подпарвлям ширину оконца					
-						Wi.w.width(document.documentElement.clientWidth);						
-					}
-
-					<?php echo "winobj_" . $WW;?>.setWindowBar(log_window_bar);
-							
-					<?php echo "winobj_" . $WW;?>.set("<div class=oxs_debug_window><?php echo addslashes($Msssages);?><div class='oxs_oxs_debug_window_button <?php echo "winobj_" . $WW;?>_fold_button'>__</div></div>");						
-					
-					<?php echo "winobj_" . $WW;?>.static();					
-					<?php echo "winobj_" . $WW;?>.addClass("<?php echo $class_name;?>");
-					<?php echo "winobj_" . $WW;?>.setName("<?php echo $Header;?>");
-					<?php echo "winobj_" . $WW;?>.folding(".<?php echo "winobj_" . $WW;?>_fold_button");
-					<?php echo "winobj_" . $WW;?>.fold();
-					<?php echo "winobj_" . $WW;?>.stick("left","bottom");					
-					
-					//	Прижимаем именно тут когда в окно уже запихано содержимое
-					log_window_bar.Window.stick("right","top");				
+					window["<?php echo $WinObj;?>"].clear();
+					window["<?php echo $WinObj;?>"].insert("<?php echo addslashes($Msssages);?>");
+					//	Напо
+					//window[<?php echo $WinObj;?>.WinObj].set("<div class=oxs_debug_window><?php echo addslashes($Msssages);?><div class='oxs_oxs_debug_window_button winobj_<?php echo $class_name;?>_fold_button'>__</div></div>");
+						
+					window[<?php echo $WinObj;?>.WinObj].addClass("<?php echo $class_name;?>");				
 					
 				});
 			</SCRIPT>

@@ -8,7 +8,7 @@
 			parent::__construct($Path,$params);
 		}
 
-		function Init($Name){				
+		function Init($Name,$Header=null){				
 
 			$WinObj = "winobj_" . $Name;
 			$logWinObj = "logwinobj_" . $Name;
@@ -16,7 +16,7 @@
 			Oxs::GetLib("js.window")->GetObject($WinObj);
 			Oxs::G("logger")->Css();
 
-			Oxs::G("js.loader")->GetObject( "logger.debug_window", $Name , $logWinObj );	
+			Oxs::G("js.loader")->GetObject( "logger.debug_window", array ( $Name , $Header ), $logWinObj );	
 
 			return $logWinObj;
 		}				

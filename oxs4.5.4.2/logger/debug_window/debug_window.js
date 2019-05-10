@@ -1,4 +1,4 @@
-oxs_logger_debug_window = function(Name){
+oxs_logger_debug_window = function(Name, header){
 		
 	var _this = this;
 
@@ -21,11 +21,14 @@ oxs_logger_debug_window = function(Name){
 	window[this.WinObj].stick("left","bottom");
 	window[this.WinObj].static();							
 	window[this.WinObj].addClass(Name);
-	window[this.WinObj].setName("AJAX(" + Name + ")");
+	window[this.WinObj].setName(header);
 	window[this.WinObj].folding("." + this.WinObj + "_fold_button");
 	window[this.WinObj].fold();
 	log_window_bar.Window.stick("right","top");
 
+	this.clear = function(){
+		window[this.WinObj].set("<div class=oxs_debug_window><div class=id_window_" + window[this.WinObj].uiid  + "></div><div class='oxs_oxs_debug_window_button " +  this.WinObj + "_fold_button'>__</div></div>");
+	}
 
 	this.insert = function(info){
 		//	мы должны хранить 3 последних запроса по этому доабвляем новый в коцне удаляем первый если их 4 или больше	
