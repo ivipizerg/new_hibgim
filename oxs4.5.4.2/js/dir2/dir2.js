@@ -19,6 +19,12 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 		return ;
 	}
 
+	this.checkWritable = function(Path,callback_f){
+		window[aj_name].Exec("js.dir2",{action:"checkWritable",path:Path},function(Input){
+			callback_f(Input);
+		});
+	}
+
 	this.bind = function(oxs_class){
 
 		js_dir2_events.add(oxs_class,"change",function(e){
@@ -53,16 +59,42 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 		});
 	}
 
-	this.saveFile = function(i){			
+	this.saveFile = function(Path,i,callbakcs,next=false){			
 
 	    form = new FormData(); // Создаем объект формы.
-
-	    console.log("Сохраняю файл: " + _this.FilesMassiv[i].name);
+	    console.log("Сохраняем файл номер: " + _this.i);	
+	    console.log("Название: " + _this.FilesMassiv[i].name);
 	    
-	    form.append('P', _this.FilesMassiv[i]); // Прикрепляем к форме файл
-	    form.append('ssssP', "asd");	  
+	    form.append('OXS_DIR2_FILE', _this.FilesMassiv[i]); // Прикрепляем к форме файл
+	    form.append("OXS_DIR2_FILE_PATH" , Path);
+	   
+	    window[aj_name].sendForm("js.dir2",form,{
+	    	
+	    	success: function(e){
+	    		if(callbakcs.success!=undefined)callbakcs.success(e);
+	    		if(next)_this.saveAllFiles(Path,callbakcs,false);	    		    
+	    	},
 
-	    window[aj_name].sendForm("js.dir2",form);
+	    	status: function(e){
+	    		if(callbakcs.status!=undefined)callbakcs.status(e);	    		
+	    	},
+
+	    	error: function(e){
+	    		if(callbakcs.error!=undefined)callbakcs.error(e);	    
+	    	}
+	    });
 	}
-
+	
+	//	Сохранить все файлы по очереди
+	////////////////////////////////////////////////////////////
+	this.i=0;
+	this.saveAllFiles = function(Path,callbakcs,first=true){	
+		if(first){ _this.i = 0; }
+		if(callbakcs==undefined) callbakcs = {};	
+		if( _this.i >= _this.FilesMassiv.length){
+			if(callbakcs.end!=undefined)callbakcs.end();
+			return;
+		}
+		_this.saveFile(Path,_this.i++,callbakcs,true);
+	}
 }

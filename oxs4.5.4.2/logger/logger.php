@@ -204,9 +204,7 @@ class logger extends SingleLib{
 		//	Получаем обернутые сообщения
 		$Msssages = $this->WrapMessages();
 
-		$WinObj = Oxs::G("logger.debug_window")->Init($class_name,$Header);		
-
-		echo $WinObj;
+		$WinObj = Oxs::G("logger.debug_window")->Init($class_name,$Header);	
 
 		?>
 			<SCRIPT>

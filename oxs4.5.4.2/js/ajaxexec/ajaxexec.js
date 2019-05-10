@@ -66,38 +66,44 @@ oxs_js_ajaxexec = function(Path,Code,SOURCES,WinObj,ajax_object){
 		
 	}
 
-	this.sendForm = function(Lib,form){
+	this.sendForm = function(Lib,form,callbacl_fucntions, no_log=false){
 		
 		http = new XMLHttpRequest();
 
-		http.onreadystatechange = function (e) {
-			if(this.readyState==4){
-				console.log(this.status);
-					
-				Data = _this.parceData(e.target.response);		
+		http.upload.addEventListener('progress',
+	        function(e) {
+	            if (e.lengthComputable) {
+	            	callbacl_fucntions.status(e);
+	            }
+	         },false);
 
-				if(Data.code==-1000){
-					if(WinObj!=""){	
-						window[WinObj].insert(Data.Msg);
-						console.log(Data.Msg);
-					}					
-				}else{
-					if(WinObj!=""){	
-						window[WinObj].insert(Data.logger);
-						console.log(Data);
-					}
-				}				
+		http.upload.addEventListener('error',
+	        function(e) {
+	            // Паникуем, если возникла ошибка!
+	            callbacl_fucntions.error(e);
+	        });
+
+		http.onreadystatechange = function (e) {
+			if(this.readyState==4){								
+				Data = _this.parceData(e.target.response);
+
+				if(WinObj!=""){				
+					if(!no_log) window[WinObj].insert(Data.logger);			
+				}
+
+				callbacl_fucntions.success(Data);					
 			}       
 	    };	   
 
-	    form.append( 'form' , 1 );
-	    form.append( 'Lib' , Lib );
-	    form.append( 'Code' , Code );
-	    form.append( 'SOURCES' , SOURCES );	   
+	    //	Подготовалвиаем необходимые данные дял отпарвки
+	    form.append("oxs_system_ajax_data[Lib]" , Lib);
+	    form.append("oxs_system_ajax_data[Code]" , Code);
+	    form.append("oxs_system_ajax_data[SOURCES]" , SOURCES);	    
 
-	    form.append( 'TN' , window[ajax_object].getTN() );
-	    form.append( 'T' , window[ajax_object].getT() );
-	    form.append( 'RP' , window[ajax_object].getRP() );
+	    //	Подготовалвиаем необходимые данные дял отпарвки
+	    form.append("oxs_system_ajax_data[OXS_AJAX_ROOT]" , window[ajax_object].getRP());	
+	    form.append("oxs_system_ajax_data[OXS_TOKEN_NAME]" , window[ajax_object].getTN());
+	    form.append("oxs_system_ajax_data[OXS_TOKEN]" , window[ajax_object].getT()); 
 
 		http.open('POST', Path + "js/ajaxexec/ajax_resiver.php"); // Открываем коннект до сервера.
 	    http.send(form); // И отправляем форму, в которой наши файлы. Через XHR.

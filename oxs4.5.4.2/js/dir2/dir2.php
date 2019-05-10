@@ -9,9 +9,31 @@ class js_dir2 extends SingleLib{
 	}
 
 	function AjaxExec($Params=null){
-		print_r($_FILES);
 
-		echo "ХУйыы";
+		if($Params["action"] == "checkWritable"){
+			if(Oxs::G("file")->ifWritable($Params["path"])){
+				$this->SetAjaxCode(1);
+			}else{
+				$this->SetAjaxCode(0);
+			}
+		}
+
+		echo "Хуй";
+
+		Oxs::G("BD")->Start();
+
+		print_r($_FILES);
+		
+
+		echo "----------------------------------<br>";
+
+		print_r($_POST);
+		
+
+		Oxs::G("file")->copy($_FILES["OXS_DIR2_FILE"]["tmp_name"],$_POST["OXS_DIR2_FILE_PATH"]."/".$_FILES["OXS_DIR2_FILE"]["name"]);
+		
+
+		$this->Msg(Oxs::G("BD")->getEnd(),"MESSAGE");
 	}
 
 	

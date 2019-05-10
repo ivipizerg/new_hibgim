@@ -67,6 +67,14 @@
 			}else{
 				return false;
 			}
+		}
+
+		function ifWritable($Path){
+			if(is_writable(Oxs::GetBack().$Path)){
+				return 1;
+			}else{
+				return 0;
+			}
 		}		
 
 		//	Проверить доступ к файлу

@@ -1,15 +1,6 @@
 <?php
           
-     define("OXS_PROTECT",TRUE);     
-
-     if($_POST["form"]==1){
-          $_POST["oxs_system_ajax_data"]["OXS_AJAX_ROOT"] = $_POST["RP"];
-          $_POST["oxs_system_ajax_data"]["Lib"] = $_POST["Lib"];
-          $_POST["oxs_system_ajax_data"]["Code"] = $_POST["Code"];
-          $_POST["oxs_system_ajax_data"]["SOURCES"] = $_POST["SOURCES"];
-          $_POST["oxs_system_ajax_data"]["OXS_TOKEN_NAME"] = $_POST["TN"];
-          $_POST["oxs_system_ajax_data"]["OXS_TOKEN"] = $_POST["T"];
-     }    
+     define("OXS_PROTECT",TRUE);      
 
      include("../../oxs_fw.php");
      
