@@ -12,7 +12,7 @@ class js_dir2 extends SingleLib{
 
 		if($Params["action"] == "checkWritable"){
 			if(Oxs::G("file")->ifWritable($Params["path"])){
-				$this->SetAjaxCode(1);
+				$this->SetAjaxCode(1);			
 			}else{
 				$this->SetAjaxCode(0);
 			}
@@ -48,6 +48,8 @@ class js_dir2 extends SingleLib{
 
 		//	События
 		Oxs::G("js.loader")->GetObject("js.oxs_events",null,"js_dir2_events");
+
+		echo ini_get("max_file_uploads")		;
 
 		Oxs::G("js.loader")->GetObject(
 			"js.dir2",

@@ -35,10 +35,23 @@
 
 			//	Подгружаем интерфейс
 			Oxs::G("oxs_obj")->G("crypto.base64");
+
+			if(ini_get("post_max_size")>ini_get("upload_max_filesize")){
+				$MAX_SIZE = ini_get("post_max_size"); 
+			}else{
+				$MAX_SIZE = ini_get("upload_max_filesize");
+			}
+			
+
 			Oxs::G("oxs_obj")->G("files_manager.js:interface",array( 
-				"notString:".$name,
+				$name,
 				Oxs::G("crypto.base64")->E($D->build()),
-				$Dir
+				$Dir,
+				array( 
+					"DIR_IS_NOT_WRITABLE" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("DIR_IS_NOT_WRITABLE") ) ,
+					"MAX_UPLOAD_COUNT" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("MAX_UPLOAD_COUNT" , ini_get("max_file_uploads")) )  , 
+					"MAX_SIZE_FILE" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("MAX_SIZE_FILE" , $MAX_SIZE ) ) 	
+				)
 			));
 
 			return ;
@@ -46,5 +59,5 @@
 
 	}
 
-?>
- 
+
+				

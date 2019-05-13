@@ -4,6 +4,7 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 
 	Post_max_size = parseInt(Post_max_size) * 1024 * 1024;
 	Upload_max_filesize = parseInt(Upload_max_filesize) * 1024 * 1024;	
+	Max_file_uploads = parseInt(Max_file_uploads);	
 
 	this.FilesMassiv = "";	
 
@@ -11,11 +12,7 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 		return Array(Post_max_size,Upload_max_filesize,Max_file_uploads);
 	}
 
-	this.checkFiles = function(File){
-		return true;
-	}	
-
-	this.choiseMade = function(FilesMassiv){
+	this.selected = function(FilesMassiv){
 		return ;
 	}
 
@@ -29,12 +26,8 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 
 		js_dir2_events.add(oxs_class,"change",function(e){
 			if(log)console.log("Файлы выбраны");
-
-			_this.FilesMassiv=e.target.files;		
-
-			_this.checkFiles(_this.FilesMassiv);				
-
-			_this.choiseMade(_this.FilesMassiv);
+			_this.FilesMassiv=e.target.files;	
+			_this.selected(_this.FilesMassiv);
 		});
 
 		js_dir2_events.add(oxs_class,"dragenter",function(e) {
@@ -76,7 +69,7 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 	    	},
 
 	    	status: function(e){
-	    		if(callbakcs.status!=undefined)callbakcs.status(e);	    		
+	    		if(callbakcs.status!=undefined)callbakcs.status(e,i);	    		
 	    	},
 
 	    	error: function(e){

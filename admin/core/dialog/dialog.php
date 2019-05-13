@@ -52,6 +52,10 @@
 			$this->HTML .= "<br>";
 		}
 
+		function getObjName(){
+			return "dialog_window_".$this->uiNmae;
+		}
+
 		function build(){
 
 			Oxs::G("BD")->Start();

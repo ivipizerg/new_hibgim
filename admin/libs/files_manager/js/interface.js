@@ -1,42 +1,67 @@
-oxs_files_manager_js_interface = function(window_name,formData,Dir){
+oxs_files_manager_js_interface = function(window_name,formData,Dir,language){
 
 	console.log("Интерфес получен");
-	
-	window_name.set(crypto_base64.D(formData));
-	window_name.stick("center","center");
-	window_name.show();
 
-	//	Вешаем обработчики зоны выбора файлов
-	//	Проверяем папку на запись
-	/*if(js_dir.ChekDir(Dir,function(){
-		console.log("Папка " + Dir + " доступна для записи");
-	}))*/
+	//	Распаковываем форму диалога
+	jQuery(".files_board_tmp_zone").html(crypto_base64.D(formData));		
 
 	//	Ждем милипульку что бы код формы успел распокаваться иначе не забиндимся
 	setTimeout(function(){
+		
+		//	Выровняем
+		window["dialog_window_" + window_name ].stick("center","center");
+		//	Показываем диалог
+		window["dialog_window_" + window_name ].show();
 
 		js_dir2.checkWritable(Dir,function(Input){
 			if(Input.Code==1){
 				console.log("Директория доступна для записи");
 			}else{
-				console.log("Директория НЕ доступна для записи");
-				window_name.stick("center","right");
-				//message_window.show("Ошибка");
+				console.log("Директория НЕ доступна для записи");	
+				oxs_black_screen.Off();	
+				oxs_message.show(language.DIR_IS_NOT_WRITABLE);
 			}
 		});
 
-		js_dir2.checkFiles = function(File){
-			return ;		
-		}
-		
-		js_dir2.choiseMade = function(massiv){
-			console.log("Выбрали");		
-			js_dir2.saveAllFiles(Dir,{});	
+		//	Файлы выбраны
+		//	Проверяем файлы по размеру и содержимому
+		//	Так же подсчитываем колчиество выбранных файлов	
+		js_dir2.selected = function(massiv){
+
+			//	смотрим колчиестов вбыранных файлов
+			limits = js_dir2.getLimits();
+			console.log(massiv);
+			
+			//	Проверяем количество
+			if(massiv.length>limits[2]){
+				oxs_black_screen.Off();	
+				oxs_message.show(language.MAX_UPLOAD_COUNT);
+				return ;
+			}
+
+			//	Проверяем размер
+			for(i = 0; i<massiv.length ; i++){
+				if( massiv[i].size > limits[0] || massiv[i].size > limits[1]){
+					oxs_black_screen.Off();	
+					oxs_message.show(language.MAX_SIZE_FILE);
+					return ;
+				}
+			}
+
+			console.log("Файлы проверены, можем сохранять");		
+			js_dir2.saveAllFiles(Dir,{
+				status: function(e,i){					
+					//$( ".dialog_window_" + window_name ).html("Загрузка... файл " + (i+1) + " из " + massiv.length  + " " + Math.round((e.loaded/e.total) * 100 ) + "%" );
+				},
+				success: function(e){
+
+				}
+			});	
 		}
 
 		js_dir2.bind(".oxs_dialog_load_files_zone_input");
 
-	},10);
+	},40);
 	
 
 	oxs_black_screen.addCode(function(){
@@ -45,9 +70,8 @@ oxs_files_manager_js_interface = function(window_name,formData,Dir){
 		files_manager_js_interface=null;
 		delete files_manager_js_interface;
 
-		js_dir2 = null
-		delete js_dir2;
-
+		/*js_dir2 = null
+		delete js_dir2;*/
 
 	},"files_manager_js_interface");
 }

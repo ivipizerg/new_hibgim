@@ -9,15 +9,15 @@
 		}
 
 		function Error($Text){
-			return "<ul class=\"oxs_logger_ul_style_error\"><li>".$Text."</li></ul>";			
+			return "<ul class='oxs_logger_ul_style_error'><li>".$Text."</li></ul>";			
 		}
 
 		function Good($Text){
-			return "<ul class=\"oxs_logger_ul_style_good\"><li>".$Text."</li></ul>";			
+			return "<ul class='oxs_logger_ul_style_good'><li>".$Text."</li></ul>";			
 		}
 
 		function Info($Text){
-			return "<ul class=\"oxs_logger_ul_style_info\"><li>".$Text."</li></ul>";			
+			return "<ul class='oxs_logger_ul_style_info'><li>".$Text."</li></ul>";			
 		}
 
 		function ErrorUL($Chanel){	
