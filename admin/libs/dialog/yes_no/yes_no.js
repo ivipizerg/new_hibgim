@@ -1,7 +1,19 @@
-oxs_dialog_dialog_yes_no = function(uniqueName,farVar){	
+oxs_dialog_yes_no = function(farVar,dialog){	
+		
+	dialog.build();
+	dialog.show();
+
+	oxs_black_screen.addCode(function(){
+		    dialog.hide();
+			dialog_yes_no = undefined;
+
+			oxs_events.clear("[name=oxs_dialog_button_no_dialog_yes_no]");
+			oxs_events.clear("[name=oxs_dialog_button_yes_dialog_yes_no]");
+
+		},"dialog");
 
 	//	Обработка клика yes
-	oxs_events.add("[name=oxs_dialog_button_yes_" + uniqueName+"]","click" , function(){
+	oxs_events.add("[name=oxs_dialog_button_yes_dialog_yes_no]","click" , function(){
 		console.log("Нажата ДА");
 
 		//	Первым делом заносим в farVar true дабы нашь диалог больше не покзаывался
@@ -15,10 +27,12 @@ oxs_dialog_dialog_yes_no = function(uniqueName,farVar){
 	} );
 
 	//	Обработка клика No
-	oxs_events.add("[name=oxs_dialog_button_no_" + uniqueName+"]","click" , function(){
+	oxs_events.add("[name=oxs_dialog_button_no_dialog_yes_no]","click" , function(){
 		console.log("Нажата НЕТ");	
-
 		//	ЗАтем закрываем диалог
 		oxs_black_screen.Off();		
 	} );
 }
+
+
+

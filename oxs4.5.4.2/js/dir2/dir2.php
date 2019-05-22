@@ -47,9 +47,7 @@ class js_dir2 extends SingleLib{
 		Oxs::G("js.ajaxexec")->GetObject("aj_dir2",array( "window_name" => $Params["window_name"] ));
 
 		//	События
-		Oxs::G("js.loader")->GetObject("js.oxs_events",null,"js_dir2_events");
-
-		echo ini_get("max_file_uploads")		;
+		Oxs::G("js.loader")->GetObject("js.oxs_events",null,"js_dir2_events");		
 
 		Oxs::G("js.loader")->GetObject(
 			"js.dir2",

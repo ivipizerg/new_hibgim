@@ -1,17 +1,13 @@
-oxs_files_manager_js_interface = function(window_name,formData,Dir,language){
+oxs_files_manager_js_interface = function(dialog,Dir,language){
 
 	console.log("Интерфес получен");
 
 	//	Распаковываем форму диалога
-	jQuery(".files_board_tmp_zone").html(crypto_base64.D(formData));		
-
-	//	Ждем милипульку что бы код формы успел распокаваться иначе не забиндимся
-	setTimeout(function(){
+	jQuery(".files_board_tmp_zone").html(dialog.build());	
+	
 		
-		//	Выровняем
-		window["dialog_window_" + window_name ].stick("center","center");
-		//	Показываем диалог
-		window["dialog_window_" + window_name ].show();
+		//	отображаем диалог
+		dialog.show();
 
 		js_dir2.checkWritable(Dir,function(Input){
 			if(Input.Code==1){
@@ -29,8 +25,7 @@ oxs_files_manager_js_interface = function(window_name,formData,Dir,language){
 		js_dir2.selected = function(massiv){
 
 			//	смотрим колчиестов вбыранных файлов
-			limits = js_dir2.getLimits();
-			console.log(massiv);
+			limits = js_dir2.getLimits();			
 			
 			//	Проверяем количество
 			if(massiv.length>limits[2]){
@@ -51,7 +46,7 @@ oxs_files_manager_js_interface = function(window_name,formData,Dir,language){
 			console.log("Файлы проверены, можем сохранять");		
 			js_dir2.saveAllFiles(Dir,{
 				status: function(e,i){					
-					//$( ".dialog_window_" + window_name ).html("Загрузка... файл " + (i+1) + " из " + massiv.length  + " " + Math.round((e.loaded/e.total) * 100 ) + "%" );
+					dialog.set("Загрузка... файл " + (i+1) + " из " + massiv.length  + " " + Math.round((e.loaded/e.total) * 100 ) + "%" );
 				},
 				success: function(e){
 
@@ -61,7 +56,7 @@ oxs_files_manager_js_interface = function(window_name,formData,Dir,language){
 
 		js_dir2.bind(".oxs_dialog_load_files_zone_input");
 
-	},40);
+	
 	
 
 	oxs_black_screen.addCode(function(){

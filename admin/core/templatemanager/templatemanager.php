@@ -43,6 +43,8 @@
 		//	Выбрать и прогнать шаблон
 		function ChoiseTemplate($TemplateName){					
 
+			$_SESSION["templateInfo"]["name"] = $TemplateName;
+
 			$this->LoadTemplate($TemplateName);	
 
 			$Moduls=$this->GetModuls();			
@@ -106,7 +108,7 @@
 		}
 
 		function getTemplateName(){
-			return $this->TemplateName;
+			return $_SESSION["templateInfo"]["name"];
 		}		
 
 	}

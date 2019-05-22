@@ -10,7 +10,7 @@
 		}		
 
 		function LoadMyJS(){
-			$this->oxs_remove_dialog = Oxs::L("dialog");		
+			$this->oxs_remove_dialog = Oxs::L("dialog.yes_no");		
 		}	
 
 		function ExecBefore(){	

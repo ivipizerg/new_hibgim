@@ -50,11 +50,7 @@
 		//	Система получения обьектов
 		Oxs::G("oxs_obj")->Init(false);	
 
-		echo Oxs::G("message_window")->Init();		
-
-		//	js обьект добавляющий информацию о шаболоне в хранилище	
-		//	Необходим для корректнйо работы обьекта templatemanager 	
-		Oxs::G("templatemanager")->JS(NULL,NULL,  array( Oxs::G("templatemanager")->GetTemplateName() )  );	
+		echo Oxs::G("message_window")->Init();	
 		
 	}
 

@@ -12,7 +12,7 @@
 
 		function LoadMyJS(){
 			
-			$this->oxs_dialog = Oxs::L("dialog");
+			$this->oxs_dialog = Oxs::L("dialog.password");
 			
 		}	
 
@@ -52,25 +52,8 @@
 				}	
 							
 			}else{
-				//	Спрашиваем подтверждение
-				if( empty($this->getP("oxs_dialog_ask_master_password")) ){
-
-					$D  = new _dialog($this->oxs_dialog->uniqueName);			
-					$D->addText("Введите мастер пароль для доступа к файлу конфигурации");
-					$D->addBr();
-					$D->addBr();
-					$D->addPassword("oxs_dialog_ask_master_password_edit_".$this->oxs_dialog->uniqueName,null,"Введите мастер пароль",array( "style" => "width:300px;"  ));				
-					$D->addBr();			
-					$D->addButton(Oxs::G("languagemanager")->T("ok"),"oxs_dialog_ask_master_password_ok_".$this->oxs_dialog->uniqueName,array("style" => "width:70px;"));
-					$D->addHtml("&nbsp;&nbsp;");
-					$D->addButton(Oxs::G("languagemanager")->T("cancel"),"oxs_dialog_ask_master_password_cancel_".$this->oxs_dialog->uniqueName,array("style" => "width:70px;"));
-					$D->Css("admin/tpl/default/css/dialog.css");			
-					$D->js( "settings:cfg_file_edit");				
-
-					$this->oxs_dialog->buildDialog($D);
-					
-					return TRUE;
-				}
+				$this->oxs_dialog->askPassword("Введите мастер пароль для доступа к файлу конфигурации","oxs_dialog_ask_master_password");
+				return TRUE;
 			}			
 		}
 	} 
