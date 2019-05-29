@@ -37,6 +37,7 @@ function oxs_js_window(log){
 	this.set = function(Data){
 		if(this.log)console.log("Вставка" , Data);
 		this.w.html(Data);	
+		window.dispatchEvent(new Event('resize')); 
 		jQuery(window).resize();		
 	}	
 

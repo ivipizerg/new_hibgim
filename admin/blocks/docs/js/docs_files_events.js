@@ -1,11 +1,12 @@
 oxs_docs_js_docs_files_events = function(){
 	
-	oxs_events.add(".docs_files_board_add_files","click",function(){ 
+	oxs_events.add(".docs_files_board_add_files","click",function(){ 		
 		
-		aj_auth.Exec("files_manager:ajax",{ "action":"formLoadFiles" , param: { "name":"docs_js_docs_files_events" , "multiple":"multiple" } , "dir":"files/tmp" },function(Input){
-			jQuery(".files_board_tmp_zone").html(Input.Msg);			
-		});
+		ex_storage.add("dir","files/tmp");
+		ex_storage.add("action" , "formLoadFiles" );
+		ex_storage.add("multiple"  , "multiple");		
 
+		datablocks_manager.ExecBlock("files_manager:form",ex_storage.get(),null,null);
 	});
 
 

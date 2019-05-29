@@ -12,43 +12,43 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 		return Array(Post_max_size,Upload_max_filesize,Max_file_uploads);
 	}
 
-	this.selected = function(FilesMassiv){
-		return ;
-	}
-
 	this.checkWritable = function(Path,callback_f){
 		window[aj_name].Exec("js.dir2",{action:"checkWritable",path:Path},function(Input){
 			callback_f(Input);
 		});
 	}
 
-	this.bind = function(oxs_class){
+	this.bind = function(oxs_class,events_object){
 
 		js_dir2_events.add(oxs_class,"change",function(e){
 			if(log)console.log("Файлы выбраны");
 			_this.FilesMassiv=e.target.files;	
-			_this.selected(_this.FilesMassiv);
+			if(events_object.change!=undefined)events_object.change(_this.FilesMassiv);
 		});
 
 		js_dir2_events.add(oxs_class,"dragenter",function(e) {
 			// 	Действия при входе курсора с файлами  в блок.
 			if(log)console.log("Курсор над областью драг дропа ");	
+			if(events_object.dragenter!=undefined) events_object.dragenter();
 		});
 
 		js_dir2_events.add(oxs_class,'dragover',function(e) {
 			// 	Действия при перемещении курсора с файлами над блоком.
-			if(log)console.log("Курсор над областью драг дропа находиться");				
+			if(log)console.log("Курсор над областью драг дропа находиться");	
+			if(events_object.dragover!=undefined)events_object.dragover();			
 		});
 
 
 		js_dir2_events.add(oxs_class,'dragleave',function(e) {
-			 // 	Действия при выходе курсора с файлами за пределы блока.
-			 if(log)console.log("Курсор покинул областью драг дропа");	
+			// 	Действия при выходе курсора с файлами за пределы блока.
+			if(log)console.log("Курсор покинул областью драг дропа");
+			if(events_object.dragleave!=undefined) events_object.dragleave();
 		});
 
 		js_dir2_events.add(oxs_class,'drop',function(e) { 
 			// Действия при «вбросе» файлов в блок.
-			if(log)console.log("Курсор над областью драг дропа отпущен");				
+			if(log)console.log("Курсор над областью драг дропа отпущен");
+			if(events_object.drop!=undefined)events_object.drop();				
 		});
 	}
 
