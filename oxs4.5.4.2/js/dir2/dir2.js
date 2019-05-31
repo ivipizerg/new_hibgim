@@ -12,11 +12,12 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 		return Array(Post_max_size,Upload_max_filesize,Max_file_uploads);
 	}
 
-	this.checkWritable = function(Path,callback_f){
+	//	Проверить на запись диреткорию
+	/*this.checkWritable = function(Path,callback_f){
 		window[aj_name].Exec("js.dir2",{action:"checkWritable",path:Path},function(Input){
 			callback_f(Input);
 		});
-	}
+	}*/
 
 	this.bind = function(oxs_class,events_object){
 
@@ -63,8 +64,8 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 	   
 	    window[aj_name].sendForm("js.dir2",form,{
 	    	
-	    	success: function(e){
-	    		if(callbakcs.success!=undefined)callbakcs.success(e);
+	    	success: function(e){	    		
+	    		if(callbakcs.success!=undefined) callbakcs.success(e);
 	    		if(next)_this.saveAllFiles(Path,callbakcs,false);	    		    
 	    	},
 

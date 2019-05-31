@@ -61,7 +61,8 @@
 			return $this->CheckFile($Path);
 		}
 
-		function CheckFile($Path){
+		//	Не хуя не работает заебала оан уже если честно
+		function CheckFile($Path){			
 			if(is_file(Oxs::GetBack().$Path)){
 				return true;
 			}else{

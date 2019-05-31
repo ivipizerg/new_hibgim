@@ -10,30 +10,32 @@ class js_dir2 extends SingleLib{
 
 	function AjaxExec($Params=null){
 
-		if($Params["action"] == "checkWritable"){
+		/*if($Params["action"] == "checkWritable"){
 			if(Oxs::G("file")->ifWritable($Params["path"])){
 				$this->SetAjaxCode(1);			
 			}else{
 				$this->SetAjaxCode(0);
 			}
+			return ;
+		}*/
+
+		/*if(!Oxs::G("file")->ifWritable($Params["path"])){
+			$this->SetAjaxCode(0); return ;			
+		}*/	
+
+		//	Копируем
+		Oxs::G("file")->copy($_FILES["OXS_DIR2_FILE"]["tmp_name"],$_POST["OXS_DIR2_FILE_PATH"]."/".$_FILES["OXS_DIR2_FILE"]["name"]);
+
+
+		//	Проверяем скопировался ли
+		if(Oxs::G("logger")->Get("FILE.ERROR")){
+			//	Есть ошибка
+			$this->setAjaxCode(-1);
+		}else{
+			$this->setAjaxCode(1);
 		}
 
-		echo "Хуй";
-
-		Oxs::G("BD")->Start();
-
-		print_r($_FILES);
 		
-
-		echo "----------------------------------<br>";
-
-		print_r($_POST);
-		
-
-		Oxs::G("file")->copy($_FILES["OXS_DIR2_FILE"]["tmp_name"],$_POST["OXS_DIR2_FILE_PATH"]."/".$_FILES["OXS_DIR2_FILE"]["name"]);
-		
-
-		$this->Msg(Oxs::G("BD")->getEnd(),"MESSAGE");
 	}
 
 	

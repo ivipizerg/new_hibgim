@@ -11,8 +11,8 @@
 		echo "".$Temp."";		
 
 		echo " Верся OXS: ";
-		echo "".$Cfg->Get("Version",OXS_PATH."/version.php")."";
-		echo "<i> (".$Cfg->Get("Data",OXS_PATH."/version.php").")</i>";
+		echo "".$Cfg->Get("Version",Oxs::getOxsPath()."/version.php")."";
+		echo "<i> (".$Cfg->Get("Data",Oxs::getOxsPath()."/version.php").")</i>";
  		
  		echo "</div></div>";	
 	}
