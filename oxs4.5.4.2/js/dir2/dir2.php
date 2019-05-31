@@ -23,8 +23,11 @@ class js_dir2 extends SingleLib{
 			$this->SetAjaxCode(0); return ;			
 		}*/	
 
+		//	Ищем свободное имечко
+		$Name = Oxs::G("file")->GetFreeName($_FILES["OXS_DIR2_FILE"]["name"],$_POST["OXS_DIR2_FILE_PATH"]."/");
+
 		//	Копируем
-		Oxs::G("file")->copy($_FILES["OXS_DIR2_FILE"]["tmp_name"],$_POST["OXS_DIR2_FILE_PATH"]."/".$_FILES["OXS_DIR2_FILE"]["name"]);
+		Oxs::G("file")->copy($_FILES["OXS_DIR2_FILE"]["tmp_name"],$_POST["OXS_DIR2_FILE_PATH"]."/".$Name);
 
 
 		//	Проверяем скопировался ли
@@ -32,10 +35,11 @@ class js_dir2 extends SingleLib{
 			//	Есть ошибка
 			$this->setAjaxCode(-1);
 		}else{
+			//	Сохраняем имя сохраненного файла
+			$this->setAjaxData("file_name",$Name);
+			$this->setAjaxData("first_name_file_name",$_POST["OXS_DIR2_FILE_PATH"]);
 			$this->setAjaxCode(1);
-		}
-
-		
+		}		
 	}
 
 	

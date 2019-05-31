@@ -1,5 +1,7 @@
 function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uploads){
 	
+	console.log("-------------------------------js_dir2");
+
 	var _this = this;
 
 	Post_max_size = parseInt(Post_max_size) * 1024 * 1024;
@@ -20,6 +22,16 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 	}*/
 
 	this.bind = function(oxs_class,events_object){
+
+		//	Очистим собятия если они уже были
+		js_dir2_events.clear(oxs_class,"change");
+		js_dir2_events.clear(oxs_class,"dragenter");
+		js_dir2_events.clear(oxs_class,"dragover");
+		js_dir2_events.clear(oxs_class,"dragleave");
+		js_dir2_events.clear(oxs_class,"drop");
+		/////////////////////////////////////////////////////////////
+
+		console.log("-------------------------------js_dir2_иштв");
 
 		js_dir2_events.add(oxs_class,"change",function(e){
 			if(log)console.log("Файлы выбраны");

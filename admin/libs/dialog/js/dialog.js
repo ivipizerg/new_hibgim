@@ -1,5 +1,7 @@
 oxs_dialog_js_dialog = function(form,ui_name){	
 
+	console.log("-------------------------------dialog");
+
 	var _this = this;
 	this.content = "";
 
@@ -15,7 +17,9 @@ oxs_dialog_js_dialog = function(form,ui_name){
 		window["dialog_window_" + ui_name].stick("center","center");		
 		
 		oxs_black_screen.addCode(function(){
-			window["dialog_window_" + ui_name].hide();
+			window["dialog_window_" + ui_name].destroy();
+			window["dialog_window_" + ui_name] = null;
+			delete window["dialog_window_" + ui_name];
 		},"dialog");
 	}
 

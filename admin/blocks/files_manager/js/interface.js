@@ -1,6 +1,7 @@
-oxs_files_manager_js_interface = function(dialog,Dir,language){
+oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 
 		console.log("Интерфес получен");
+		console.log("-------------------------------interface");
 
 		//	Распаковываем форму диалога
 		dialog.build();			
@@ -36,13 +37,24 @@ oxs_files_manager_js_interface = function(dialog,Dir,language){
 				console.log("Файлы проверены, можем сохранять");		
 				
 				js_dir2.saveAllFiles(Dir,{
-					status: function(e,i){					
+					status: function(e,i){	
+
+						if(window[obj].status!=undefined)
+						if(window[obj].status(e,i)==false){
+							return ;
+						}
+
 						dialog.set("Загрузка...<br>файл " + (i+1) + " из " + massiv.length  + " <br><div class=oxs_dialog_load_files_status_bar><div class=oxs_dialog_load_files_status_bar_inner></div></div><div class=oxs_dialog_load_files_status_bar_percent></div>"  );					
 						jQuery(".oxs_dialog_load_files_status_bar_inner").css("width",Math.round((e.loaded/e.total) * 100) + "%");
 						jQuery(".oxs_dialog_load_files_status_bar_percent").html(Math.round((e.loaded/e.total) * 100) + "%");
 					},
-					success: function(e){	
-						
+					success: function(e){
+
+						if(window[obj].success!=undefined)
+						if(window[obj].success(e)==false){
+							return ;
+						}						
+
 						if(e.Code==-1){							
 							oxs_message.show(language.DIR_IS_NOT_WRITABLE);
 						}else{
@@ -52,7 +64,10 @@ oxs_files_manager_js_interface = function(dialog,Dir,language){
 						oxs_black_screen.Off();	
 					},
 					error: function(e){
-
+						if(window[obj].error!=undefined)
+						if(window[obj].error(e)==false){
+							return ;
+						}						
 					}
 				});				
 			},
@@ -75,6 +90,15 @@ oxs_files_manager_js_interface = function(dialog,Dir,language){
 				
 			files_manager_js_interface=null;
 			delete files_manager_js_interface;
+
+			_dialog = null;
+			delete _dialog;
+
+			files_manager_js_interface = null;
+			delete files_manager_js_interface;
+
+			js_dir2 = null
+			delete js_dir2;
 
 		},"files_manager_js_interface");
 		

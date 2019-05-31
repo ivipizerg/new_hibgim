@@ -19,6 +19,7 @@
 		function Exec(){
 
 			$Dir = $this->getP("dir");
+			$object = $this->getP("object");
 			
 			$name = $Params["name"]."_dialog";			
 
@@ -46,6 +47,7 @@
 			
 			Oxs::G("oxs_obj")->G("files_manager.js:interface",array( 				
 				"notString:".$D->getObjectName(),
+				$object,
 				$Dir,
 				array( 
 					"DIR_IS_NOT_WRITABLE" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("DIR_IS_NOT_WRITABLE") ) ,

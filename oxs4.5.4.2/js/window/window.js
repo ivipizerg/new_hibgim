@@ -1,5 +1,7 @@
 function oxs_js_window(log){	
 
+	console.log("-------------------------------window");
+
 	var _this=this;
 	
 	////////////////////////////////////////////////////////////	
@@ -43,6 +45,10 @@ function oxs_js_window(log){
 
 	this.get = function(){
 		return this.w.html();
+	}
+
+	this.destroy=function(){
+		this.w.remove();
 	}
 
 	this.setName = function(name){
