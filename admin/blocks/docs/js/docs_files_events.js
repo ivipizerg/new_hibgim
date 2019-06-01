@@ -1,4 +1,9 @@
-oxs_docs_js_docs_files_events = function(){
+oxs_docs_js_docs_files_events = function(Data){
+
+	//	Активируем сортировку
+	$( ".docs_files_board_add_files_sortable" ).sortable({
+      revert: true
+    });
 	
 	oxs_events.add(".docs_files_board_add_files","click",function(){ 		
 		
@@ -12,7 +17,8 @@ oxs_docs_js_docs_files_events = function(){
 
 	//	события загрузки
 	this.success = function(e){
-		
+		console.log(Data);
+		jQuery(".docs_files_board_add_files_sortable").append("<div style='margin-top:5px;margin-bottom:5px;'><table border=0 width=100%><tr><td width=80%><input type=text class=form-control value=\"" + e.Data["file_name"] + "\" ></td><td width=10% align=center><img class=docs_files_board_add_files_sortable_img width=20 style='' src=" + Data["upDown"] + "> </td><td width=10% align=center><img  class=docs_files_board_add_files_sortable_img_close width=30 style='' src=" + Data["close"] + "> </td></tr></table></div>");
 	}
 
 	/*this.start = function(){

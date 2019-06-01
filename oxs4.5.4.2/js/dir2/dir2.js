@@ -1,6 +1,4 @@
-function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uploads){
-	
-	console.log("-------------------------------js_dir2");
+function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uploads){	
 
 	var _this = this;
 
@@ -29,9 +27,7 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 		js_dir2_events.clear(oxs_class,"dragover");
 		js_dir2_events.clear(oxs_class,"dragleave");
 		js_dir2_events.clear(oxs_class,"drop");
-		/////////////////////////////////////////////////////////////
-
-		console.log("-------------------------------js_dir2_иштв");
+		/////////////////////////////////////////////////////////////		
 
 		js_dir2_events.add(oxs_class,"change",function(e){
 			if(log)console.log("Файлы выбраны");

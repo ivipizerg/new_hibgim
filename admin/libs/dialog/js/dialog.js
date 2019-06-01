@@ -1,6 +1,4 @@
-oxs_dialog_js_dialog = function(form,ui_name){	
-
-	console.log("-------------------------------dialog");
+oxs_dialog_js_dialog = function(form,ui_name){		
 
 	var _this = this;
 	this.content = "";

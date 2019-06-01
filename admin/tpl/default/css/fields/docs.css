@@ -1,5 +1,5 @@
 .docs_files_board_main{
-	border: 1px solid red;
+	//border: 1px solid red;
 	width: 100%;
 }
 
@@ -8,3 +8,10 @@
 	width: 100%;
 }
 
+.docs_files_board_add_files_sortable_img:hover{
+	cursor: move;
+}
+
+.docs_files_board_add_files_sortable_img_close{
+	cursor: pointer;
+}
