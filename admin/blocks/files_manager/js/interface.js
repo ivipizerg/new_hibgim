@@ -47,7 +47,8 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 						jQuery(".oxs_dialog_load_files_status_bar_inner").css("width",Math.round((e.loaded/e.total) * 100) + "%");
 						jQuery(".oxs_dialog_load_files_status_bar_percent").html(Math.round((e.loaded/e.total) * 100) + "%");
 					},
-					success: function(e){						
+					
+					success: function(e){	
 
 						if(window[obj].success!=undefined)
 						if(window[obj].success(e)==false){
@@ -55,26 +56,30 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 						}	
 
 						if(e.Code==-1){							
-							oxs_black_screen.Off();		
+							oxs_black_screen.Off();								
 							oxs_message.show(language.DIR_IS_NOT_WRITABLE);
+							return false;
 						}						
-					},
+					},					
+					
 					error: function(e){
 						if(window[obj].error!=undefined)
 						if(window[obj].error(e)==false){
 							return ;
-						}						
+						}										
 					},
+					
+					end: function(e){							
 
-					end: function(e){						
-						
 						if(window[obj].end!=undefined)
 						if(window[obj].end(e)==false){
 							return ;
 						}	
 
-						oxs_message.show(language.SUCCESS_UPLOAD);
-						oxs_black_screen.Off();							
+						if(e==null){
+							oxs_message.show(language.SUCCESS_UPLOAD);
+							oxs_black_screen.Off();		
+						}																					
 					}
 				});				
 			},

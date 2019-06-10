@@ -73,7 +73,9 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 	    window[aj_name].sendForm("js.dir2",form,{
 	    	
 	    	success: function(e){	    		
-	    		if(callbakcs.success!=undefined) callbakcs.success(e);
+	    		if(callbakcs.success!=undefined){
+	    			if(callbakcs.success(e)==false) { if(callbakcs.end!=undefined) callbakcs.end(e); return; }
+	    		}
 	    		if(next)_this.saveAllFiles(Path,callbakcs,false);	    		    
 	    	},
 
@@ -94,7 +96,7 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 		if(first){ _this.i = 0; }
 		if(callbakcs==undefined) callbakcs = {};	
 		if( _this.i >= _this.FilesMassiv.length){
-			if(callbakcs.end!=undefined)callbakcs.end();
+			if(callbakcs.end!=undefined)callbakcs.end(null);
 			return;
 		}
 		_this.saveFile(Path,_this.i++,callbakcs,true);

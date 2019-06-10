@@ -10,19 +10,6 @@ class js_dir2 extends SingleLib{
 
 	function AjaxExec($Params=null){
 
-		/*if($Params["action"] == "checkWritable"){
-			if(Oxs::G("file")->ifWritable($Params["path"])){
-				$this->SetAjaxCode(1);			
-			}else{
-				$this->SetAjaxCode(0);
-			}
-			return ;
-		}*/
-
-		/*if(!Oxs::G("file")->ifWritable($Params["path"])){
-			$this->SetAjaxCode(0); return ;			
-		}*/	
-
 		//	Ищем свободное имечко
 		$Name = Oxs::G("file")->GetFreeName($_FILES["OXS_DIR2_FILE"]["name"],$_POST["OXS_DIR2_FILE_PATH"]."/");
 
@@ -37,7 +24,7 @@ class js_dir2 extends SingleLib{
 		}else{
 			//	Сохраняем имя сохраненного файла
 			$this->setAjaxData("file_name",$Name);
-			$this->setAjaxData("first_name_file_name",$_POST["OXS_DIR2_FILE_PATH"]);
+			$this->setAjaxData("original_file_name",$_FILES["OXS_DIR2_FILE"]["name"]);
 			$this->setAjaxCode(1);
 		}		
 	}
