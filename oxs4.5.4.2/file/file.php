@@ -96,7 +96,9 @@
 
 			if(!is_dir(Oxs::GetBack().$Path)){
 				$this->Msg("Не найдена указанная директория " . $Path,"ERROR");
-			}	
+			}
+
+			$Path=$Path."/";	
 			
 			$FilesName=Oxs::GetLib("url")->GetName($Name);
 			$FilesExt=Oxs::GetLib("url")->GetExt($Name);
@@ -115,6 +117,8 @@
 				}
 			}
 			
+			$this->Msg("Найдено свободное имя " . $Tmp , "MESSAGE");
+
 			return $Tmp;
 		}
 			
@@ -157,18 +161,21 @@
 			}
 
 			//	Перезаписать файл если он есть
-			if($Rewrite===true){
+			if($Rewrite==true){
 				@unlink($path);
+			}else{
+				//	Если файл уже есть и перезапись не указана пишем ероро
+				if(is_file($path)){
+					$this->Msg("Файл ".(Oxs::G("url")->GetName($Name))." уже существует ","ERROR");
+					return false;
+				}
 			}
-
-			//echo $New_Name;
-
-			//echo "[".$Name."]";
-			//echo "[".$path."]";
-
+			
+			//	Копируем
 			copy($Name,$path);
-			if(is_file($path)){$this->Msg("Файл ".$Name." успешно скопирован под именем ".$path,"GOOD"); return 0;}
-			else{$this->Msg("Файл ".$Name."  не скопирован ","ERROR"); return falce;}
+
+			if(is_file($path)){$this->Msg("Файл ".$Name." успешно скопирован под именем ".$path,"GOOD"); return true;}
+			else{$this->Msg("Файл ".$Name."  не скопирован ","ERROR"); return false;}
 		}
 
 		function DeleteFile($Name){

@@ -52,13 +52,30 @@
 
 		function DataProcessing($Data){		
 
-			return Oxs::G("content_table.main_table:tools")->loadContentByJSONId($Data,"tags","#__doc_tags",
-				function($tag){
+			//	Замеянем id тегов на их названия
+			$Data = Oxs::G("content_table.main_table:tools")->loadContentByJSONId($Data,"tags","#__doc_tags",
+				function($tag){	
 					return  mb_strimwidth($tag["name"],0,15,"...") . ",";
-				},function($str){
-					return mb_strimwidth(rtrim($str,","),0,45,"...");
+				},function($str){					
+					if(empty($str)) return Oxs::G("languagemanager")->T("TAG_EMPTY");	
+					else return rtrim($str,",");	;				
 				}
 			);
+
+			//	Делаем читабельынй вывод файлов			
+			for($i=0;$i<count($Data);$i++){				
+
+				$Files = Oxs::G("JSON.IDE")->JSON()->D($Data[$i]["files"]);
+				
+				$Data[$i]["files"]="";
+				if($Files)
+				for($j=0;$j<count($Files);$j++){
+					$Data[$i]["files"] .= $Files[$j]->oroginal_name.",";
+				}	
+				$Data[$i]["files"] = rtrim($Data[$i]["files"],",");				
+			}
+
+			return $Data;
 		}
 
 		function FieldsProcessing($Fields){

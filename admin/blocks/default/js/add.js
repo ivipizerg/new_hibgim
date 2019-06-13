@@ -4,8 +4,7 @@
   		
   	oxs_events.add(".oxs_active","click",function(){ 	
 
-		params = storage.get("data");
-	 	if(params==undefined)params = {}; 		
+		params = {}; 		
 
 		jQuery(".oxs_fields_table .oxs_field_value").each(function(E){
 			//	Если есть класс auto_clear_ch занчит поле пустое, там значенеи посдказка

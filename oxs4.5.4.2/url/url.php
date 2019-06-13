@@ -36,33 +36,16 @@ class url extends SingleLib {
 
 		//	Имя файла не обязательно должно иметь расширение
 		function GetName($Url=NULL){
-			if($Url==NULL) $Url=$this->getUrl();
-			$Url_o=$Url;
-			//	Рвем строку по знаку вопроса
-			$Url = explode("?",$Url);
-			//	РВем по слешам
-			$Url = explode("/",$Url[0]);
-			//	Рвем по точке
-			$Url = explode(".",$Url[count($Url)-1]);
-
-			//echo "Исходный: " .$Url_o . " :::: ".$Url[0]."<br>";	 
-
-			return $Url[0];			
+			if($Url==NULL) $Url=$this->getUrl();			
+			$File_info = pathinfo($Url);			
+			return $File_info['filename'] ;			
 		}
 
 		function GetExt($Url=NUL){
 			if($Url==NULL) $Url=$this->getUrl();
 			
-			$Url_o=$Url;
-			//	Рвем строку по знаку вопроса
-			$Url = explode("?",$Url);
-			//	РВем по слешам
-			$Url = explode("/",$Url[0]);
-			//	Рвем по точке
-			$Url = explode(".",$Url[count($Url)-1]);
-
-			//echo "Исходный: " .$Url_o . " :::: ".$Url[1]."<br>";	 		
-			if($Url[1]!="") return $Url[1]; else return null;		
+			$File_info = pathinfo($Url);			
+			return $File_info['extension'] ;		
 		}
 	}
 ?>

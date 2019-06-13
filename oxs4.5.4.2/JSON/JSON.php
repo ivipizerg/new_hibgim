@@ -48,7 +48,7 @@
 		}
 
 		static function D($JSON){
-			return json_encode($JSON);
+			return json_decode($JSON);
 		}
 
 	}

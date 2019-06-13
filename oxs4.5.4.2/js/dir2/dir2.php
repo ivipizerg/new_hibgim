@@ -16,7 +16,6 @@ class js_dir2 extends SingleLib{
 		//	Копируем
 		Oxs::G("file")->copy($_FILES["OXS_DIR2_FILE"]["tmp_name"],$_POST["OXS_DIR2_FILE_PATH"]."/".$Name);
 
-
 		//	Проверяем скопировался ли
 		if(Oxs::G("logger")->Get("FILE.ERROR")){
 			//	Есть ошибка

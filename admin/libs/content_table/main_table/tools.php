@@ -29,19 +29,18 @@
 			$tags = Oxs::G("DBLIB.IDE")->DB()->Exec( "SELECT * FROM `oxs:sql` WHERE `id` IN(".( implode($uniquie_id,",")).")" , $table);
 			for($i=0;$i<count($tags);$i++){
 				$tags_s[$tags[$i]["id"]] = $foo($tags[$i]);
-			}
-			
+			}			
 
 			for($i=0;$i<$c;$i++){
 				
-				if(empty($Data[$i][$field])){ $Data[$i][$field] = Oxs::G("languagemanager")->T("TAG_EMPTY"); continue; }	
+				if(empty($Data[$i][$field])){ $Data[$i][$field] = $foo_all($Data[$i][$field]);	continue; }	
 				$Tmp = Oxs::G("JSON.IDE")->JSON()->GetFromJSON($Data[$i][$field]);		
 				$Data[$i][$field] = ""; 
 				
 				for($j=0;$j<count($Tmp);$j++){
 					$Data[$i][$field] .= $tags_s[$Tmp[$j]];					
 				}
-
+				
 				if($foo_all!=null)
 					$Data[$i][$field] = $foo_all($Data[$i][$field]);		
 			}
