@@ -69,14 +69,22 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 	    
 	    form.append('OXS_DIR2_FILE', _this.FilesMassiv[i]); // Прикрепляем к форме файл
 	    form.append("OXS_DIR2_FILE_PATH" , Path);
+
+	      $( ".docs_files_board_add_files_sortable" ).sortable({
+	      revert: true,
+	      change : function(){
+	      	console.log("asd");
+	      	//files_manager_js_interface.updateList();
+	      }
+		});
 	   
-	    window[aj_name].sendForm("js.dir2",form,{
-	    	
-	    	success: function(e){	    		
+	    window[aj_name].sendForm("js.dir2",form,{	    	
+	    	success: function(e){	 
+
 	    		if(callbakcs.success!=undefined){
 	    			if(callbakcs.success(e)==false) { if(callbakcs.end!=undefined) callbakcs.end(e); return; }
 	    		}
-	    		if(next)_this.saveAllFiles(Path,callbakcs,false);	    		    
+	    		if(next)_this.saveAllFiles(Path,callbakcs,false);	   		    
 	    	},
 
 	    	status: function(e){

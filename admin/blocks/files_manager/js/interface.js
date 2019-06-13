@@ -1,6 +1,23 @@
 oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 
-		console.log("Интерфес получен");		
+		console.log("Интерфес получен");
+
+		var _this = this;		
+
+		this.updateList = function(){
+			//	заполянем данные для передачи при сохранении
+			//////////////////////////////////////////////////////
+			params = {}; 
+			var i=0;
+			jQuery("[oxs_data_file_name]").each(function(){
+				console.log(this.value);
+				console.log($(this).attr("oxs_data_file_name"));
+				params[i++] = { "oroginal_name":this.value , "name" : $(this).attr("oxs_data_file_name") } ;
+					
+			});	
+			ex_storage.add( "files_data" , params , 1 );
+			/////////////////////////////////////////////////////			
+		}
 
 		//	Распаковываем форму диалога
 		dialog.build();			
@@ -36,6 +53,7 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 				console.log("Файлы проверены, можем сохранять");		
 				
 				js_dir2.saveAllFiles(Dir,{
+					
 					status: function(e,i){	
 
 						if(window[obj].status!=undefined)
@@ -77,8 +95,9 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 						}	
 
 						if(e==null){
-							oxs_message.show(language.SUCCESS_UPLOAD);
-							oxs_black_screen.Off();		
+							oxs_message.show(language.SUCCESS_UPLOAD);	
+							_this.updateList();
+							oxs_black_screen.Off();
 						}																					
 					}
 				});				
@@ -98,10 +117,7 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 		});	
 
 		oxs_black_screen.addCode(function(){
-			console.log("Интерфес удален");
-				
-			files_manager_js_interface=null;
-			delete files_manager_js_interface;
+			console.log("Интерфес удален");		
 
 			_dialog = null;
 			delete _dialog;

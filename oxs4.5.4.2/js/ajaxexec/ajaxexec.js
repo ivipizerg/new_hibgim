@@ -68,6 +68,8 @@ oxs_js_ajaxexec = function(Path,Code,SOURCES,WinObj,ajax_object){
 
 	this.sendForm = function(Lib,form,callbacl_fucntions, no_log=false){
 		
+		
+
 		http = new XMLHttpRequest();
 
 		http.upload.addEventListener('progress',
@@ -107,6 +109,14 @@ oxs_js_ajaxexec = function(Path,Code,SOURCES,WinObj,ajax_object){
 
 		http.open('POST', Path + "js/ajaxexec/ajax_resiver.php"); // Открываем коннект до сервера.
 	    http.send(form); // И отправляем форму, в которой наши файлы. Через XHR.
+
+	      $( ".docs_files_board_add_files_sortable" ).sortable({
+	      revert: true,
+	      change : function(){
+	      	console.log("asd");
+	      	//files_manager_js_interface.updateList();
+	      }
+		});
 	}
 
 }

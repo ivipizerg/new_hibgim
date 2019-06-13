@@ -19,11 +19,14 @@
 		function Exec(){
 
 			$Dir = $this->getP("dir");
-			$object = $this->getP("object");
+			$object = $this->getP("controller");
 			
 			$name = $Params["name"]."_dialog";			
 
 			Oxs::G("BD")->Start();
+
+			Oxs::G("dom")->JQ();
+			Oxs::G("dom")->Ui();
 
 			//	Диалог
 			$D = Oxs::L("dialog");
@@ -32,8 +35,7 @@
 			$D->addHtml("<div class=oxs_dialog_load_files_zone><input ".$this->getP("multiple")." class=oxs_dialog_load_files_zone_input type=file><div class=oxs_dialog_load_files_zone_text>".Oxs::G("languagemanager")->T("SELECT_FILE_TO_DOWNLOAD")."</div></div>");
 			
 			//	Строим димлог
-			echo $D->build();
-			
+			echo $D->build();	
 
 			//	Создаем обьект для работы с файлами
 			Oxs::G("js.dir2")->GetObject( "js_dir2" , array( "window_name" => "aj_auth" ));
