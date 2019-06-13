@@ -2,7 +2,21 @@ oxs_docs_js_docs_files_events = function(Data){
 
 	var _this = this;
 
-	console.log("1");	
+	this.updateList = function(){
+		
+		//	заполянем данные для передачи при сохранении
+		//////////////////////////////////////////////////////
+		params = {}; 
+		var i=0;
+		jQuery("[oxs_data_file_name]").each(function(){
+			console.log(this.value);
+			console.log($(this).attr("oxs_data_file_name"));
+			params[i++] = { "oroginal_name":this.value , "name" : $(this).attr("oxs_data_file_name") } ;
+				
+		});	
+		ex_storage.add( "files_data" , params , 1 );
+		/////////////////////////////////////////////////////			
+	}	
 	
 	oxs_events.add(".docs_files_board_add_files","click",function(){ 		
 		
@@ -23,15 +37,17 @@ oxs_docs_js_docs_files_events = function(Data){
 
 	this.end = function(){
 
-	/*$( ".docs_files_board_add_files_sortable" ).sortable({
-	      revert: true,
-	      change : function(){
-	      	console.log("asd");
-	      	//files_manager_js_interface.updateList();
-	      }
-		});*/
+		_this.updateList();
 
-		
+		jQuery(function(){
+			jQuery( ".docs_files_board_add_files_sortable" ).sortable({
+		    	revert: true,
+		    	change : function(){		     		
+		      		_this.updateList();
+		    	}
+			});
+		});
+
 	}
 
 	/*this.status = function(){

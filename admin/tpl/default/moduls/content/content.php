@@ -15,9 +15,8 @@
 
 		?>
 
-		<div class=container_for_load_content></div>
 		<div class=oxs_main_container_dialog></div>
-		
+		<div class=container_for_load_content></div>
 
 		<?php
 

@@ -4,21 +4,6 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 
 		var _this = this;		
 
-		this.updateList = function(){
-			//	заполянем данные для передачи при сохранении
-			//////////////////////////////////////////////////////
-			params = {}; 
-			var i=0;
-			jQuery("[oxs_data_file_name]").each(function(){
-				console.log(this.value);
-				console.log($(this).attr("oxs_data_file_name"));
-				params[i++] = { "oroginal_name":this.value , "name" : $(this).attr("oxs_data_file_name") } ;
-					
-			});	
-			ex_storage.add( "files_data" , params , 1 );
-			/////////////////////////////////////////////////////			
-		}
-
 		//	Распаковываем форму диалога
 		dialog.build();			
 		
@@ -95,8 +80,7 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 						}	
 
 						if(e==null){
-							oxs_message.show(language.SUCCESS_UPLOAD);	
-							_this.updateList();
+							oxs_message.show(language.SUCCESS_UPLOAD);								
 							oxs_black_screen.Off();
 						}																					
 					}
@@ -119,13 +103,13 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 		oxs_black_screen.addCode(function(){
 			console.log("Интерфес удален");		
 
-			_dialog = null;
+			_dialog = undefined;
 			delete _dialog;
 
-			files_manager_js_interface = null;
+			files_manager_js_interface = undefined;
 			delete files_manager_js_interface;
 
-			js_dir2 = null
+			js_dir2 = undefined
 			delete js_dir2;
 
 		},"files_manager_js_interface");

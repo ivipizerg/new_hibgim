@@ -20,16 +20,17 @@
 
           Oxs::G("BD")->Start();          
 
-          if(!empty($_POST["oxs_system_ajax_data"]["Code"]))Oxs::G($_POST["oxs_system_ajax_data"]["Code"])->AjaxExec($_POST["P"]);
-          
+          if(!empty($_POST["oxs_system_ajax_data"]["Code"]))Oxs::G($_POST["oxs_system_ajax_data"]["Code"])->AjaxExec($_POST["P"]);          
           Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->AjaxExec($_POST["P"]);
-          $Return = Oxs::G("BD")->GetEnd();        
 
+          $Return = Oxs::G("BD")->GetEnd();
           $JSON->Add( $Return , "value" );
+
           $JSON->Add( Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxCode($_POST["P"]) , "code" );
 
           $C=Oxs::L("calendar");
           $JSON->Add( "[".$C->GetDataTime()."] Ответ из: ".$_POST["oxs_system_ajax_data"]["Lib"] . "<br>Параметры:".($JSON->GetFromText($_POST["P"]))." <br>Код возврата: ". Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxCode($_POST["P"]) ."<br>". Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxText($_POST["P"]) , "logger" ); 
+
           $JSON->Add( "". Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxText($_POST["P"]) , "ErrorText" ); 
           $JSON->Add( Oxs::G($_POST["oxs_system_ajax_data"]["Lib"])->GetAjaxData() , "AjaxData" ); 
          

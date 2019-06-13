@@ -31,6 +31,7 @@ oxs_logger_debug_window = function(Name, header){
 	}
 
 	this.insert = function(info){
+
 		//	мы должны хранить 3 последних запроса по этому доабвляем новый в коцне удаляем первый если их 4 или больше	
 		jQuery(".id_window_" + ( window[this.WinObj].uiid ) + ":first" ).before("<div class=id_window_" + ( window[this.WinObj].uiid ) + ">" + info + "<hr></div>");
 			

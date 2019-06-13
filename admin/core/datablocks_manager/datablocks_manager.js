@@ -46,7 +46,7 @@ oxs_datablocks_manager = function(){
                     _this._ExecBlock( Input.Data["nextStep"] , Param , "admin/" + Input.Data["nextStep"] + ".html" , false ,true);                     
                //   Диалог
                }else if(Input.Code==2){ 
-                     jQuery(".oxs_main_container_dialog").append(  Input.Data["dialog"] );  
+                     jQuery(".oxs_main_container_dialog").html(  Input.Data["dialog"] );  
                }else{                    
                     H.GoTo(function(){                           
                          

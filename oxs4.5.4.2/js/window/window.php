@@ -5,9 +5,18 @@ if(!defined("OXS_PROTECT"))die("Wrong start point");
 class js_window extends SingleLib{
 
 	function __construct($_Path,$Params=null){
+		parent::__construct($_Path,$Params);		
+	}
+	
+	protected function CheckErrors(){
+		if(Oxs::G("logger")->Get("js_loader.ERROR")){			
+			echo false;
+		}else{
+			return true;
+		}		
+	}
 
-		parent::__construct($_Path,$Params);
-
+	protected function Init(){
 		$D=Oxs()->GetLib("dom");
 		$D->jQuery();			
 
@@ -26,17 +35,11 @@ class js_window extends SingleLib{
 		Oxs::G("js.loader")->GetObject("js.window:black_screen" , $Param  , "oxs_black_screen" );
 		$this->Css("black_screen");		
 	}
-	
-	protected function CheckErrors(){
-		if(Oxs::G("logger")->Get("js_loader.ERROR")){			
-			echo false;
-		}else{
-			return true;
-		}		
-	}
 
 	function Inlcude($Param=null){	
 		
+		$this->Init();
+
 		//	Подключить ядро билиотеки
 		Oxs::G("js.loader")->IncludeObject("js.window");		
 
@@ -44,6 +47,8 @@ class js_window extends SingleLib{
 	}
 
 	function GetObject($Name="js_window",$Param=null){	
+
+		$this->Init();
 
 		//	Подключить ядро билиотеки
 		Oxs::G("js.loader")->GetObject("js.window",$Param,$Name);			

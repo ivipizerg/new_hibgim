@@ -28,6 +28,7 @@ class dom extends SingleLib{
 
 	function Ui(){
 		if($this->UI!=1){
+			$this->jQuery();
 			$this->Msg("Подключаю Ui","MESSAGE");				
 			$this->LoadJsOnce( $this->Path ."/dom/UI1.12.1.js");			
 		}

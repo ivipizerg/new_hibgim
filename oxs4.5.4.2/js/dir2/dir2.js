@@ -68,15 +68,7 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 	    console.log("Название: " + _this.FilesMassiv[i].name);
 	    
 	    form.append('OXS_DIR2_FILE', _this.FilesMassiv[i]); // Прикрепляем к форме файл
-	    form.append("OXS_DIR2_FILE_PATH" , Path);
-
-	      $( ".docs_files_board_add_files_sortable" ).sortable({
-	      revert: true,
-	      change : function(){
-	      	console.log("asd");
-	      	//files_manager_js_interface.updateList();
-	      }
-		});
+	    form.append("OXS_DIR2_FILE_PATH" , Path);	    
 	   
 	    window[aj_name].sendForm("js.dir2",form,{	    	
 	    	success: function(e){	 
@@ -101,6 +93,7 @@ function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uplo
 	////////////////////////////////////////////////////////////
 	this.i=0;
 	this.saveAllFiles = function(Path,callbakcs,first=true){	
+
 		if(first){ _this.i = 0; }
 		if(callbakcs==undefined) callbakcs = {};	
 		if( _this.i >= _this.FilesMassiv.length){
