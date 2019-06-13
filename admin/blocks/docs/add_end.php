@@ -15,6 +15,31 @@
 			//	Обрабатывам файлы
 			print_r($this->getP("files_data"));
 
+			for($i=0;$i<count($this->getP("files_data"));$i++){
+				//	Ищем свободное имечко
+				$Name = Oxs::G("file")->GetFreeName($this->getP("files_data")[$i]["name"],"files");
+
+				//	Копируем
+				Oxs::G("file")->copy("files/tmp/".$this->getP("files_data")[$i]["name"],"files/".$Name);
+
+				$Tmp[$i]["oroginal_name"] =  $this->getP("files_data")[$i]["oroginal_name"];
+				$Tmp[$i]["name"] = $Name;
+			}
+
+			//	Проверяем все ли скопировано
+			if(Oxs::G("logger")->get("ERROR")){
+				$this->setAjaxCode(-1);
+				$this->SetAjaxText("Ошибка при копировании файлов");
+				return ;
+			}else{
+				//	Если все скопировалось без проблем удаляем временные файлы
+				for($i=0;$i<count($this->getP("files_data"));$i++){
+					//	Ищем свободное имечко
+					$Name = Oxs::G("file")->Delete("files/tmp/".$this->getP("files_data")[$i]["name"]);
+				}
+			}
+
+			//	Копируем в место постоянного хранения
 
 			//parent::Exec();
 

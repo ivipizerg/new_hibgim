@@ -8,9 +8,7 @@ oxs_docs_js_docs_files_events = function(Data){
 		//////////////////////////////////////////////////////
 		params = {}; 
 		var i=0;
-		jQuery("[oxs_data_file_name]").each(function(){
-			console.log(this.value);
-			console.log($(this).attr("oxs_data_file_name"));
+		jQuery("[oxs_data_file_name]").each(function(){			
 			params[i++] = { "oroginal_name":this.value , "name" : $(this).attr("oxs_data_file_name") } ;
 				
 		});	
