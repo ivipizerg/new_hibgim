@@ -12,9 +12,7 @@
 		
 		function Exec(){			
 
-			//	Обрабатывам файлы
-			print_r($this->getP("files_data"));
-
+			//	Обрабатывам файлы		
 			for($i=0,$j=0;$i<count($this->getP("files_data"));$i++){
 				
 				//	Ищем свободное имечко
@@ -22,7 +20,7 @@
 
 				//	Копируем
 				if(Oxs::G("file")->copy("files/tmp/".$this->getP("files_data")[$i]["name"],"files/".$Name)){
-					$Tmp[$j]["oroginal_name"] =  $this->getP("files_data")[$i]["oroginal_name"];
+					$Tmp[$j]["original_name"] =  $this->getP("files_data")[$i]["oroginal_name"];
 					$Tmp[$j++]["name"] = $Name;
 				}else{
 					$this->Msg("Файл ".($this->getP("files_data")[$i]["oroginal_name"])." уже существует или неизвестная ошибка копирования","ERROR");
@@ -46,24 +44,5 @@
 					Oxs::G("file")->Delete("files/tmp/".$this->getP("files_data")[$i]["name"]);
 				}
 			}
-
-			//	Копируем в место постоянного хранения
-
-			//parent::Exec();
-
-			/*if(!Oxs::G("logger")->Get("ERROR")){
-				$this->SetAjaxCode(1);
-
-				if($this->getP("mode_string")["mode"]==2){
-					$this->SetAjaxData("nextStep",Oxs::G("datablocks_manager")->RealCurrentBlockName.":add");
-				}else{
-					$this->SetAjaxData("nextStep",Oxs::G("datablocks_manager")->RealCurrentBlockName);
-				}
-				
-				$this->SetAjaxText(Oxs::G("message_window")->Good(Oxs::G("languagemanager")->T("defaultAddGood")));
-			}else{
-				$this->SetAjaxCode(-1);				
-				$this->SetAjaxText(Oxs::G("message_window")->ErrorUl("ERROR"));
-			}*/
 		}	
 	}

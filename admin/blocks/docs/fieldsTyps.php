@@ -19,12 +19,14 @@
 
 			//	Необходим для сортировки
 			Oxs::G("dom")->UI();
+			Oxs::J("JSON:json",null,"json");
 
 			//	обработчик клика
 			Oxs::G("oxs_obj")->G("docs.js:docs_files_events", array( 
 				array( 
 					"upDown" => Oxs::G("templatemanager:img")->load("file_manager","up_dpwn.png"),
-					"close" => Oxs::G("templatemanager:img")->load("file_manager","close.jpg")  
+					"close" => Oxs::G("templatemanager:img")->load("file_manager","close.jpg")  ,
+					"Data" => addslashes ($Data)
 				) 
 			));			
 

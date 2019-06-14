@@ -70,7 +70,7 @@
 				$Data[$i]["files"]="";
 				if($Files)
 				for($j=0;$j<count($Files);$j++){
-					$Data[$i]["files"] .= $Files[$j]->oroginal_name.",";
+					$Data[$i]["files"] .= $Files[$j]->original_name.",";
 				}	
 				$Data[$i]["files"] = rtrim($Data[$i]["files"],",");				
 			}
