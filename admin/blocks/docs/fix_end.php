@@ -13,7 +13,7 @@
 		function Exec(){				
 
 			//	Разбираемся с файлами
-			for($i=0,$j=0;$i<count($this->getP("files_data"));$i++){
+			for($i=0,$j=0;$i<count($this->getP("files_data"));$i++){				
 
 				echo "files/tmp/".$this->getP("files_data")[$i]["name"];
 
@@ -43,6 +43,6 @@
 			
 			$this->setAjaxCode(3);
 			//$this->setAjaxData("nextStep","");
-			$this->SetAjaxText(Oxs::G("message_window")->ErrorUl("ERROR").Oxs::G("message_window")->GoodUl("GOOD"));			
+			$this->SetAjaxText(Oxs::G("message_window")->ErrorUl("docs_fix_end.ERROR").Oxs::G("message_window")->GoodUl("docs_fix_end.GOOD"));			
 		}	
 	}

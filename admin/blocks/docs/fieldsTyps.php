@@ -27,7 +27,11 @@
 					"upDown" => Oxs::G("templatemanager:img")->load("file_manager","up_dpwn.png"),
 					"close" => Oxs::G("templatemanager:img")->load("file_manager","close.jpg")  ,
 					"Data" => addslashes ($Data)
-				) 
+				) ,
+				array(
+					"FILE_DELETE_SUCCESS" => Oxs::G("message_window")->Good(Oxs::G("languagemanager")->T("FILE_DELETE_SUCCESS")),
+					"FILE_DELETE_FAIL" => Oxs::G("message_window")->Error(Oxs::G("languagemanager")->T("FILE_DELETE_FAIL"))
+				)
 			));			
 
 			return Oxs::G("BD")->getEnd().$Field["description"]."<div class=files_board_tmp_zone></div>
