@@ -50,6 +50,7 @@
 			}				
 		}
 
+		//	Вынуть занчение из команды
 		function EjectValue($Command,$Filter_name){	
 
 			if($Command->Params==NULL) return NULL;
@@ -64,7 +65,7 @@
 		}
 
 		//	command /v1 asd , command2 /v1 wewewe /v2 "asdasd asd"
-		private function ParceFilterString($Param_string){	
+		function ParceFilterString($Param_string){	
 
 			$ReturnCommand;	
 			$g=0;

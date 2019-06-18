@@ -3,6 +3,8 @@ function oxs_js_window_black_screen(log){
 	var _this=this;
 	
 	this.Code = {};
+	this.act = true;
+
 
 	/////////////////////////////////////////////////
 	//	Ведение лога
@@ -10,11 +12,19 @@ function oxs_js_window_black_screen(log){
 	else this.log = false;
 	
 	//	Событие клика на свернутое окошко
-	jQuery("html").on("click",".oxs_window_black_screen",function(){
-		
-		_this.Off();
+	jQuery("html").on("click",".oxs_window_black_screen",function(){		
+		if(_this.act)
+			_this.Off();
 
 	});	
+
+	this.active = function(){
+		_this.act = true;
+	}
+
+	this.deActive = function(){
+		_this.act = false;
+	}
 
 	this.On = function(){
 		jQuery(".oxs_window_black_screen").show();

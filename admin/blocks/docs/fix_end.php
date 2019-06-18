@@ -39,10 +39,8 @@
 			}
 
 			$this->setD("files",Oxs::G("JSON.IDE")->JSON()->E($Tmp));
-			parent::Exec();
+			parent::Exec();			
 			
-			$this->setAjaxCode(3);
-			//$this->setAjaxData("nextStep","");
 			$this->SetAjaxText(Oxs::G("message_window")->ErrorUl("docs_fix_end.ERROR").Oxs::G("message_window")->GoodUl("docs_fix_end.GOOD"));			
 		}	
 	}

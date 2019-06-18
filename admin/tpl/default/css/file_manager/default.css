@@ -1,0 +1,69 @@
+.oxs_dialog_load_files_zone{
+	width: 400px;
+	height: 70px;
+	text-align: center;
+}
+
+
+.oxs_dialog_load_files_zone{	
+	padding: 10px;
+	border: 2px dashed grey;
+	position: relative;		
+	height: 70px;
+}
+
+.oxs_dialog_load_files_zone_hover{	
+	padding: 10px;
+	border: 2px dashed #7CFC00;
+	position: relative;	
+	width: 400px;
+	height: 70px;
+	text-align: center;
+}
+
+.oxs_dialog_load_files_zone_input{
+	opacity: 0;
+	position: absolute;
+	border: 1px solid red;		
+	height: 100%;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+}
+
+.oxs_dialog_load_files_status_bar{
+	width: 250px;
+	height: 20px;
+	margin-top: 10px;
+	border: 1px solid #ccc;
+}
+
+.oxs_dialog_load_files_status_bar_inner{
+	width: 100%;
+	height: 20px;
+	background: #32CD32;
+}
+
+.oxs_dialog_load_files_status_bar_percent{	
+	width: 250px;
+	margin-top: -20px;
+	color: black;
+	font-size: 13px;
+	padding-top:2px; 
+}
+
+.docs_files_board_main{
+	width: 400px;
+	height: 190px;
+	border: 1px solid;
+	overflow-y: scroll;
+	overflow-x:hidden;
+	
+	padding: 5px;
+	border-bottom: 1px solid #ccc;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-image: linear-gradient(to bottom, transparent 20% , #ccc 100% );
+    border-image-slice: 1;
+    padding: 5px;
+}

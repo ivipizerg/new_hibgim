@@ -7,6 +7,10 @@ oxs_dialog_js_dialog = function(form,ui_name){
 		return crypto_base64.D(form);
 	}
 
+	this.getW = function(){
+		return window["dialog_window_" + ui_name];
+	}
+
 	this.build = function(){		
 
 		_this.content = decodeURIComponent(_this.getForm());
@@ -15,9 +19,7 @@ oxs_dialog_js_dialog = function(form,ui_name){
 		window["dialog_window_" + ui_name].stick("center","center");		
 		
 		oxs_black_screen.addCode(function(){
-			window["dialog_window_" + ui_name].destroy();
-			window["dialog_window_" + ui_name] = null;
-			delete window["dialog_window_" + ui_name];
+			window["dialog_window_" + ui_name].hide();			
 		},"dialog");
 	}
 

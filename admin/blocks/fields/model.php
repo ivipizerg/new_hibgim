@@ -20,4 +20,13 @@
 			
 			return null;
 		}
+
+		function findSystemName($Fields,$name){
+			
+			for($i=0;$i<count($Fields);$i++){
+				if(!empty($Fields[$i]["system_name"] == $name )) return $Fields[$i];
+			}
+			
+			return null;
+		}
 	}

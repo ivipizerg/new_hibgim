@@ -44,5 +44,27 @@
 			}
 
 			$this->setAjaxCode(-1);			
+		}
+
+		function Exec(){
+			
+			if($this->getIds()!=null){
+				for($i=0;$i<count($this->getIds());$i++){	
+					
+					//	ПОлучаем данные выбранного обьекта
+					$Current = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__oxs:sql` WHERE `id` = 'oxs:id'" , Oxs::G("datablocks_manager")->RealCurrentBlockName , $this->getIds()[$i])[0];
+
+					//	Удаляем файлы
+					$Files =  Oxs::G("JSON.IDE")->json()->D($Current["files"]);
+
+					if(!empty($Files))
+					for($i=0;$i<count($Files);$i++){
+						Oxs::G("file")->Delete("files/".$Files[$i]->name);
+					}
+					
+				}
+			}
+
+			parent::Exec();
 		}	
 	}

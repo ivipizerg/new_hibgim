@@ -36,13 +36,29 @@ class url extends SingleLib {
 
 		//	Имя файла не обязательно должно иметь расширение
 		function GetName($Url=NULL){
-			if($Url==NULL) $Url=$this->getUrl();			
-			$File_info = pathinfo($Url);			
+			if($Url==NULL) $Url=$this->getUrl();	
+
+			//	!!!СПОРНЫЙ МЕТОД РЕШЕНЯИ ПРОБЕЛМЫ С КИРИЛЛИЦЕЙ!!!
+			setlocale(LC_ALL,'ru_RU.UTF-8');		
+			
+			$File_info = pathinfo($Url);	
+
+			/*Oxs::G("BD")->Start();
+
+			echo $Url;
+
+			var_dump($File_info);
+
+			$this->Msg(Oxs::G("BD")->getEnd(),"MESSAGE");*/
+
 			return $File_info['filename'] ;			
 		}
 
 		function GetExt($Url=NUL){
 			if($Url==NULL) $Url=$this->getUrl();
+			
+			//	!!!СПОРНЫЙ МЕТОД РЕШЕНЯИ ПРОБЕЛМЫ С КИРИЛЛИЦЕЙ!!!
+			setlocale(LC_ALL,'ru_RU.UTF-8');
 			
 			$File_info = pathinfo($Url);			
 			return $File_info['extension'] ;		

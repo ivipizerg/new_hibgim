@@ -24,6 +24,8 @@
 
 		//	Time - секунды
 		function ClearOldFiles($Path,$Time=300){
+			$Path.="/";
+			$this->Msg("Вызвана прцоедура очистки диреткории ".$Path,"MESSAGE");	
 			$t=0;
 			if (is_dir(Oxs::GetBack().$Path)) {
 				if ($dh = opendir(Oxs::GetBack().$Path)){
@@ -34,13 +36,15 @@
 						$time_file=filemtime(Oxs::GetBack().$Path . $file);
 						$time=$time_sec-$time_file;
 
+
 						if ($this->CheckFile($Path . $file)){
 							if ($time>$Time){
 								$this->Delete($Path . $file);
+								$this->Msg("Файл ".$Path . $file." удален","WARNING");
 								$t++;
 							}
 						}else{
-							$this->Msg("Файл ".$Path." не существует","WARNING");
+							$this->Msg("Файл ".$Path . $file." не существует","WARNING");
 						}
 					}
 
@@ -101,7 +105,8 @@
 			$Path=$Path."/";	
 			
 			$FilesName=Oxs::GetLib("url")->GetName($Name);
-			$FilesExt=Oxs::GetLib("url")->GetExt($Name);
+			$FilesExt=Oxs::GetLib("url")->GetExt($Name);			
+
 			if(!empty($FilesExt))$FilesExt=".".$FilesExt;
 
 			$Count=1;	

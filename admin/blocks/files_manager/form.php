@@ -6,8 +6,8 @@
 
 		function __construct($Path){
 			parent::__construct($Path);
-		}		
-		
+		}	
+	
 
 		//	Параметры
 		//	dir - куда помещяем файлы 
@@ -19,23 +19,32 @@
 		function Exec(){
 
 			$Dir = $this->getP("dir");
-			$object = $this->getP("controller");
+			$object =$this->getP("controller");			
+			$name = $this->getP("name");
+
+			//	Очищаем темп *сутки
+			Oxs::G("file")->ClearOldFiles($Dir,60*60*24);				
+
+			Oxs::G("BD")->Start();	
+
+			Oxs::G("dom")->UI();		
 			
-			$name = $Params["name"]."_dialog";			
+			Oxs::G("templatemanager:css")->loadCss("file_manager","default");
+			Oxs::G("templatemanager:css")->loadCss("dialog","main");		
 
-			Oxs::G("BD")->Start();
+			//	Выводим основу
+			////////////////////////////////////////////////////////////
+			echo "<div class='oxs_dialog_load_files_zone oxs_dialog_load_files_zone_".$name."' ><input ".$this->getP("multiple")." class=oxs_dialog_load_files_zone_input type=file><div class=oxs_dialog_load_files_zone_text>".Oxs::G("languagemanager")->T("SELECT_FILE_TO_DOWNLOAD")."</div></div>";	
+			////////////////////////////////////////////////////////////
 
-			Oxs::G("dom")->JQ();
-			Oxs::G("dom")->Ui();
+			//	Диалог для отображения прогресса
+			//////////////////////////////////////////////
 
-			//	Диалог
 			$D = Oxs::L("dialog");
-			$D->setName($name);			
-			Oxs::G("templatemanager:css")->loadCss("dialog","main");			
-			$D->addHtml("<div class=oxs_dialog_load_files_zone><input ".$this->getP("multiple")." class=oxs_dialog_load_files_zone_input type=file><div class=oxs_dialog_load_files_zone_text>".Oxs::G("languagemanager")->T("SELECT_FILE_TO_DOWNLOAD")."</div></div>");
-			
-			//	Строим димлог
-			echo $D->build();	
+			$D->setName("dialog_" . $name);
+			echo $D->build();
+
+			//////////////////////////////////////////////
 
 			//	Создаем обьект для работы с файлами
 			Oxs::G("js.dir2")->GetObject( "js_dir2" , array( "window_name" => "aj_auth" ));
@@ -48,7 +57,7 @@
 			}				
 			
 			Oxs::G("oxs_obj")->G("files_manager.js:interface",array( 				
-				"notString:".$D->getObjectName(),
+				$name,
 				$object,
 				$Dir,
 				array( 
@@ -59,10 +68,7 @@
 					"SELECT_FILE_TO_DOWNLOAD" => Oxs::G("languagemanager")->T("SELECT_FILE_TO_DOWNLOAD" ),
 					"SUCCESS_UPLOAD" => Oxs::G("message_window")->Good( Oxs::G("languagemanager")->T("SUCCESS_UPLOAD" ) )
 				)
-			));
-
-			$this->setAjaxCode(2);
-			$this->SetAjaxData("dialog",Oxs::G("BD")->getEnd());
+			));			
 			
 			return ;
 		}

@@ -10,11 +10,38 @@
 			parent::__construct($Path);			
 		}			
 		
-		function Exec(){			
+		function Exec(){	
+
+			//	Получаем данные о фильтах
+			$Fields = Oxs::G("fields:model")->GetFieldsForBlock();
+			$Fields = Oxs::G("fields:model")->findSystemName($Fields,"files");
+			$Command = Oxs::G("filters_manager")->ParceFilterString($Fields["filters"]);	
+
+			Oxs::G("BD")->Start();
+
+			for($i=0;$i<count($Command);$i++){
+				if($Command[$i]->name == "file_ext"){
+					$Ext =  Oxs::G("filters_manager")->EjectValue($Command[$i],"v");
+				}
+
+				if($Command[$i]->name == "file_mime"){
+					$Mime =  Oxs::G("filters_manager")->EjectValue($Command[$i],"v");
+				}
+			}
+
+			echo $Ext;
+			echo $Mime;
+
+			print_r($Ext);
+
+			$this->Msg(Oxs::G("BD")->getEnd(),"MESSAGE");
 
 			//	Обрабатывам файлы		
 			for($i=0,$j=0;$i<count($this->getP("files_data"));$i++){
 				
+				//	Проверяем расширение файла и mem type
+
+
 				//	Ищем свободное имечко
 				$Name = Oxs::G("file")->GetFreeName($this->getP("files_data")[$i]["oroginal_name"],"files/");
 

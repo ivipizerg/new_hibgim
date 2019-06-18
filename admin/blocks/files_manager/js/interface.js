@@ -1,21 +1,22 @@
-oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
+oxs_files_manager_js_interface = function(name_area,obj,Dir,language){
 
-		console.log("Интерфес получен");
+		console.log(obj);
 
-		var _this = this;		
+		console.log("Интерфес получен" + obj);
 
-		//	Распаковываем форму диалога
-		dialog.build();			
-		
-		//	отображаем диалог
-		dialog.show();
+		var _this = this;	
+
+		window["dialog_" + name_area].build();		
 
 		//	Файлы выбраны
 		//	Проверяем файлы по размеру и содержимому
 		//	Так же подсчитываем колчиество выбранных файлов	
-		js_dir2.bind(".oxs_dialog_load_files_zone_input",{
+		js_dir2.bind(".oxs_dialog_load_files_zone_" + name_area + " .oxs_dialog_load_files_zone_input",{
 
 			change:function(massiv){
+
+				window["dialog_" + name_area].show();
+				
 				//	смотрим колчиестов вбыранных файлов
 				limits = js_dir2.getLimits();			
 						
@@ -39,16 +40,18 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 				
 				js_dir2.saveAllFiles(Dir,{
 					
-					status: function(e,i){	
+					status: function(e,i){						
 
 						if(window[obj].status!=undefined)
 						if(window[obj].status(e,i)==false){
 							return ;
 						}
-
-						dialog.set("Загрузка...<br>файл " + (i+1) + " из " + massiv.length  + " <br><div class=oxs_dialog_load_files_status_bar><div class=oxs_dialog_load_files_status_bar_inner></div></div><div class=oxs_dialog_load_files_status_bar_percent></div>"  );					
+						
+						oxs_black_screen.deActive();
+						window["dialog_" + name_area].set("Загрузка...<br>файл " + (i+1) + " из " + massiv.length  + " <br><div class=oxs_dialog_load_files_status_bar><div class=oxs_dialog_load_files_status_bar_inner></div></div><div class=oxs_dialog_load_files_status_bar_percent></div>"  );					
 						jQuery(".oxs_dialog_load_files_status_bar_inner").css("width",Math.round((e.loaded/e.total) * 100) + "%");
 						jQuery(".oxs_dialog_load_files_status_bar_percent").html(Math.round((e.loaded/e.total) * 100) + "%");
+						
 					},
 					
 					success: function(e){	
@@ -79,6 +82,13 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 							return ;
 						}	
 
+						oxs_black_screen.active();
+
+						jQuery(".oxs_dialog_load_files_zone_" + name_area + " .oxs_dialog_load_files_zone_text").text(language.SELECT_FILE_TO_DOWNLOAD);
+						a = jQuery(".oxs_dialog_load_files_zone_" + name_area );
+						a.addClass("oxs_dialog_load_files_zone");
+						a.removeClass("oxs_dialog_load_files_zone_hover");
+
 						if(e==null){
 							oxs_message.show(language.SUCCESS_UPLOAD);								
 							oxs_black_screen.Off();
@@ -87,30 +97,36 @@ oxs_files_manager_js_interface = function(dialog,obj,Dir,language){
 				});				
 			},
 			dragenter: function(){	
-				a = jQuery(".oxs_dialog_load_files_zone");
+				a = jQuery(".oxs_dialog_load_files_zone_" + name_area);
 				a.removeClass("oxs_dialog_load_files_zone");
 				a.addClass("oxs_dialog_load_files_zone_hover");
-				jQuery(".oxs_dialog_load_files_zone_text").text(language.DROP_CURSOR);
+				jQuery(".oxs_dialog_load_files_zone_" + name_area + " .oxs_dialog_load_files_zone_text").text(language.DROP_CURSOR);
 			},
 			dragleave: function(){
-				jQuery(".oxs_dialog_load_files_zone_text").text(language.SELECT_FILE_TO_DOWNLOAD);
-				a = jQuery(".oxs_dialog_load_files_zone_hover");
+				jQuery(".oxs_dialog_load_files_zone_" + name_area + " .oxs_dialog_load_files_zone_text").text(language.SELECT_FILE_TO_DOWNLOAD);
+				a = jQuery(".oxs_dialog_load_files_zone_" + name_area );
 				a.addClass("oxs_dialog_load_files_zone");
 				a.removeClass("oxs_dialog_load_files_zone_hover");
 			}
 		});	
 
 		oxs_black_screen.addCode(function(){
-			console.log("Интерфес удален");		
+			console.log("Интерфес удален");	
 
-			_dialog = undefined;
-			delete _dialog;
+			e = jQuery(".oxs_dialog_load_files_zone_" + name_area + " .oxs_dialog_load_files_zone_input");
 
-			files_manager_js_interface = undefined;
-			delete files_manager_js_interface;
+			e.wrap('<form>').closest('form').get(0).reset();
+  			e.unwrap();
+			//	удалить инпут
+
+			/*files_manager_js_interface = undefined;
+			delete files_manager_js_interface;			
+
+			window["dialog_" + name_area]=undefined;
+			delete window["dialog_" + name_area];
 
 			js_dir2 = undefined
-			delete js_dir2;
+			delete js_dir2;*/
 
 		},"files_manager_js_interface");
 		
