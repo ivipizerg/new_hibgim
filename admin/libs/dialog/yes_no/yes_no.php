@@ -1,7 +1,6 @@
 <?php
 
-	class dialog_yes_no extends CoreMultiLib{			
-		
+	class dialog_yes_no extends CoreMultiLib{
 
 		function __construct($_Path,$Params=null){						
 			parent::__construct($_Path,$Params);				
@@ -12,6 +11,7 @@
 			$name = "dialog_yes_no";
 
 			$D = Oxs::L("dialog");
+			$D->setName("dialog_window_yes_no");
 			$D->addText($Text);
 			$D->addBr();
 			$D->addBr();			
@@ -22,7 +22,7 @@
 			Oxs::G("BD")->Start();
 			Oxs::G("templatemanager:css")->loadCss("dialog","main");	
 			echo $D->build();
-			$this->js( "yes_no" , $name ,array( $farVar , "notString:".$D->getObjectName() ) );				
+			$this->js( "yes_no" , $name ,array( $farVar , $D->getObjectName() ) );						
 
 			$this->SetAjaxCode(2);			
 			$this->SetAjaxData("dialog",Oxs::G("BD")->getEnd());

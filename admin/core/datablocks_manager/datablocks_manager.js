@@ -34,7 +34,7 @@ oxs_datablocks_manager = function(){
                     oxs_message.show(Input.Msg);          
                }else
                if(Input.Code==-999){
-                    oxs_message.show(Input.Logger_item);          
+                    oxs_message.show(Input.Msg);          
                }else               
                //   -1 Вывод информации без перехода
                if(Input.Code==-1){                               
@@ -46,7 +46,7 @@ oxs_datablocks_manager = function(){
                     _this._ExecBlock( Input.Data["nextStep"] , Param , "admin/" + Input.Data["nextStep"] + ".html" , false ,true);                     
                //   Диалог
                }else if(Input.Code==2){ 
-                     jQuery(".oxs_main_container_dialog").html(  Input.Data["dialog"] );  
+                     jQuery(".oxs_main_container_dialog").html( Input.Data["dialog"] );  
                }else{                    
                     H.GoTo(function(){                           
                          
@@ -58,6 +58,8 @@ oxs_datablocks_manager = function(){
                          oxs_obj.clear();
                          //   Уменьшаем TTL жизни обьектов в хранилище
                          ex_storage.TTLdeciment();
+                         //   Очищаем коды черного жкрана
+                         oxs_black_screen.removeCode();
 
                          if(Input.Data!=undefined)ex_storage.add("block_name",Input.Data["block_name"]);
                          if(Input.Data!=undefined)ex_storage.add("block_action",Input.Data["block_action"]);                           

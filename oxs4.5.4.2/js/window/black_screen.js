@@ -33,7 +33,6 @@ function oxs_js_window_black_screen(log){
 	this.Off = function(){
 		jQuery(".oxs_window_black_screen").hide();
 
-
 		var arr = [];
 		for (var key in _this.Code) {
 		    // add hasOwnPropertyCheck if needed
@@ -52,5 +51,21 @@ function oxs_js_window_black_screen(log){
  		_this.Code[Tag]=Code; 		
  	} 	
 	
+
+	this.removeCode = function(Tag,reverse){
+		if(Tag!=undefined){
+			if( reverse==undefined || reverse==false )_this.Code[Tag]="";
+			else{
+				for (var key in _this.Code) {
+				    // add hasOwnPropertyCheck if needed
+				    if(key!=Tag) _this.Code[key]="";
+				}
+			}			
+		}else{
+			_this.Code=[];
+		}
+	}
+
+
 	jQuery("body").prepend("<div class='oxs_window_black_screen'></div>");
 }

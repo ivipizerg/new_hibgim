@@ -15,13 +15,13 @@
 			$this->Cfg=$Cfg;	
 			if($this->DB==NULL){
 				$this->DB=Oxs::LoadLib("DBLIB.DB",array("cfg_file" => $Cfg));
-				$this->Msg("Инициализирую оболочку базы данных", "GOOD");
+				$this->Msg("Инициализирую оболочку базы данных", "MESSAGE");
 			}
 		}
 
 		function SetDB(DBLIB_DB $_DB){
 			$this->DB = $_DB;
-			$this->Msg("Связываю оболчку с существующей базой данных", "GOOD");
+			$this->Msg("Связываю оболчку с существующей базой данных", "MESSAGE");
 		}
 
 		function DB(){

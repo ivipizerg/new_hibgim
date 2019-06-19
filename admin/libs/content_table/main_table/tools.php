@@ -26,11 +26,13 @@
 				$t = count($uniquie_id);
 			}			
 
-			$tags = Oxs::G("DBLIB.IDE")->DB()->Exec( "SELECT * FROM `oxs:sql` WHERE `id` IN(".( implode($uniquie_id,",")).")" , $table);
-			for($i=0;$i<count($tags);$i++){
-				$tags_s[$tags[$i]["id"]] = $foo($tags[$i]);
-			}			
-
+			if(!empty($uniquie_id)){
+				$tags = Oxs::G("DBLIB.IDE")->DB()->Exec( "SELECT * FROM `oxs:sql` WHERE `id` IN(".( implode($uniquie_id,",")).")" , $table);
+				for($i=0;$i<count($tags);$i++){
+					$tags_s[$tags[$i]["id"]] = $foo($tags[$i]);
+				}
+			}
+			
 			for($i=0;$i<$c;$i++){
 				
 				if(empty($Data[$i][$field])){ $Data[$i][$field] = $foo_all($Data[$i][$field]);	continue; }	

@@ -73,10 +73,11 @@
 					$this->SetAjaxData("nextStep",($this->getP( "block_name")));
 				}
 				
-				$this->SetAjaxText(Oxs::G("message_window")->Good(Oxs::G("languagemanager")->T("defaultFixGood")));				
+				$this->Msg(Oxs::G("languagemanager")->T("defaultFixGood") , "GOOD" );	
+				$this->SetAjaxText(Oxs::G("message_window")->GoodUl("GOOD"));			
 			}else{
 				$this->SetAjaxCode(-1);				
-				$this->SetAjaxText(Oxs::G("message_window")->ErrorUl("ERROR"));
+				$this->SetAjaxText(Oxs::G("message_window")->GoodUl("GOOD").Oxs::G("message_window")->ErrorUl("ERROR"));
 			}
 		}	
 		

@@ -1,11 +1,15 @@
 oxs_dialog_yes_no = function(farVar,dialog){	
-		
-	dialog.build();
-	dialog.show();
+	
+	console.log(dialog);	
+
+	window[dialog].build();
+	window[dialog].show();	
 
 	oxs_black_screen.addCode(function(){
-		    dialog.hide();
-			dialog_yes_no = undefined;
+		    window[dialog].hide();
+			
+			window[dialog]=undefined;
+			dialog_yes_no=undefined;
 
 			oxs_events.clear("[name=oxs_dialog_button_no_dialog_yes_no]");
 			oxs_events.clear("[name=oxs_dialog_button_yes_dialog_yes_no]");

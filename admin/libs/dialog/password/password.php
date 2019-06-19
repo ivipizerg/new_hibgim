@@ -12,6 +12,7 @@
 			$name = "dialog_password";
 
 			$D = Oxs::L("dialog");
+			$D->setName("dialog_window_password");
 			$D->addText("Введите мастер пароль для доступа к файлу конфигурации");
 			$D->addBr();
 			$D->addBr();
@@ -24,7 +25,7 @@
 			Oxs::G("BD")->Start();
 			Oxs::G("templatemanager:css")->loadCss("dialog","main");	
 			echo $D->build();
-			$this->js( "password" , $name ,array( $farVar , "notString:".$D->getObjectName() ) );				
+			$this->js( "password" , $name ,array( $farVar , $D->getObjectName() ) );				
 
 			$this->SetAjaxCode(2);			
 			$this->SetAjaxData("dialog",Oxs::G("BD")->getEnd());

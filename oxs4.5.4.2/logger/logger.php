@@ -103,7 +103,7 @@ class logger extends SingleLib{
 
 			$t=0;$Temp=FALSE;
 			for($i=0;$i<count($this->BOX);$i++){
-				for($j=0;$j<count($Chanel);$j++){					
+				for($j=0;$j<count($Chanel);$j++){
 					if(preg_match("/^".strtolower(trim($Chanel[$j]))."(\.|$)/",strtolower($this->BOX[$i]->chanel))){
 						$Temp[$t++]=$this->BOX[$i];
 					}

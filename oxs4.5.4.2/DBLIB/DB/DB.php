@@ -30,7 +30,7 @@
 			if(get_magic_quotes_gpc()){
 				$this-Msg("волшебные кавычки - ВКЛючены","ERROR");
 			}else{
-				$this->Msg("волшебные кавычки - ВЫКЛючены","GOOD");
+				$this->Msg("волшебные кавычки - ВЫКЛючены","MESSAGE");
 			}
 		}
 
@@ -74,7 +74,7 @@
 				$this->Msg("Не удалось подключиться к базе:".mysqli_connect_error(),"ERROR");
 				return 0;
 			} else{
-				$this->Msg("Подключен к базе данных","GOOD"); $this->BProtector=1;
+				$this->Msg("Подключен к базе данных","MESSAGE"); $this->BProtector=1;
 				return 1;
 			}
 		}

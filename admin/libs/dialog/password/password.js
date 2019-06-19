@@ -1,10 +1,11 @@
 oxs_dialog_password = function(farVar,dialog){	
 		
-	dialog.build();
-	dialog.show();
+	window[dialog].build();
+	window[dialog].show();	
 
 	oxs_black_screen.addCode(function(){
-		    dialog.hide();
+		    window[dialog].hide();
+			window[dialog] = undefined;			
 			dialog_password = undefined;
 
 			oxs_events.clear("[name=oxs_dialog_ask_master_password_ok]");

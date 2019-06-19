@@ -8,7 +8,7 @@
 	//	Иницализируем рабочую среду
 	////////////////////////////////////////////////////
 	include("oxs".$OxsVersion."/oxs_fw.php");
-	Oxs::SetRoot("apdveri/");
+	Oxs::SetRoot("new.hibgim.ru/");
 	
 	Oxs::Init(
 		"oxs".$OxsVersion."/",

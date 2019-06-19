@@ -55,11 +55,13 @@
 					$Current = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__oxs:sql` WHERE `id` = 'oxs:id'" , Oxs::G("datablocks_manager")->RealCurrentBlockName , $this->getIds()[$i])[0];
 
 					//	Удаляем файлы
-					$Files =  Oxs::G("JSON.IDE")->json()->D($Current["files"]);
+					$Files =  Oxs::G("JSON.IDE")->json()->D($Current["files"]);					
 
 					if(!empty($Files))
-					for($i=0;$i<count($Files);$i++){
-						Oxs::G("file")->Delete("files/".$Files[$i]->name);
+					for($j=0;$j<count($Files);$j++){
+						echo $Files[$j]->name;
+						if(Oxs::G("file")->isExist("files/".$Files[$j]->name))
+							Oxs::G("file")->Delete("files/".$Files[$j]->name);
 					}
 					
 				}
