@@ -18,12 +18,12 @@ oxs_field_autoclear = function(Name,text,ch_class,Value){
                jQuery("[name=" + Name +"]").attr("type_ch","false");
           }       
 
-          jQuery("[name=" + Name +"]").removeClass(ch_class);  
-
-          if(jQuery(this).val()==text)
+          if(jQuery("[name=" + Name +"]").hasClass(ch_class)){
                jQuery(this).val("");
+               jQuery("[name=" + Name +"]").removeClass(ch_class);  
+          }         
      });
-
+    
      jQuery("[name=" + Name +"]").blur(function(){
           if(jQuery(this).val()==""){
 

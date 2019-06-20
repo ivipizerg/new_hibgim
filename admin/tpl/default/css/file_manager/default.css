@@ -54,16 +54,16 @@
 
 .docs_files_board_main{
 	width: 400px;
-	height: 190px;
+	height: 167px;
 	border: 1px solid;
 	overflow-y: scroll;
 	overflow-x:hidden;
-	
-	padding: 5px;
+
 	border-bottom: 1px solid #ccc;
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
     border-image: linear-gradient(to bottom, transparent 20% , #ccc 100% );
     border-image-slice: 1;
     padding: 5px;
+    margin-bottom: 10px;
 }

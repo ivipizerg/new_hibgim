@@ -23,9 +23,9 @@
 			if(empty($Param["type"]))$Param["type"]="text";
 
 			if($Param["type"]=="password"&&!empty($Param["auto_clear"])){
-				echo "<input type=text type_ch=true name = ".$Name." value=\"".htmlspecialchars($Value)."\" class=\"".$Param["class"]."\" style=\"".$Param["style"]."\"".$Param["attr"].">";
+				echo "<input type=text type_ch=true name = ".$Name." value=\"".htmlspecialchars($Value)."\" class=\"".$Param["class"]."\" style=\"".$Param["style"]."\" ".$Param["attr"]." >";
 			}else{
-				echo "<input type=".$Param["type"]." name = ".$Name." value=\"".htmlspecialchars($Value)."\" class=\"".$Param["class"]."\" style=\"".$Param["style"]."\"".$Param["attr"].">";
+				echo "<input type=".$Param["type"]." name = ".$Name." value=\"".htmlspecialchars($Value)."\" class=\"".$Param["class"]."\" style=\"".$Param["style"]."\" ".$Param["attr"]." >";
 			}
 
 			return Oxs::G("BD")->GetEnd();
@@ -108,72 +108,19 @@
 		}
 		
 		static function Data($Name ,$Value=NULL, $Param=NULL){
+			
+			//$Param["attr"] =. "  autote  ";	
 
-			if(!isset($Param["class"])){
-				$Param["class"] = "oxs_data";
-			}
+			Oxs::G("BD")->Start();			
 
-			//	Настройки по умолчанию
-			if(!isset($Param["options"]["time"]))$Param["options"]["time"]=true;
-			if(!isset($Param["options"]["time_formar24"]))$Param["options"]["time_formar24"]=true;
-			if(!isset($Param["options"]["seconds"]))$Param["options"]["seconds"]=false;
-			if(!isset($Param["options"]["onChange"]))$Param["options"]["onChange"]=""; else { $Param["options"]["onChange"]=" onChange: function(){".$Param["options"]["onChange"].";},"; }
-			if(!isset($Param["options"]["dateFormat"]))$Param["options"]["dateFormat"]="d.m.Y H:i:S";
-			if(!isset($Param["options"]["maxDate"]))$Param["options"]["maxDate"]="";else $Param["options"]["maxDate"] = "maxDate: \"".$Param["options"]["maxDate"]."\",";
-			if(!isset($Param["options"]["minDate"]))$Param["options"]["minDate"]="";else $Param["options"]["minDate"] = "minDate: \"".$Param["options"]["minDate"]."\",";	
-			if( isset($Param["options"]["EnableConfirm"]) & $Param["options"]["EnableConfirm"]==true ){
+				Oxs::J("crypto.base64");	
 
-				$Param["options"]["EnableConfirm"]= " , \"plugins\": [new confirmDate({})]";
 				
-				Oxs::GetLib("dom")->LoadJsOnce( OXS_PATH."field/js/plug.js");
-				Oxs::GetLib("dom")->LoadCssOnce( OXS_PATH."field/css/plug.css");
-			}
 
+				echo field::Text($Name ,$Value, $Param);
+				Oxs::J("field.js:data",array($Name,Oxs::G("crypto.base64")->E($Param["config"])));
 
-			Oxs::G("BD")->Start();
-			Oxs::GetLib("dom")->jQuery();			
-
-			Oxs::GetLib("dom")->LoadJsOnce( OXS_PATH."field/js/js.js");
-			Oxs::GetLib("dom")->LoadCssOnce( OXS_PATH."field/css/style.css");
-
-			echo field::Text($Name,$Value, $Param);
-
-			?>
-				<script type="text/javascript">
-					jQuery(function(){
-						//	Адовая конструкция что бы дождаться подгрузки js файлйа flatpickr
-						//	Интервал закончиться как только обьект flatpickr станет доступен
-						var Interval<?php echo $Name;?>;
-						Interval<?php echo $Name;?>=setInterval(function(){
-							if( typeof flatpickr != 'undefined' ){
-								clearTimeout(Interval<?php echo $Name;?>);
-								
-								flatpickr("[name=<?php echo $Name ?>]" , {
-									enableTime: <?php if($Param["options"]["time"]) echo " true"; else echo " false"; ?>,
-									<?php echo $Param["options"]["maxDate"]; ?> 
-									<?php echo $Param["options"]["minDate"]; ?> 
-									<?php echo $Param["options"]["onChange"]; ?> 
-									time_24hr: <?php if($Param["options"]["time_formar24"]) echo " true"; else echo " false"; ?> ,
-									enableSeconds: <?php if($Param["options"]["seconds"]) echo " true"; else echo " false"; ?> ,
-									dateFormat: "<?php echo $Param["options"]["dateFormat"]; ?>",
-									
-									//	Парсит с ошибкой пришлось отключить
-									//parseDate: function(){return 0;},
-									
-									defaultDate: "<?php echo $Value; ?>"									
-								    <?php echo $Param["options"]["EnableConfirm"]; ?>								    
-								});								
-							}
-
-						},50);
-					});
-				</script>
-
-			<?php
-
-			$R = Oxs::G("BD")->GetEnd();
-
-			return $R;
+			return Oxs::G("BD")->getEnd();
 		}
 
 		static function Checkbox($Name,$Value=NULL,$Param=NULL){

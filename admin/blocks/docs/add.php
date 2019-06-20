@@ -20,7 +20,7 @@
 			<table border=0><tr><td>
 				<oxs:default>
 			</td><td valign=top>
-				<table class=oxs_fields_table border=0><tr><td><div class=oxs_fields_table_wrap><oxs:files></div></td></tr></table>
+				<table class=oxs_fields_table border=0><tr><td><div class=oxs_fields_table_wrap><oxs:files><oxs:death_time></div></td></tr></table>
 			</td></tr></table>
 			</center>
 			";
