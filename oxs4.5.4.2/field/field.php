@@ -14,7 +14,7 @@
 
 			if(!empty($Param["auto_clear"])){				
 
-				Oxs::J("js.oxs_events",null,"js_oxs_events_field_text");
+				Oxs::J("js.oxs_events");
 
 				//	Используем Rand что бы каждый раз был создан новый обьект иначе при работе с аякс
 				//	Возникнет ситуация что обьект уже создан и новый созадвать не будет
@@ -88,12 +88,12 @@
 			Oxs::G("BD")->Start();			
 
 				Oxs::J("crypto.base64");
-				Oxs::J("js.oxs_events",null,"js_oxs_events_field_data");	
+				Oxs::J("js.oxs_events");	
 
 				$Param["attr"] .= "  autocomplete=off  ";
 
 				echo field::Text($Name ,$Value, $Param);
-				Oxs::J("field.js:data",array($Name,Oxs::G("crypto.base64")->E($Param["config"])));
+				Oxs::RJ("field.js:data",array($Name,Oxs::G("crypto.base64")->E($Param["config"])));
 
 			return Oxs::G("BD")->getEnd();
 		}

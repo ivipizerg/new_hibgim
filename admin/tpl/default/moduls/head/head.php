@@ -46,6 +46,7 @@
 		Oxs::G("ex_storage")->GetObject(null,"false");
 
 		//	Система устанвоки событий
+		Oxs::J("js.oxs_events");
 		Oxs::G("js.loader")->GetObject("js.oxs_events",array("notString:false"),"oxs_events");	
 		//	Система получения обьектов
 		Oxs::G("oxs_obj")->Init(false);	

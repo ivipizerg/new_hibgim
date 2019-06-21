@@ -53,6 +53,7 @@ oxs_datablocks_manager = function(){
                          console.log("Очищаю все ресурсы блока...");     
                         
                          //   Очищаем все события
+                         if( typeof js_oxs_events != "undefined" ) js_oxs_events.clear();
                          oxs_events.clear();  
                          //   Очищаем все подгруженные обьекты
                          oxs_obj.clear();
