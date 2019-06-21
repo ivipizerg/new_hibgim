@@ -11,7 +11,7 @@ oxs_field_autoclear = function(Name,text,ch_class,Value){
 
      jQuery("[name=" + Name +"]").val(text);
 
-     jQuery("[name=" + Name +"]").focus(function(){         
+     js_oxs_events_field_text.add("[name=" + Name +"]","focus",function(){         
 
           if(jQuery("[name=" + Name +"]").attr("type_ch")=="true"){
                jQuery("[name=" + Name +"]").attr("type","password");                   
@@ -24,7 +24,7 @@ oxs_field_autoclear = function(Name,text,ch_class,Value){
           }         
      });
     
-     jQuery("[name=" + Name +"]").blur(function(){
+     js_oxs_events_field_text.add("[name=" + Name +"]","blur", function(){
           if(jQuery(this).val()==""){
 
                if(jQuery("[name=" + Name +"]").attr("type")=="password"){

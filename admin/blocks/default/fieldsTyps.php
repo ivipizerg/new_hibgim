@@ -40,7 +40,7 @@
 			return $Field["description"].field::Data($Field["system_name"],$Data,array( "config" => "
 				changeMonth: true,
 				changeYear: true,
-				dateFormat: \"yy.mm.dd\"
+				dateFormat: \"dd.mm.yy\"
 				" , "attr"=>$attr , "class"=>"form-control oxs_field_value ".$Field["setting"]["class"] , "style" => "margin-top:3px;".$Field["field_style"] , "auto_clear" => $Field["form_name"]) );	
 		}
 	}

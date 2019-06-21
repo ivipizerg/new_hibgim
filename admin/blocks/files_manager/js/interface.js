@@ -1,6 +1,6 @@
 oxs_files_manager_js_interface = function(name_area,obj,Dir,language){	
 
-		console.log("Интерфес получен" + obj);
+		console.log("Интерфес получен");
 
 		var _this = this;	
 

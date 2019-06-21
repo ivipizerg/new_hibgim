@@ -14,6 +14,8 @@
 
 			if(!empty($Param["auto_clear"])){				
 
+				Oxs::J("js.oxs_events",null,"js_oxs_events_field_text");
+
 				//	Используем Rand что бы каждый раз был создан новый обьект иначе при работе с аякс
 				//	Возникнет ситуация что обьект уже создан и новый созадвать не будет
 				if(empty($Param["auto_clear_class"]))$Param["auto_clear_class"]="auto_clear_ch";				
@@ -25,7 +27,7 @@
 			if($Param["type"]=="password"&&!empty($Param["auto_clear"])){
 				echo "<input type=text type_ch=true name = ".$Name." value=\"".htmlspecialchars($Value)."\" class=\"".$Param["class"]."\" style=\"".$Param["style"]."\" ".$Param["attr"]." >";
 			}else{
-				echo "<input type=".$Param["type"]." name = ".$Name." value=\"".htmlspecialchars($Value)."\" class=\"".$Param["class"]."\" style=\"".$Param["style"]."\" ".$Param["attr"]." >";
+				echo "<input type=".$Param["type"]." name = ".$Name." value=\"".htmlspecialchars($Value)."\" class=\"".$Param["class"]."\" style=\"".$Param["style"]."\"".$Param["attr"].">";
 			}
 
 			return Oxs::G("BD")->GetEnd();
@@ -81,41 +83,14 @@
 			$Result .= "</SELECT >";
 			return $Result;
 		}
-
-		static function File($Name,$Param=NULL){
-
-			if($Param["mutiple"]) $Param["attr"] .= " multiple ";
-			$R .= "<input style=\"".$Param["style"]."\" class=\"".$Param["class"]."\" type=file name=\"".$Name."\" ".$Param["attr"]." >";
-			
-			if($Param["smart"]){
-			Oxs::G("BD")->Start();	
-			Oxs::G("js.dir")->GetObject($Param["object_name"]);
-			?>
-
-				<script type="text/javascript">
-						
-					jQuery(function(){
-						<?php echo $Param["object_name"].".BindInput(\"[name=".$Name."]\")"; ?>							
-					});
-
-				</script>
-
-			<?php
-			$R .= Oxs::G("BD")->GetEnd();
-			}			
-
-			return $R;
-		}
 		
 		static function Data($Name ,$Value=NULL, $Param=NULL){
-			
-			//$Param["attr"] =. "  autote  ";	
-
 			Oxs::G("BD")->Start();			
 
-				Oxs::J("crypto.base64");	
+				Oxs::J("crypto.base64");
+				Oxs::J("js.oxs_events",null,"js_oxs_events_field_data");	
 
-				
+				$Param["attr"] .= "  autocomplete=off  ";
 
 				echo field::Text($Name ,$Value, $Param);
 				Oxs::J("field.js:data",array($Name,Oxs::G("crypto.base64")->E($Param["config"])));
