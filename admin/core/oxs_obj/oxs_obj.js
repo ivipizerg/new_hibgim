@@ -15,12 +15,19 @@ oxs_oxs_obj = function(_log){
           if(_log)  console.log("Чищу обьекты...");
           
           for(var j = 0; j < this.i; j++ ){
-               if(_log)  console.log("Удаляю обьект " + this.ObjList[j]);
-               //eval("try{"+this.ObjList[j] + ".Destruct();} catch(err){}");
-               //console.log(" delete " + this.ObjList[j]);
-               eval(" delete " + this.ObjList[j]);
+               console.log("Удаляю обьект " + this.ObjList[j]);
+               
+               //   Вызовем деструктор если о несть и удалим обьект
+               try{
+                    window[this.ObjList[j]].des();
+               }catch(err){
+
+               }
+              
+               window[this.ObjList[j]]=undefined;
+               delete window[this.ObjList[j]];               
           }
 
-           this.i=0;
+          this.i=0;
      }     
 }

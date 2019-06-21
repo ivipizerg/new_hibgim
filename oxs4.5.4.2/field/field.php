@@ -8,6 +8,10 @@
 			parent::__construct($Path,$params);
 		}
 
+		function getThis(){
+			return $this;
+		}
+
 		static function Text($Name,$Value=NULL,$Param=NULL){
 
 			Oxs::G("BD")->Start();			
@@ -19,7 +23,7 @@
 				//	Используем Rand что бы каждый раз был создан новый обьект иначе при работе с аякс
 				//	Возникнет ситуация что обьект уже создан и новый созадвать не будет
 				if(empty($Param["auto_clear_class"]))$Param["auto_clear_class"]="auto_clear_ch";				
-				Oxs::G("js.loader")->ReGetObject("field:autoclear" , array ( $Name , $Param["auto_clear"] , $Param["auto_clear_class"] , addslashes($Value)) , "autoclear_".Rand() );
+				Oxs::G("js.loader")->ReGetObject("field:autoclear" , array ( $Name , $Param["auto_clear"] , $Param["auto_clear_class"] , addslashes($Value)) );
 			}
 
 			if(empty($Param["type"]))$Param["type"]="text";
@@ -90,10 +94,13 @@
 				Oxs::J("crypto.base64");
 				Oxs::J("js.oxs_events");	
 
+				Oxs::G("dom")->LoadCssOnce( Oxs::G("field")->getThis()->Path ."/field/css/flatpicker.css" );	
+				Oxs::G("dom")->LoadJsOnce( Oxs::G("field")->getThis()->Path ."/field/js/flatpicker.js" );	
+
 				$Param["attr"] .= "  autocomplete=off  ";
 
 				echo field::Text($Name ,$Value, $Param);
-				Oxs::RJ("field.js:data",array($Name,Oxs::G("crypto.base64")->E($Param["config"])));
+				Oxs::RJ("field.js:data",array($Name));
 
 			return Oxs::G("BD")->getEnd();
 		}

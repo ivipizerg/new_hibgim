@@ -37,7 +37,25 @@
 		}
 
 		function data($Field,$Data){
-			return $Field["description"].field::Data($Field["system_name"],$Data,array( "config" => "
+
+			Oxs::G("BD")->Start();		
+			?>
+				<script type="text/javascript">
+
+					field_js_data_local_source = function(){
+						this.des = function(){
+							//	в деструкторе удалим созданный доом обьект так как он видимый
+							$(".flatpickr-calendar").remove();
+						}
+					}
+
+					field_js_data_local = new field_js_data_local_source();
+					oxs_obj.add("field_js_data_local");
+				
+				</script>
+			<?php
+
+			return Oxs::G("BD")->getEnd().$Field["description"].field::Data($Field["system_name"],$Data,array( "config" => "
 				changeMonth: true,
 				changeYear: true,
 				dateFormat: \"dd.mm.yy\"

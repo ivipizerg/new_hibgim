@@ -228,6 +228,11 @@
 			return Oxs::G("js.loader")->GetObject($Name,$Param, $ui_name);
 		}
 
+		function RJsLib($Name,$Param=NULL,$ui_name=NULL){
+			return Oxs::G("js.loader")->ReGetObject($Name,$Param, $ui_name);
+		}
+
+
 		function isExist($LibName){			
 			return $this->InitLib($LibName,$Param,true,true);
 		}
@@ -294,6 +299,10 @@
 		static function J($Name,$Param=NULL,$ui_name=NULL){
 			return Oxs()->JsLib($Name,$Param,$ui_name);
 		}
+
+		static function RJ($Name,$Param=NULL,$ui_name=NULL){
+			return Oxs()->RJsLib($Name,$Param,$ui_name);
+		}		
 
 		static function GetLib($Name){
 			return Oxs()->GetLib($Name);

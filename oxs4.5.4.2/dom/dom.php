@@ -20,7 +20,7 @@ class dom extends SingleLib{
 
 		if($this->jQuery_v!=1){
 			$this->Msg("Подключаю Jquery","MESSAGE");
-			$this->LoadJsOnce( $this->Path ."/dom/jq3.3.1.js");				
+			$this->LoadJsOnce( $this->Path ."/dom/jq3.4.1.js");				
 		}
 
 		$this->jQuery_v=1;
@@ -29,7 +29,8 @@ class dom extends SingleLib{
 	function Ui(){
 		if($this->UI!=1){
 			$this->jQuery();
-			$this->Msg("Подключаю Ui","MESSAGE");				
+			$this->Msg("Подключаю Ui","MESSAGE");	
+
 			$this->LoadJsOnce( $this->Path ."/dom/UI1.12.1.js");
 			$this->LoadCssOnce( $this->Path ."/dom/ui.css");			
 		}
