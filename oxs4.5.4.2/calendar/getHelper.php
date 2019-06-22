@@ -56,8 +56,9 @@
 			return $this->Data->Mount;
 		}
 
-		function GetDay(){
-			return $this->Data->Day;
+		function GetDay($mode = false){
+			if(!$mode) return $this->Data->Day;
+			else return ltrim($this->Data->Day,"0");
 		}
 
 		function GetYear(){
@@ -199,7 +200,7 @@
 			}
 		}		
 
-		static function SGetMountName($Month , $mode = false){			
+		static function SGetMountName( $Month , $mode = false){			
 
 			if($mode==true){
 				switch($Month){

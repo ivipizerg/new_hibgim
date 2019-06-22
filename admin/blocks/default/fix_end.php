@@ -43,7 +43,12 @@
 
 				$key = Oxs::G("fields")->convertTypeFroBD($Fields[$i]);
 				
-				$T[$key.":".$Fields[$i]["system_name"]] = $this->getD($Fields[$i]["system_name"]); 
+				//	если поле имеет тип data ы должны перевести переданную дату в Unix формат 
+				if($Fields[$i]["type"]=="data"){
+					$C = Oxs::L("calendar",$this->getD($Fields[$i]["system_name"]));
+					$T[$key.":".$Fields[$i]["system_name"]] = $C->getUnix();
+				}else
+					$T[$key.":".$Fields[$i]["system_name"]] = $this->getD($Fields[$i]["system_name"]); 
 				
 				//	Обработаем чекбокс
 				if($Fields[$i]["type"]=="сheckbox") {

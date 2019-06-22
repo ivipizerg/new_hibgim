@@ -23,6 +23,13 @@
 						$Data[$i][$Fields["system_name"]] = $C->GetDataTime();
 					}	
 				}
+
+				if($m==2){
+					for($i=0;$i<count($Data);$i++){
+						$C = Oxs::L("calendar",$Data[$i][$Fields["system_name"]]);
+						$Data[$i][$Fields["system_name"]] = $C->GetDay(true)." ".calendar::SGetMountName($C->GetMount(),true)." ".$C->GetYear(); ;
+					}	
+				}
 			}			
 			
 			return 0;

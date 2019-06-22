@@ -15,14 +15,6 @@
 		}
 		
 		function Map(){
-			return "
-			<center>
-			<table border=0><tr><td>
-				<oxs:default>
-			</td><td valign=top>
-				<table class=oxs_fields_table border=0><tr><td><div class=oxs_fields_table_wrap><oxs:files></div></td></tr></table>
-			</td></tr></table>
-			</center>
-			";
+			return Oxs::G("docs:add")->Map();
 		}				
 	}

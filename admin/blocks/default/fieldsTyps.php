@@ -38,6 +38,12 @@
 
 		function data($Field,$Data){
 
+			//	Обрабатываем дату если она есть
+			if(!empty($Data)){				
+				$C = Oxs::L("calendar",$Data);
+				$Data = $C->GetYear()."-".$C->GetMount()."-".$C->GetDay();
+			}
+
 			Oxs::G("BD")->Start();		
 			?>
 				<script type="text/javascript">
