@@ -12,25 +12,12 @@
 		
 		function Exec(){				
 
-			//	Получаем данные о фильтах
-			////////////////////////////////////////////////////////////
-			$Fields = Oxs::G("fields:model")->GetFieldsForBlock();
-			$Fields = Oxs::G("fields:model")->findSystemName($Fields,"files");
-			$Command = Oxs::G("filters_manager")->ParceFilterString($Fields["filters"]);	
+			$Ext = Oxs::G("doc_settings:model")->get("file_ext");
+			$Ext = explode(",",trim($Ext,"\""));	
 
-			//Oxs::G("BD")->Start();
+			$mime = Oxs::G("doc_settings:model")->get("mime_type");
+			$mime = explode(",",trim($mime,"\""));	
 
-			for($i=0;$i<count($Command);$i++){
-				if($Command[$i]->name == "file_ext"){
-					$Ext =  Oxs::G("filters_manager")->EjectValue($Command[$i],"v");
-				}
-
-				if($Command[$i]->name == "file_mime"){
-					$Mime =  Oxs::G("filters_manager")->EjectValue($Command[$i],"v");
-				}
-			}			
-
-			$Ext = explode(",",trim($Ext[0],"\""));	
 			////////////////////////////////////////////////////////////	
 
 			//	Разбираемся с файлами
@@ -41,14 +28,26 @@
 
 					//	Проверяем расширение файла и mem type
 					$access = false;
-					for($z=0;$z<count($Ext);$z++){						
-						if(Oxs::G("url")->GetExt($this->getP("files_data")[$i]["name"])==$Ext[$z]){
+					for($z=0;$z<count($mime);$z++){
+						if(Oxs::G("file")->getMIME("/files/tmp/".$this->getP("files_data")[$i]["name"]) ==$mime[$z]){
 							$access = true;
 						}
 					}
-					
-					if(!$access){					
-						$this->Msg( Oxs::G("languagemanager")->T("WRONG_EXTENTION_FILE" , $this->getP("files_data")[$i]["oroginal_name"] , Oxs::G("url")->GetExt($this->getP("files_data")[$i]["name"]) ) ,"ERROR.docs_fix_end");						
+
+					$access2 = false;
+					for($z=0;$z<count($Ext);$z++){
+						if(Oxs::G("url")->GetExt($this->getP("files_data")[$i]["name"])==$Ext[$z]){
+							$access2 = true;
+						}
+					}
+
+					if(!$access2 ){					
+						$this->Msg( Oxs::G("languagemanager")->T("WRONG_EXTENTION_FILE" , $this->getP("files_data")[$i]["oroginal_name"] , Oxs::G("url")->GetExt($this->getP("files_data")[$i]["name"]) ) ,"ERROR");
+						continue;
+					}
+
+					if( !$access){					
+						$this->Msg( Oxs::G("languagemanager")->T("WRONG_MIME_FILE" , $this->getP("files_data")[$i]["oroginal_name"] ,Oxs::G("file")->getMIME("/files/tmp/".$this->getP("files_data")[$i]["name"]) ) ,"ERROR");
 						continue;
 					}
 

@@ -1,15 +1,14 @@
-function oxs_js_dir2(aj_name,log,Post_max_size,Upload_max_filesize,Max_file_uploads){	
+function oxs_js_dir2(aj_name,log,max_size,Max_file_uploads){	
 
 	var _this = this;
 
-	Post_max_size = parseInt(Post_max_size) * 1024 * 1024;
-	Upload_max_filesize = parseInt(Upload_max_filesize) * 1024 * 1024;	
+	max_size = parseInt(max_size) * 1024 * 1024;	
 	Max_file_uploads = parseInt(Max_file_uploads);	
 
 	this.FilesMassiv = "";	
 
 	this.getLimits = function(){
-		return Array(Post_max_size,Upload_max_filesize,Max_file_uploads);
+		return Array(max_size,Max_file_uploads);
 	}
 
 	//	Проверить на запись диреткорию

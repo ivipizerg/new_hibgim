@@ -126,6 +126,10 @@
 
 			return $Tmp;
 		}
+
+		function getMIME($path){
+			return mime_content_type(Oxs::GetBack().$path);
+		}
 			
 
 		function Copy($Name,$path,$Rewrite=false){		

@@ -46,24 +46,30 @@
 
 			//////////////////////////////////////////////
 
-			//	Создаем обьект для работы с файлами
-			Oxs::G("js.dir2")->GetObject( "js_dir2" , array( "window_name" => "aj_auth" ));
-			Oxs::G("oxs_obj")->add("js_dir2");
-			
 			if(ini_get("post_max_size")>ini_get("upload_max_filesize")){
 				$MAX_SIZE = ini_get("post_max_size"); 
 			}else{
 				$MAX_SIZE = ini_get("upload_max_filesize");
-			}				
-			
+			}	
+
+			$MU = $this->getP("MAX_UPLOAD");
+			$MS = $this->getP("MAX_SIZE");
+
+			if(empty($MU)) $MU = ini_get("max_file_uploads");
+			if(empty($MS)) $MS = $MAX_SIZE;
+
+			//	Создаем обьект для работы с файлами
+			Oxs::G("js.dir2")->GetObject( "js_dir2" , array( "window_name" => "aj_auth" , "MAX_UPLOAD" => $MU , "MAX_SIZE" => $MS ));
+			Oxs::G("oxs_obj")->add("js_dir2");			
+
 			Oxs::G("oxs_obj")->G("files_manager.js:interface",array( 				
 				$name,
 				$object,
 				$Dir,
 				array( 
 					"DIR_IS_NOT_WRITABLE" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("DIR_IS_NOT_WRITABLE") ) ,
-					"MAX_UPLOAD_COUNT" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("MAX_UPLOAD_COUNT" , ini_get("max_file_uploads")) )  , 
-					"MAX_SIZE_FILE" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("MAX_SIZE_FILE" , $MAX_SIZE ) ),
+					"MAX_UPLOAD_COUNT" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("MAX_UPLOAD_COUNT" , $MU) )  , 
+					"MAX_SIZE_FILE" => Oxs::G("message_window")->Error( Oxs::G("languagemanager")->T("MAX_SIZE_FILE" , ($MS)."Mb" ) ),
 					"DROP_CURSOR" =>  	Oxs::G("languagemanager")->T("DROP_CURSOR" ),
 					"SELECT_FILE_TO_DOWNLOAD" => Oxs::G("languagemanager")->T("SELECT_FILE_TO_DOWNLOAD" ),
 					"SUCCESS_UPLOAD" => Oxs::G("message_window")->Good( Oxs::G("languagemanager")->T("SUCCESS_UPLOAD" ) )

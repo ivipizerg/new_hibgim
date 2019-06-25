@@ -16,10 +16,12 @@ oxs_files_manager_js_interface = function(name_area,obj,Dir,language){
 				window["dialog_" + name_area].show();
 				
 				//	смотрим колчиестов вбыранных файлов
-				limits = js_dir2.getLimits();			
+				limits = js_dir2.getLimits();
+
+				console.log(limits);			
 						
 				//	Проверяем количество
-				if(massiv.length>limits[2]){
+				if(massiv.length>limits[1]){
 					oxs_black_screen.Off();	
 					oxs_message.show(language.MAX_UPLOAD_COUNT);
 					return ;
@@ -27,7 +29,7 @@ oxs_files_manager_js_interface = function(name_area,obj,Dir,language){
 
 				//	Проверяем размер
 				for(i = 0; i<massiv.length ; i++){
-					if( massiv[i].size > limits[0] || massiv[i].size > limits[1]){
+					if( massiv[i].size > limits[0] ){
 						oxs_black_screen.Off();	
 						oxs_message.show(language.MAX_SIZE_FILE);
 						return ;

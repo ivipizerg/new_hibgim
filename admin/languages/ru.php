@@ -157,6 +157,7 @@
 	$FILE_DELETE_FAIL = "Ошибка удаления файла";
 	$DOCS_ADD = "Прикрепить документы";
 	$WRONG_EXTENTION_FILE = "Запрещенное расширение файла ".$this->GetParam(1). " (".$this->GetParam(2).")";
+	$WRONG_MIME_FILE = "Запрещеннный тип файла ".$this->GetParam(1). " (". $this->GetParam(2).")";
 
 
 

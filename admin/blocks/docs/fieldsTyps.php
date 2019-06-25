@@ -37,10 +37,12 @@
 
 			//	Так как форма была оформлена как блок даных вызываем её как блок данных
 			//////////////////////////////////////////////////////////////////////
-			$this->setP("dir","files/tmp");
-			$this->setP("multiple","multiple");
-			$this->setP("controller","docs_js_docs_files_events");	
-			$this->setP("name",$Field["system_name"]);		
+			$this->setP("dir","files/tmp");												//	куда грузим
+			$this->setP("multiple","multiple");											//	мультивыбор
+			$this->setP("controller","docs_js_docs_files_events");						//	обьект обработчик событий
+			$this->setP("name",$Field["system_name"]);									//	имя формы(должно быть уникально)
+			$this->setP("MAX_UPLOAD",Oxs::G("doc_settings:model")->get("max_upload"));	//	Кодичестов файлов
+			$this->setP("MAX_SIZE",Oxs::G("doc_settings:model")->get("max_size"));	//	Размерфайла
 
 			echo Oxs::G("files_manager:form")->Exec();	
 			///////////////////////////////////////////////////////////////////////			
