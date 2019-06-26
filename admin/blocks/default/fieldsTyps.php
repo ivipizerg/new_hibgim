@@ -30,10 +30,13 @@
 			return field::hidden($Field["system_name"],$Data,array( "class"=>"oxs_field_value" ) );			
 		}		
 
-		function textarea_editor($Field,$Data){				
+		function textarea_edited($Field,$Data){				
 			Oxs::I("field");	
+
+			//	Подключаем едитор
+			Oxs::G("tinymce")->getObject($Field["system_name"]);
 			if($Field["no_change"]) $attr = " disabled ";
-			return $Field["description"].field::Text($Field["system_name"],$Data,array( "attr"=>$attr , "class"=>"form-control oxs_field_value" , "style" => "margin-top:3px;" , "auto_clear" => $Field["form_name"]) );		
+			return $Field["description"].field::TextArea($Field["system_name"],$Data,array( "attr"=>$attr , "class"=>"form-control oxs_field_value" , "style" => "margin-top:3px; ".$Field["field_style"] ) );			
 		}
 
 		function data($Field,$Data){

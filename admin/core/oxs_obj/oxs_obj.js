@@ -15,7 +15,7 @@ oxs_oxs_obj = function(_log){
           if(_log)  console.log("Чищу обьекты...");
           
           for(var j = 0; j < this.i; j++ ){
-               console.log("Удаляю обьект " + this.ObjList[j]);
+               if(_log) console.log("Удаляю обьект " + this.ObjList[j]);
                
                //   Вызовем деструктор если о несть и удалим обьект
                try{
