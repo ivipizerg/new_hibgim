@@ -11,9 +11,17 @@
 		
 		function Map(){
 			return "
-				<oxs:text>
-				<oxs:default>
-			
+				<div style='display:grid;grid-template-columns:auto 400px;grid-column-gap:10px;grid-row-gap:10px;margin-top:10px;'>				
+				<div >
+					<div style='display:grid;grid-template-columns:auto 300px;grid-column-gap:10px;grid-row-gap:10px;'> 
+						<div><oxs:name></div> 
+						<div style='padding-top:2px;'><oxs:cat></div></div>	
+					<div style='padding-top:10px;'><oxs:text></div>
+				</div>
+				<div>
+					<div style='margin-top:-22px;'><oxs:default></div>
+				</div>
+				</div>
 			
 			";
 		}		

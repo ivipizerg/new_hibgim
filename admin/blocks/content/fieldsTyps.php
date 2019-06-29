@@ -7,6 +7,10 @@
 		
 		function __construct($Path){	
 			parent::__construct($Path);	
-		}			
+		}	
+
+		function cat_tree($Field,$Data){
+			return Oxs::G("default.tree:fieldsTyps")->cat_tree($Field,$Data);
+		}		
 	}
  

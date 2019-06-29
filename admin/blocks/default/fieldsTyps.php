@@ -34,7 +34,7 @@
 			Oxs::I("field");	
 
 			//	Подключаем едитор
-			Oxs::G("tinymce")->getObject($Field["system_name"]);
+			Oxs::G("ckeditor")->getObject($Field["system_name"]);
 			if($Field["no_change"]) $attr = " disabled ";
 			return $Field["description"].field::TextArea($Field["system_name"],$Data,array( "attr"=>$attr , "class"=>"form-control oxs_field_value" , "style" => "margin-top:3px; ".$Field["field_style"] ) );			
 		}
