@@ -6,7 +6,10 @@
 
 		params = {}; 		
 
-		jQuery(".oxs_fields_table .oxs_field_value").each(function(E){
+		jQuery(".oxs_field_value").each(function(E){
+
+			console.log(this);
+
 			//	Если есть класс auto_clear_ch занчит поле пустое, там значенеи посдказка
 			if(jQuery(this).hasClass("auto_clear_ch")){
 				params[jQuery(this).attr("name")] = null;

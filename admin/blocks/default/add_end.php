@@ -60,7 +60,7 @@
 			//	Добавляем даты
 			Oxs::G("DBLIB.IDE")->DB()->Update( "#__".Oxs::G("datablocks_manager")->RealCurrentBlockName, array(
 				"create_data" => $C->get("getUnix"),
-				"update_data" => 0,
+				"update_data" => $C->get("getUnix"),
 				"position" => $this->CurrentID
 			) , " WHERE `id` = 'oxs:id'" , $this->CurrentID );
 

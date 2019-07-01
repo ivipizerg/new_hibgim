@@ -8,6 +8,31 @@
 		function __construct($Path,$params=null){
 			parent::__construct($Path,$params);							
 		}		
+
+		function LoadFields(){
+			
+			$F = Oxs::G("fields:model")->GetFieldsForBlock();
+
+			array_push($F, array(
+
+				"system_name" => "create_data",		
+				"type" => "data"	,				
+				"description" => "Дата создания",	
+				"form_name" => "Текущая"				
+
+			));
+
+			array_push($F, array(
+
+				"system_name" => "update_data",		
+				"type" => "data"	,				
+				"description" => "Дата обновления",	
+				"form_name" => "Текущая"			
+
+			));
+
+			return $F;
+		}	
 		
 		function Map(){
 			return "
@@ -20,6 +45,7 @@
 				</div>
 				<div>
 					<div style='margin-top:-22px;'><oxs:default></div>
+					
 				</div>
 				</div>
 			
