@@ -22,7 +22,7 @@
 
 				Oxs::G("DBLIB.IDE")->DB()->Update("#__content",array(
 					"create_data" => $C->getUnix()
-				), " WHERE `id` ='oxs:id'" , $this->CurrentID );
+				), " WHERE `id` ='oxs:id'" , $this->getP("fixingId") );
 			}
 
 			//	Если были заданы даты то изменяем их
@@ -32,7 +32,7 @@
 
 				Oxs::G("DBLIB.IDE")->DB()->Update("#__content",array(
 					"update_data" => $C->getUnix()
-				), " WHERE `id` ='oxs:id'" , $this->CurrentID );
+				), " WHERE `id` ='oxs:id'" , $this->getP("fixingId") );
 			}
 		}	
 	}

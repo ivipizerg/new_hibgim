@@ -10,5 +10,6 @@
 		function getObject($Name){
 			Oxs::G("dom")->loadJsOnce($this->Path."/ckeditor/ckeditor/ckeditor.js");
 			Oxs::RJ("ckeditor:start",$Name);
+			Oxs::G("oxs_obj")->add("ckeditor_start");
 		}
 	}

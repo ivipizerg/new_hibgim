@@ -1,0 +1,12 @@
+.oxs_doc_add_box {
+	width:500px;height:400px;text-align:left;
+}
+
+.oxs_doc_add_item{
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;	
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}

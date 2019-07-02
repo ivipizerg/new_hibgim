@@ -16,7 +16,7 @@
 			array_push($F, array(
 
 				"system_name" => "create_data",		
-				"type" => "data"	,				
+				"type" => "data_time"	,				
 				"description" => "Дата создания",	
 				"form_name" => "Текущая"				
 
@@ -25,7 +25,7 @@
 			array_push($F, array(
 
 				"system_name" => "update_data",		
-				"type" => "data"	,				
+				"type" => "data_time"	,				
 				"description" => "Дата обновления",	
 				"form_name" => "Текущая"			
 

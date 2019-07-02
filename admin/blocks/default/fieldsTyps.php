@@ -64,10 +64,37 @@
 				</script>
 			<?php
 
+			return Oxs::G("BD")->getEnd().$Field["description"].field::Data($Field["system_name"],$Data,array( "config" => "" , "attr"=>$attr , "class"=>"form-control oxs_field_value ".$Field["setting"]["class"] , "style" => "margin-top:3px;".$Field["field_style"] , "auto_clear" => $Field["form_name"]) );	
+		}
+
+
+		function data_time($Field,$Data){
+
+			//	Обрабатываем дату если она есть
+			if(!empty($Data)){				
+				$C = Oxs::L("calendar",$Data);
+				$Data = $C->GetYear()."-".$C->GetMount()."-".$C->GetDay(). " ".$C->GetHours().":".$C->GetMinuts().":00";				
+			}
+
+			Oxs::G("BD")->Start();		
+			?>
+				<script type="text/javascript">
+
+					field_js_data_local_source = function(){
+						this.des = function(){
+							//	в деструкторе удалим созданный доом обьект так как он видимый
+							$(".flatpickr-calendar").remove();
+						}
+					}
+
+					field_js_data_local = new field_js_data_local_source();
+					oxs_obj.add("field_js_data_local");
+				
+				</script>
+			<?php
+
 			return Oxs::G("BD")->getEnd().$Field["description"].field::Data($Field["system_name"],$Data,array( "config" => "
-				changeMonth: true,
-				changeYear: true,
-				dateFormat: \"dd.mm.yy\"
+				enableTime: true				
 				" , "attr"=>$attr , "class"=>"form-control oxs_field_value ".$Field["setting"]["class"] , "style" => "margin-top:3px;".$Field["field_style"] , "auto_clear" => $Field["form_name"]) );	
 		}
 	}

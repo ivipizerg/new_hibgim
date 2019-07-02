@@ -100,7 +100,7 @@
 				$Param["attr"] .= "  autocomplete=off  ";
 
 				echo field::Text($Name ,$Value, $Param);
-				Oxs::RJ("field.js:data",array($Name));
+				Oxs::RJ("field.js:data",array($Name,Oxs::G("crypto.base64")->E($Param["config"])));
 
 			return Oxs::G("BD")->getEnd();
 		}
