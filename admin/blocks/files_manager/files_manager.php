@@ -16,6 +16,8 @@
 					switch($Param["type"]){
 						case "doc_add":
 							return Oxs::G("files_manager.form:doc")->get($Param["name"],$Param["page"],$Param["search"]);
+						case "doc_add_search":
+							echo  Oxs::G("files_manager.form:doc")->innerArea($Param["page"],$Param["search"]);
 						break;
 						default: $this->setAjaxCode(-1);
 					}

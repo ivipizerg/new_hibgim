@@ -2,7 +2,7 @@ oxs_ckeditor_start = function(name){
 	
 	var _this = this;	
 
-	var b = CKEDITOR.replace(name,{
+	this.b = CKEDITOR.replace(name,{
 
 		toolbarGroups : [
 			{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
@@ -25,17 +25,16 @@ oxs_ckeditor_start = function(name){
     	removeButtons : 'Styles,Format,Save,NewPage,Preview,Print,Templates,SelectAll,Find,Replace,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Anchor,Flash,HorizontalRule,Smiley,Iframe,ShowBlocks,About'
 	});	
 
-	b.addCommand("isnertDoc", {
+	this.b.addCommand("isnertDoc", {
 	  exec: function(editor) { 
-	    aj_auth.Exec("files_manager",{ action: "get_form" , type: "doc_add" ,  page: 1 , search: null , name: name  } , function(Input){
-	    	jQuery(".oxs_main_container_dialog").html(Input.Msg);
-	    	console.log(Input);
-	    	editor.insertHtml(Input.Msg);
+	    aj_auth.Exec("files_manager",{ action: "get_form" , type: "doc_add" ,  page: 1 , search: null , name: name  } , function(Input){	    	
+	    	jQuery(".oxs_main_container_dialog").html(Input.Msg);	    	
+	    	//editor.insertHtml(Input.Msg);
 	    });
 	  }
 	});
 
-	b.ui.addButton("isnertDoc", {
+	this.b.ui.addButton("isnertDoc", {
 	  label: "Прикрепить документ",
 	  icon: "../../../../admin/tpl/default/img/Files-Download-File-icon.png",
 	  command: "isnertDoc"
@@ -55,7 +54,7 @@ oxs_ckeditor_start = function(name){
 	    var bott = wind - ( edit_w  + top );	
 	    setTimeout(function(){
 	    	try{
-	    		b.resize( null , bott +  edit_w - 50) ;
+	    		_this.b.resize( null , bott +  edit_w - 50) ;
 	    	}catch(err){}	    		   
 	    },10);	    
 	}

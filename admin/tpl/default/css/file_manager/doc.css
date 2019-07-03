@@ -2,11 +2,21 @@
 	width:500px;height:400px;text-align:left;
 }
 
-.oxs_doc_add_item{
-	text-decoration: underline;
+.oxs_doc_add_item{	
 	color: blue;
 	cursor: pointer;	
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
+}
+
+.oxs_doc_add_box_inner{
+	padding: 10px;
+	height: 340px;		
+}
+
+.oxs_doc_add_item_files{
+	font-size: 9pt;
+	color: grey;	
+	margin-left: 5px;
 }
