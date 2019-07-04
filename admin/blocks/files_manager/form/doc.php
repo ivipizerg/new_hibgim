@@ -46,7 +46,7 @@
 				}
 				$F = rtrim($F,",");
 				
-				$T .= "<div class=oxs_doc_add_item>".$Data[$i]["name"]."<div class=oxs_doc_add_item_files>".$F."</div></div>";
+				$T .= "<div class=oxs_doc_add_item><div class=oxs_doc_add_item_name data-id=".$Data[$i]["id"].">".$Data[$i]["name"]."</div><div class=oxs_doc_add_item_files>".$F."</div></div>";
 			}
 			////////////////////////////////////////////////////////////
 			

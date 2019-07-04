@@ -26,7 +26,7 @@ oxs_files_manager_js_doc = function(name_area){
 		});
 
 		oxs_events.add(".oxs_doc_add_item","click",function(e){
-			ckeditor_start.b.insertHtml(jQuery(this).text());
+			window["ckeditor_" + name_area].b.insertHtml(" <span style='color:blue' class=oxs_file_insert data-id-oxs_file_insert=" + jQuery(this).find(".oxs_doc_add_item_name").attr("data-id") + ">Документ: " + jQuery(this).find(".oxs_doc_add_item_name").text() + "</span> " , 'unfiltered_html');
 		})
 
 		oxs_black_screen.addCode(function(){
@@ -36,6 +36,8 @@ oxs_files_manager_js_doc = function(name_area){
 
 			delete window["dialog_" + name_area];
 			window["dialog_" + name_area]=undefined;
+
+			oxs_events.clear(".oxs_doc_add_item");
 
 		},"files_manager_js_doc");	
 }

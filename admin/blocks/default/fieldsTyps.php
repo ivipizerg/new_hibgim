@@ -14,7 +14,7 @@
 		}
 
 		function textArea($Field,$Data){			
-			Oxs::I("field");	
+			Oxs::I("field");				
 			if($Field["no_change"]) $attr = " disabled ";
 			return $Field["description"].field::TextArea($Field["system_name"],$Data,array( "attr"=>$attr , "class"=>"form-control oxs_field_value" , "style" => "margin-top:3px; ".$Field["field_style"] ) );			
 		}
@@ -32,6 +32,18 @@
 
 		function textarea_edited($Field,$Data){				
 			Oxs::I("field");	
+
+			//	Обрабатываем данные, мы должны заменить специальыне записи на видимые теги
+			preg_match_all( "({OXS_FILE_DOCUMENT(.*?)})", $Data , $M );	
+			print_r($M);
+
+			for($i=0;$i<count($M[0]);$i++){
+				//	Получаем данные о файле
+				$F = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__docs` WHERE `id` = 'oxs:id'" , $M[1][$i] );
+
+				//	Заменяем тег на секретный тег
+				$Data = str_replace($M[0][$i], "<span style='color:blue' class=oxs_file_insert data-id-oxs_file_insert=" . $M[1][$i] . ">Документ: " . $F[0]["name"] . "</span>" , $Data);
+			}	
 
 			//	Подключаем едитор
 			Oxs::G("ckeditor")->getObject($Field["system_name"]);

@@ -3,7 +3,7 @@ oxs_ckeditor_start = function(name){
 	var _this = this;	
 
 	this.b = CKEDITOR.replace(name,{
-
+		allowedContent : true,
 		toolbarGroups : [
 			{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 			{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },			
@@ -28,8 +28,7 @@ oxs_ckeditor_start = function(name){
 	this.b.addCommand("isnertDoc", {
 	  exec: function(editor) { 
 	    aj_auth.Exec("files_manager",{ action: "get_form" , type: "doc_add" ,  page: 1 , search: null , name: name  } , function(Input){	    	
-	    	jQuery(".oxs_main_container_dialog").html(Input.Msg);	    	
-	    	//editor.insertHtml(Input.Msg);
+	    	jQuery(".oxs_main_container_dialog").html(Input.Msg); 	
 	    });
 	  }
 	});
@@ -69,4 +68,9 @@ oxs_ckeditor_start = function(name){
 
 	this.des = function(){		
 	}
+
+	//	Обработка клика сохранить/добавить
+	oxs_events.add(".oxs_active","mouseenter",function(){		
+		ex_storage.add("textarea_edit",_this.b.getData());
+	});
 }
