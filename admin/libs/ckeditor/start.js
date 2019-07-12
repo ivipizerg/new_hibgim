@@ -27,7 +27,7 @@ oxs_ckeditor_start = function(name){
 
 	this.b.addCommand("isnertDoc", {
 	  exec: function(editor) { 
-	    aj_auth.Exec("files_manager",{ action: "get_form" , type: "doc_add" ,  page: 1 , search: null , name: name  } , function(Input){	    	
+	    aj_auth.Exec("files_manager",{ action: "get_form" , type: "doc_add_ckeditor" ,  page: 1 , search: null , name: name  } , function(Input){	    	
 	    	jQuery(".oxs_main_container_dialog").html(Input.Msg); 	
 	    });
 	  }
@@ -38,6 +38,22 @@ oxs_ckeditor_start = function(name){
 	  icon: "../../../../admin/tpl/default/img/Files-Download-File-icon.png",
 	  command: "isnertDoc"
 	});
+
+	this.b.addCommand("isnertImg", {
+	  exec: function(editor) { 
+	    aj_auth.Exec("files_manager",{ action: "get_form" , type: "img_add_ckeditor" ,  page: 1 , search: null , name: name  } , function(Input){	    	
+	    	jQuery(".oxs_main_container_dialog").html(Input.Msg); 	
+	    });
+	  }
+	});
+
+	this.b.ui.addButton("isnertImg", {
+	  label: "Прикрепить изображение",
+	  icon: "../../../../admin/tpl/default/img/add-picture.png",
+	  command: "isnertImg"
+	});
+
+	
 
 	this.updateSize = function(){
 		

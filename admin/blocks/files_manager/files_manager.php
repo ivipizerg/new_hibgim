@@ -2,24 +2,30 @@
 
 	define("OXS_PROTECT",TRUE);
 
-	class files_manager extends CoreSingleLib{			
+	class files_manager extends BlocksSingleLib{			
 
 		function __construct($Path){
 			parent::__construct($Path);
-		}
-		
+		}		
 
 		function ajaxExec($Param){
 
 			switch($Param["action"]){
 				case "get_form" :
 					switch($Param["type"]){
-						case "doc_add":
+						case "doc_add_ckeditor":
 							return Oxs::G("files_manager.form:doc")->get($Param["name"],$Param["page"],$Param["search"]);
 						case "doc_add_search":
 							echo  Oxs::G("files_manager.form:doc")->innerArea($Param["page"],$Param["search"]);
 						break;
-						default: $this->setAjaxCode(-1);
+
+						case "img_add":
+							return Oxs::G("files_manager.form:img")->get($Param["name"]);
+
+						case "img_add_ckeditor":
+							return  Oxs::G("files_manager.form:img_ckeditor")->get($Param["name"],$Param["page"],$Param["search"]);
+
+						default: $this->setAjaxCode(-2);
 					}
 				break;
 				default: $this->setAjaxCode(-1);

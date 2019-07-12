@@ -175,7 +175,7 @@ function oxs_js_oxs_events(_log){
 			}
 		}else{
 			if(this.mobjList[mObj]!=undefined){
-				this.mobjList[mObj].clear(Type,F);
+				try{this.mobjList[mObj].clear(Type,F);}catch(e){}
 				delete this.mobjList[mObj];
 			}
 		}

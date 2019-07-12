@@ -28,7 +28,7 @@ class mimage extends MultiLib{
 	}
 
 	//	Здать путь к изображению с которым будем работтаь
-	public function SetImage($Image){
+	public function setImage($Image){
 		/*echo "!".$_SERVER["SCRIPT_NAME"]."!";
 		echo "!".Oxs::GetBack()."!";
 		echo "!".Oxs::GetRoot()."!";*/

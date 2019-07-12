@@ -76,6 +76,7 @@ oxs_js_ajaxexec = function(Path,Code,SOURCES,WinObj,ajax_object){
 
 		http.upload.addEventListener('error',
 	        function(e) {
+	        	console.log(e);
 	            // Паникуем, если возникла ошибка!
 	            callbacl_fucntions.error(e);
 	        });

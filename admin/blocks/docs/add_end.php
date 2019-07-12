@@ -49,10 +49,10 @@
 				}
 
 				//	Ищем свободное имечко
-				$Name = Oxs::G("file")->GetFreeName($this->getP("files_data")[$i]["oroginal_name"],"files/");
+				$Name = Oxs::G("file")->GetFreeName($this->getP("files_data")[$i]["oroginal_name"],"files/docs");
 
 				//	Копируем
-				if(Oxs::G("file")->copy("files/tmp/".$this->getP("files_data")[$i]["name"],"files/".$Name)){
+				if(Oxs::G("file")->copy("files/tmp/".$this->getP("files_data")[$i]["name"],"files/docs/".$Name)){
 					$Tmp[$j]["original_name"] =  $this->getP("files_data")[$i]["oroginal_name"];
 					$Tmp[$j++]["name"] = $Name;
 				}else{

@@ -34,8 +34,7 @@
 			Oxs::I("field");	
 
 			//	Обрабатываем данные, мы должны заменить специальыне записи на видимые теги
-			preg_match_all( "({OXS_FILE_DOCUMENT(.*?)})", $Data , $M );	
-			print_r($M);
+			preg_match_all( "({OXS_FILE_DOCUMENT(.*?)})", $Data , $M );				
 
 			for($i=0;$i<count($M[0]);$i++){
 				//	Получаем данные о файле

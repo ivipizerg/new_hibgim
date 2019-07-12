@@ -23,7 +23,7 @@
 
 			for($i=0;$i<count($R);$i++){
 				//	Файл найден он действительно наш - удаляем
-				echo $R[$i]->name."|".$Param["file"];
+				//echo $R[$i]->name."|".$Param["file"];
 				if($R[$i]->name == $Param["file"]){
 					
 					Oxs::G("file")->Delete("files/".$R[$i]->name);

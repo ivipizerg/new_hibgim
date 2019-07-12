@@ -82,7 +82,7 @@ function oxs_js_dir2(aj_name,log,max_size,Max_file_uploads){
 	    		if(callbakcs.status!=undefined)callbakcs.status(e,i);	    		
 	    	},
 
-	    	error: function(e){
+	    	error: function(e){	    		
 	    		if(callbakcs.error!=undefined)callbakcs.error(e);	    
 	    	}
 	    });

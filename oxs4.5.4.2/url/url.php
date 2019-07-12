@@ -28,7 +28,7 @@ class url extends SingleLib {
 			return $this->Param;
 		}
 
-		function GetPath($Url=NULL){
+		function getPath($Url=NULL){
 			if($Url==NULL) $Url=$this->getUrl();
 			$Url = explode("?",$Url)[0];				
 			return rtrim($Url,$this->GetName($Url).".".$this->GetExt($Url));		
@@ -41,17 +41,18 @@ class url extends SingleLib {
 			//	!!!СПОРНЫЙ МЕТОД РЕШЕНЯИ ПРОБЕЛМЫ С КИРИЛЛИЦЕЙ!!!
 			setlocale(LC_ALL,'ru_RU.UTF-8');		
 			
-			$File_info = pathinfo($Url);	
-
-			/*Oxs::G("BD")->Start();
-
-			echo $Url;
-
-			var_dump($File_info);
-
-			$this->Msg(Oxs::G("BD")->getEnd(),"MESSAGE");*/
-
+			$File_info = pathinfo($Url);
 			return $File_info['filename'] ;			
+		}
+
+		function getBaseName($Url=NULL){
+			if($Url==NULL) $Url=$this->getUrl();	
+
+			//	!!!СПОРНЫЙ МЕТОД РЕШЕНЯИ ПРОБЕЛМЫ С КИРИЛЛИЦЕЙ!!!
+			setlocale(LC_ALL,'ru_RU.UTF-8');		
+			
+			$File_info = pathinfo($Url);
+			return $File_info['basename'] ;			
 		}
 
 		function GetExt($Url=NUL){

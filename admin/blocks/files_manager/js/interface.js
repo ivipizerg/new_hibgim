@@ -13,12 +13,15 @@ oxs_files_manager_js_interface = function(name_area,obj,Dir,language){
 
 			change:function(massiv){
 
+				if(window[obj].change!=undefined)
+				if(window[obj].change()==false){
+					return ;
+				}
+
 				window["dialog_" + name_area].show();
 				
 				//	смотрим колчиестов вбыранных файлов
-				limits = js_dir2.getLimits();
-
-				console.log(limits);			
+				limits = js_dir2.getLimits();		
 						
 				//	Проверяем количество
 				if(massiv.length>limits[1]){

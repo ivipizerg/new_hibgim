@@ -13,6 +13,11 @@ class js_dir2 extends SingleLib{
 		//	Ищем свободное имечко
 		$Name = Oxs::G("file")->GetFreeName($_FILES["OXS_DIR2_FILE"]["name"],$_POST["OXS_DIR2_FILE_PATH"]."/");
 
+		Oxs::G("BD")->Start();
+		print_r($_FILES);
+
+		$this->Msg(Oxs::G("BD")->getEnd(),"MESSAGE");
+
 		//	Копируем
 		Oxs::G("file")->copy($_FILES["OXS_DIR2_FILE"]["tmp_name"],$_POST["OXS_DIR2_FILE_PATH"]."/".$Name);
 

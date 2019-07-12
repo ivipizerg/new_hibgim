@@ -158,6 +158,11 @@
 	$DOCS_ADD = "Прикрепить документы";
 	$WRONG_EXTENTION_FILE = "Запрещенное расширение файла ".$this->GetParam(1). " (".$this->GetParam(2).")";
 	$WRONG_MIME_FILE = "Запрещеннный тип файла ".$this->GetParam(1). " (". $this->GetParam(2).")";
+	$IMG_LOAD_SUCCESS = "Изображения успешно загружены";
+	$ALL_FILE_DELETED_SUCCESS = "Файлы удалены";
+	$FILE_DELETED_SUCCESS = "Файл ".$this->GetParam(1). " удален успешно";
+	$FILE_NOT_FOUND = "Файл ".$this->GetParam(1). " не найден";
+	$IMG_LOAD_SUCCESS = "Изображения успешно загружены";
 
 
 

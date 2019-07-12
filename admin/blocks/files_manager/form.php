@@ -46,17 +46,32 @@
 
 			//////////////////////////////////////////////
 
-			if(ini_get("post_max_size")>ini_get("upload_max_filesize")){
-				$MAX_SIZE = ini_get("post_max_size"); 
+			if(ini_get("post_max_size")<ini_get("upload_max_filesize")){
+				$MAX_SIZE = Wini_get("post_max_size"); 
 			}else{
 				$MAX_SIZE = ini_get("upload_max_filesize");
 			}	
+
+			$this->Msg($MAX_SIZE,"MESSAGE");
+
+			preg_match('!\d+!', $MAX_SIZE, $matches);
+			$MAX_SIZE = $matches[0];
+			
+			$this->Msg( $matches[0] ,"MESSAGE");
 
 			$MU = $this->getP("MAX_UPLOAD");
 			$MS = $this->getP("MAX_SIZE");
 
 			if(empty($MU)) $MU = ini_get("max_file_uploads");
-			if(empty($MS)) $MS = $MAX_SIZE;
+			if(empty($MS)) {
+				$MS = $MAX_SIZE;
+			}else{
+				if($MS > $MAX_SIZE){
+					$MS = $MAX_SIZE;
+				}
+			}
+
+			$this->Msg($MS,"MESSAGE");
 
 			//	Создаем обьект для работы с файлами
 			Oxs::G("js.dir2")->GetObject( "js_dir2" , array( "window_name" => "aj_auth" , "MAX_UPLOAD" => $MU , "MAX_SIZE" => $MS ));

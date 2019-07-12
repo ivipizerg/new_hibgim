@@ -53,9 +53,9 @@
 
 					//	Файл новый копируем его и записываем в массив
 					//	Ищем свободное имечко
-					$Name = Oxs::G("file")->GetFreeName($this->getP("files_data")[$i]["oroginal_name"],"files/");
+					$Name = Oxs::G("file")->GetFreeName($this->getP("files_data")[$i]["oroginal_name"],"files/docs");
 					//	Копируем
-					if(Oxs::G("file")->copy("files/tmp/".$this->getP("files_data")[$i]["name"],"files/".$Name)){
+					if(Oxs::G("file")->copy("files/tmp/".$this->getP("files_data")[$i]["name"],"files/docs/".$Name)){
 						$Tmp[$j]["original_name"] =  $this->getP("files_data")[$i]["oroginal_name"];
 						$Tmp[$j++]["name"] = $Name;
 						$this->Msg("Новый файл ".($this->getP("files_data")[$i]["oroginal_name"])." скопирован успешно","GOOD.docs_fix_end");
