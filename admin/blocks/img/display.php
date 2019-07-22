@@ -33,6 +33,7 @@
 			echo "<div style='padding: 10px;text-align:center; '>";
 			if($R)
 			for($i=0;$i<count($R);$i++){
+				
 				echo "<div class='oxs_img_display_item' data-id=\"".$R[$i]["id"]."\" style='margin:5px;display: inline-block; width:200px;height:200px;background-image: url(\"files/img/thumbs/".$R[$i]["file"]."\");background-size:cover;background-position: center center'></div>";
 			}
 

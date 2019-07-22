@@ -12,7 +12,9 @@
 
 .oxs_img_add_box_inner{
 	padding: 10px;
-	height: 340px;		
+	height: 340px;
+	text-align:center;
+	margin-bottom:10px;		
 }
 
 .oxs_img_add_item_files{

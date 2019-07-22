@@ -10,8 +10,8 @@
 
 		function GetDefaultTemplateName($mode="admin"){
 			
-			$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__templates` WHERE `inuse` = '1' and `type` = 'oxs:sql'" , $mode);			
-			
+			$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__templates` WHERE `inuse` = '1' and `type` = 'oxs:sql'" , $mode);	
+
 			if(!$R) return null;
 			return $R[0]["system_name"];
 		}

@@ -10,18 +10,24 @@
 
 		function innerArea($page,$search){
 			
-			$postsInPage = 25;			
+			$postsInPage = 24;			
 
-			$S = Oxs::L("sqlsearch");
+			if(empty($search) OR $search==4 ){
+				Oxs::G("DBLIB.IDE")->DB()->AddQ("SELECT * FROM `#__img`" );	
+				$All  = Oxs::G("DBLIB.IDE")->DB()->Exec();
+
+				Oxs::G("DBLIB.IDE")->DB()->AddQ( "SELECT * FROM `#__img` ORDER BY `id` DESC LIMIT ".(($page*$postsInPage)-$postsInPage.",".($postsInPage)) );
+				$R = Oxs::G("DBLIB.IDE")->DB()->Exec();
+
+			}else{
+				Oxs::G("DBLIB.IDE")->DB()->AddQ("SELECT * FROM `#__img` WHERE `cat` = 'oxs:id'" , $search );	
+				$All  = Oxs::G("DBLIB.IDE")->DB()->Exec();
+
+				Oxs::G("DBLIB.IDE")->DB()->AddQ( "SELECT * FROM `#__img` WHERE `cat` = 'oxs:id' ORDER BY `id` DESC LIMIT ".(($page*$postsInPage)-$postsInPage.",".($postsInPage)) , $search );
+				$R = Oxs::G("DBLIB.IDE")->DB()->Exec();
+			}			
+
 			
-			Oxs::G("DBLIB.IDE")->DB()->AddQ("SELECT * FROM `#__docs` WHERE `status` = '1'" );
-			$DB = $S->search(Oxs::G("DBLIB.IDE")->DB(),$search,array("name","desc","files"));	
-			$DB1 = clone($DB);		
-			$All  = $DB->Exec();
-
-			$DB1->AddQ( " LIMIT ".(($page*$postsInPage)-$postsInPage.",".($postsInPage)) );
-			$Data = $DB1->Exec();
-
 			if(!$All) $All = array("1");
 
 			//	Вставялем разметку
@@ -30,44 +36,45 @@
 				"all"=>count($All),
 				"interval"=> 5,
 				"count"=> $postsInPage,
-				"page"=> $page
+				"page"=> $page,
+				"Foo" => function($i,$Data,$obj){
+					return "<div class='oxs_my_navigation_item oxs_active oxs_active_style' data-route=\"".(Oxs::G("datablocks_manager")->RealCurrentBlockName).":display\">".$i."</div>";
+				}
 			));
 			////////////////////////////////////////////////////////////
 
 
-			if(!$Data) return "<div class=oxs_doc_add_box_inner >Ничего не найдено</div><div>".($Nav->show())."</div>";
+			if(!$R) return "<div class=oxs_img_add_box_inner >Ничего не найдено</div><div>".($Nav->show())."</div>";
 
-			for($i=0;$i<count($Data);$i++){
-
-				$Fiels = Oxs::G("JSON.IDE")->JSON()->D($Data[$i]["files"]);				
-				$F="";
-				for($j=0;$j<count($Fiels);$j++){
-					$F .= $Fiels[$j]->name.",";
-				}
-				$F = rtrim($F,",");
+			for($i=0;$i<count($R);$i++){
 				
-				$T .= "<div class=oxs_doc_add_item><div class=oxs_doc_add_item_name data-id=".$Data[$i]["id"].">".$Data[$i]["name"]."</div><div class=oxs_doc_add_item_files>".$F."</div></div>";
+				$T .= "<div class='oxs_img_display_item' data-file=\"".$R[$i]["file"]."\" data-id=\"".$R[$i]["id"]."\" style='cursor:pointer;margin:5px;display: inline-block; width:70px;height:70px;background-image: url(\"files/img/thumbs/".$R[$i]["file"]."\");background-size:cover;background-position: center center'></div>";;
 			}
 			////////////////////////////////////////////////////////////
 			
 			$this->setAjaxCode(2);
 			
-			return "<div class=oxs_doc_add_box_inner >".$T."</div><div>".($Nav->show())."</div>";
+			return "".$T."<div>".($Nav->show())."</div>";
 		}
 		
 		function get($name,$page,$search){							
 			
 			Oxs::G("templatemanager:css")->loadCss("file_manager","default");
 			Oxs::G("templatemanager:css")->loadCss("file_manager","img");
-			Oxs::G("templatemanager:css")->loadCss("dialog","main");		
+			Oxs::G("templatemanager:css")->loadCss("dialog","main");	
+			Oxs::G("dom")->LoadCssOnce("admin/tpl/default/css/main_table.css");
 
 			$D = Oxs::L("dialog");
 			$D->setName("dialog_" . $name);
-			$D->addHtml("<div class=oxs_img_add_box style=''><div class=oxs_img_add_box_cat>".(Oxs::G("default:fieldsTyps")->text( array( "system_name" => "oxs_img_add_box_input" , "form_name" => "Категория" ),null))."</div><div classoxs_img_add_box_inner>".($this->innerArea($page,$search))."</div></div>");
+		
+			Oxs::G("storage")->add("filter_value",array( 
+				"table" => "img_cat"
+			));
+
+			$D->addHtml("<div class=oxs_img_add_box style=''><div class=oxs_img_add_box_cat>".(Oxs::G("default.tree:fieldsTyps")->cat_tree( array( "system_name" => "oxs_img_add_box_input" , "form_name" => "Категория" ),null))."</div><div class=oxs_img_add_box_inner>".($this->innerArea($page,$search))."</div></div>");
 			echo $D->build();
 
 			//////////////////////////////////////////////	
-
 			Oxs::G("oxs_obj")->G("files_manager.js:img",array( 				
 				$name				
 			));	

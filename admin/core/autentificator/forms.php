@@ -30,7 +30,10 @@ class autentificator_forms extends CoreSingleLib{
 		?>
 		<script type="text/javascript">
 			jQuery(function(){
-				jQuery("[name=login]").focus();
+				setTimeout(function(){
+					jQuery("[name=login]").focus();
+				},50);
+				
 			});
 		</script>
 		<?php

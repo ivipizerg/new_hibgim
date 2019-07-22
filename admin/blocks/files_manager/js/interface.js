@@ -4,6 +4,8 @@ oxs_files_manager_js_interface = function(name_area,obj,Dir,language){
 
 		var _this = this;	
 
+		console.log("dialog_" + name_area);
+
 		window["dialog_" + name_area].build();		
 
 		//	Файлы выбраны
@@ -14,14 +16,14 @@ oxs_files_manager_js_interface = function(name_area,obj,Dir,language){
 			change:function(massiv){
 
 				if(window[obj].change!=undefined)
-				if(window[obj].change()==false){
+				if(window[obj].change(massiv)==false){
 					return ;
 				}
 
-				window["dialog_" + name_area].show();
+				if(window["dialog_" + name_area]!=undefined)window["dialog_" + name_area].show();
 				
 				//	смотрим колчиестов вбыранных файлов
-				limits = js_dir2.getLimits();		
+				limits = js_dir2.getLimits();	
 						
 				//	Проверяем количество
 				if(massiv.length>limits[1]){
@@ -50,7 +52,7 @@ oxs_files_manager_js_interface = function(name_area,obj,Dir,language){
 							return ;
 						}
 						
-						oxs_black_screen.deActive();
+						oxs_black_screen.deActive();						
 						window["dialog_" + name_area].set("Загрузка...<br>файл " + (i+1) + " из " + massiv.length  + " <br><div class=oxs_dialog_load_files_status_bar><div class=oxs_dialog_load_files_status_bar_inner></div></div><div class=oxs_dialog_load_files_status_bar_percent></div>"  );					
 						jQuery(".oxs_dialog_load_files_status_bar_inner").css("width",Math.round((e.loaded/e.total) * 100) + "%");
 						jQuery(".oxs_dialog_load_files_status_bar_percent").html(Math.round((e.loaded/e.total) * 100) + "%");

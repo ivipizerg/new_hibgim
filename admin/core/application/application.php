@@ -37,7 +37,7 @@
 			if(!Oxs::G("usermanager")->CurrentUser->IfAuth()){	
 				Oxs::G("templatemanager")->ChoiseTemplate("auth");
 			}else{
-				Oxs::G("templatemanager")->ChoiseDefaultTemplate();	
+				Oxs::G("templatemanager")->ChoiseDefaultTemplate("admin");	
 			}
 
 			echo Oxs::G("templatemanager")->ShowTemplate();	

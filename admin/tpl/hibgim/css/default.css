@@ -1,0 +1,67 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	font-family: Tahoma;
+	font-size: 10,5pt;
+}
+
+body{
+	background: #edecec;
+	padding-top: 15px;
+}
+
+.wrapper{	
+	width: 1300px;
+	margin: auto;	
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	background-color: #fff;
+}
+
+.oxs_header{
+	font-weight: bold;
+	margin: 0px 0px 10px 20px;
+}
+
+/*///////////////// МЕНЮ ВЕРХ//////////////////////*/
+.top_menu{
+	list-style-type: none;
+	width: 100%;
+	text-align: center;
+	margin-top: -7px;
+	margin-bottom: -7px;
+}
+
+.top_menu li {
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+/*/////////////////////////////////////////////*/
+
+
+/*///////////////// МЕНЮ ЛЕВО//////////////////////*/
+.left_menu li{	
+	list-style: none;	
+	width: 250px;
+	padding: 5px 0px 5px 30px;
+}
+
+ul.left_menu{	
+	
+}
+
+.left_menu *{		
+	color: #0606b5;
+	line-height:17px;
+}
+
+.sf-menu li , .sf-menu li li , .sf-menu li li li{
+	background: #fff;
+	width: 300px;	
+	white-space: normal;
+}
+
+.sf-menu li:hover{
+	cursor: pointer;
+}
+/*/////////////////////////////////////////////*/

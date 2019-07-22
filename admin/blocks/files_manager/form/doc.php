@@ -10,7 +10,7 @@
 
 		function innerArea($page,$search){
 			
-			$postsInPage = 25;			
+			$postsInPage = 9;			
 
 			$S = Oxs::L("sqlsearch");
 			
@@ -30,7 +30,10 @@
 				"all"=>count($All),
 				"interval"=> 5,
 				"count"=> $postsInPage,
-				"page"=> $page
+				"page"=> $page,
+				"Foo" => function($i,$Data,$obj){
+					return "<div class='oxs_my_navigation_item oxs_active oxs_active_style' data-route=\"".(Oxs::G("datablocks_manager")->RealCurrentBlockName).":display\">".$i."</div>";
+				}
 			));
 			////////////////////////////////////////////////////////////
 
@@ -41,9 +44,12 @@
 
 				$Fiels = Oxs::G("JSON.IDE")->JSON()->D($Data[$i]["files"]);				
 				$F="";
-				for($j=0;$j<count($Fiels);$j++){
-					$F .= $Fiels[$j]->name.",";
-				}
+				if($Fiels)
+					for($j=0;$j<count($Fiels);$j++){
+						$F .= $Fiels[$j]->name.",";
+					}
+				else
+					$F = "Файлов нет";
 				$F = rtrim($F,",");
 				
 				$T .= "<div class=oxs_doc_add_item><div class=oxs_doc_add_item_name data-id=".$Data[$i]["id"].">".$Data[$i]["name"]."</div><div class=oxs_doc_add_item_files>".$F."</div></div>";
@@ -52,7 +58,7 @@
 			
 			$this->setAjaxCode(2);
 			
-			return "<div class=oxs_doc_add_box_inner >".$T."</div><div>".($Nav->show())."</div>";
+			return "<div style='height:339px;'>".$T."</div><div>".($Nav->show())."</div>";
 		}
 		
 		function get($name,$page,$search){							

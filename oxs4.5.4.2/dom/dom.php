@@ -121,6 +121,18 @@ class dom extends SingleLib{
 		return "<meta http-equiv=\"Cache-Control\" content=\"no-cache\">";
 	}
 
+	function getBase($Base=NULL){
+		$_proto=($_SERVER["SERVER_PORT"]==443)?"https":"http";
+		if($Base==NULL){		
+			if(Oxs::GetRoot()=="/")	
+				return $_proto."://".$_SERVER["SERVER_NAME"];
+			else
+				return $_proto."://".$_SERVER["SERVER_NAME"]."/".Oxs::GetRoot();
+		}else{
+			return $_proto."://".$_SERVER["SERVER_NAME"]."/".$Base;
+		}
+	}
+
 	function ShowBase($Base=NULL){
 		$_proto=($_SERVER["SERVER_PORT"]==443)?"https":"http";
 		if($Base==NULL){		

@@ -27,7 +27,8 @@
 
 			$Field = Array( "system_name" => "cat" );			
 			Oxs::G("storage")->add("filter_value",array( 
-				"table" => "img_cat"
+				"table" => "img_cat",
+				"id" => 4
 			));
 
 			Oxs::G("templatemanager:css")->loadCss("file_manager","default");
@@ -38,7 +39,7 @@
 			///////////////////////////////////////////////////////////////////////		
 
 			$this->setAjaxData("form" , Oxs::G("BD")->getEnd() );
-			$this->setAjaxData("select" , Oxs::G("default.tree:fieldsTyps")->cat_tree($Field,null) );
+			$this->setAjaxData("select" , Oxs::G("default.tree:fieldsTyps")->cat_childs($Field,null) );
 			
 			$this->setAjaxCode(1);
 			return ;

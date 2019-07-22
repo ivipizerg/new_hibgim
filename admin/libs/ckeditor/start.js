@@ -1,8 +1,9 @@
-oxs_ckeditor_start = function(name){	
+oxs_ckeditor_start = function(name,base){	
 	
-	var _this = this;	
+	var _this = this;
 
 	this.b = CKEDITOR.replace(name,{
+		baseHref : crypto_base64.D(base), 
 		allowedContent : true,
 		toolbarGroups : [
 			{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },

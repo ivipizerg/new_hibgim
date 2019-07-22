@@ -32,17 +32,17 @@
 		function Run(){
 
 			//	Защита вторизацией Если сайт закрыт на ремонт
-			if( !Oxs::G("usermanager")->CurrentUser->IfAuth() && Oxs::G("setting_manager")->get("enable_site")!=1 ){				
+			if( !Oxs::G("usermanager")->CurrentUser->IfAuth() && Oxs::G("setting_manager")->getOption("enable_site")!=1 ){				
 				Oxs::G("templatemanager")->ChoiseTemplate( "auth" , array("mode" => "front") );
-			}else{
+			}else{				
 				Oxs::G("templatemanager")->ChoiseDefaultTemplate("front");				
 			}	
 
 			echo Oxs::G("templatemanager")->ShowTemplate();	
 			
-			if(Oxs::G("setting_manager")->get("debug_mode")=="да" && Oxs::G("usermanager")->CurrentUser->IfAuth() ){
+			if(Oxs::G("setting_manager")->getOption("debug_mode")=="1" && Oxs::G("usermanager")->CurrentUser->IfAuth()){
 				echo Oxs::ShowLog();	
-			}	
+			}		
 		}
 	}
 

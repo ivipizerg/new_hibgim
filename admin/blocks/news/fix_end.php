@@ -2,9 +2,9 @@
 <?php
 	if(!defined("OXS_PROTECT"))die("protect");
 
-	Oxs::G("default:add_end");
+	Oxs::G("default:fix_end");
 
-	class news_add_end extends default_add_end{
+	class news_fix_end extends default_fix_end{
 		
 		protected $CurrentID;		
 
@@ -12,10 +12,15 @@
 			parent::__construct($Path);			
 		}			
 		
-		function Exec(){		
-			
+		function Exec(){	
+
+			//	Понимаем чо делать с миникартинкой, если она задана а в базе пусто
+			//	Занчит была заменена
+
+			$this->setD( "mini_img" , $this->getP("data-fix-file-name") );	
+
 			//	Смотрим есть ли миниизображение
-			if($this->getP("data-file")){
+			if($this->getP("data-file")!=""){
 				$this->Msg("Обрабатываем иконку","MESSAGE");
 
 				//	Получаем настройки
@@ -63,7 +68,7 @@
 
 					//	Проверим нет ли уже картинки с таким хешем
 					$H = hash_file('md5', Oxs::GetBack()."files/tmp/".$this->getP("data-file") );
-					$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__news` WHERE `img_hash` = 'oxs:sql'" , $H);
+					$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__news` WHERE `img_hash` = 'oxs:sql' and `id` != 'oxs:id'" , $H , $this->getP("fixingId") );
 					if(  $R	 ){
 						$this->setD( "mini_img" , $R[0]["mini_img"] );		
 						$Hash = $R[0]["img_hash"];
@@ -82,6 +87,10 @@
 						}
 					}					
 				}
+
+				Oxs::G("DBLIB.IDE")->DB()->Update("#__news",array(
+					"sql:img_hash" => $Hash
+				), " WHERE `id` ='oxs:id'" , $this->getP("fixingId") ); 
 			}
 
 			//	Обработка textarea_edit, нужно найти все втсавки файлов и вырезать ненужное
@@ -98,12 +107,7 @@
 
 			$this->setD( "text" , $txt );
 
-			parent::Exec();
-
-			//	Упдатим Хэш иконки
-			Oxs::G("DBLIB.IDE")->DB()->Update("#__news",array(
-					"sql:img_hash" => $Hash
-			), " WHERE `id` ='oxs:id'" , $this->CurrentID ); 
+			parent::Exec();				
 
 			//	Если были заданы даты то изменяем их
 			if(!empty($this->getD("create_data"))){
@@ -112,7 +116,7 @@
 
 				Oxs::G("DBLIB.IDE")->DB()->Update("#__news",array(
 					"create_data" => $C->getUnix()
-				), " WHERE `id` ='oxs:id'" , $this->CurrentID );
+				), " WHERE `id` ='oxs:id'" , $this->getP("fixingId") );
 			}
 
 			//	Если были заданы даты то изменяем их
@@ -122,7 +126,7 @@
 
 				Oxs::G("DBLIB.IDE")->DB()->Update("#__news",array(
 					"update_data" => $C->getUnix()
-				), " WHERE `id` ='oxs:id'" , $this->CurrentID );
+				), " WHERE `id` ='oxs:id'" , $this->getP("fixingId") );
 			}
 		}	
 	}

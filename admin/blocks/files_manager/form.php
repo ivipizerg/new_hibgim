@@ -46,18 +46,17 @@
 
 			//////////////////////////////////////////////
 
-			if(ini_get("post_max_size")<ini_get("upload_max_filesize")){
-				$MAX_SIZE = Wini_get("post_max_size"); 
+			preg_match('!\d+!', ini_get("post_max_size"), $matches);
+			$post_max_size = $matches[0];
+
+			preg_match('!\d+!', ini_get("upload_max_filesize"), $matches);
+			$upload_max_filesize = $matches[0];
+
+			if($post_max_size<$upload_max_filesize){
+				$MAX_SIZE = $post_max_size;
 			}else{
-				$MAX_SIZE = ini_get("upload_max_filesize");
-			}	
-
-			$this->Msg($MAX_SIZE,"MESSAGE");
-
-			preg_match('!\d+!', $MAX_SIZE, $matches);
-			$MAX_SIZE = $matches[0];
-			
-			$this->Msg( $matches[0] ,"MESSAGE");
+				$MAX_SIZE = $upload_max_filesize;
+			}		
 
 			$MU = $this->getP("MAX_UPLOAD");
 			$MS = $this->getP("MAX_SIZE");

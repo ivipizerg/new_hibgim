@@ -29,7 +29,9 @@
 		}
 
 		//	выбрать и прогнать шаблон по умолчанию
-		function ChoiseDefaultTemplate(){
+		function ChoiseDefaultTemplate($mode){
+
+			$this->mode = $mode;	
 
 			$name_default_template = Oxs::G("templatemanager:model")->GetDefaultTemplateName($this->mode);			
 

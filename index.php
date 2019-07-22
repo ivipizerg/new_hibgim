@@ -8,16 +8,19 @@
 	//	Иницализируем рабочую среду
 	////////////////////////////////////////////////////
 	include("oxs".$OxsVersion."/oxs_fw.php");
-	Oxs::SetRoot("new.hibgim.ru/");
+
+	Oxs::Start();
+	Oxs::SetRoot("hibgim/");
 	
-	Oxs::Init(
-		"oxs".$OxsVersion."/",
-		"core/",
+	Oxs::setSourses(
+		"oxs".$OxsVersion."/",	
+		"core/",	
 		"admin/core/",
 		"admin/local/core/",
 		"admin/blocks/" ,
 		"admin/local/blocks/",
-		"admin/filters/"
+		"admin/filters/",
+		"admin/libs/"
 	);
 	
 	//	Стартуем сессию
