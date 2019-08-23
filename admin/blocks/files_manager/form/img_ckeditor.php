@@ -8,23 +8,39 @@
 			parent::__construct($Path);
 		}	
 
-		function innerArea($page,$search){
+		function innerArea($page,$search,$category_list = null,$class_img = "oxs_img_display_item"){
 			
+			if($class_img==null) $class_img = "oxs_img_display_item";
+
 			$postsInPage = 24;			
 
-			if(empty($search) OR $search==4 ){
-				Oxs::G("DBLIB.IDE")->DB()->AddQ("SELECT * FROM `#__img`" );	
+			//	Если указан списко категорий то выбираем только указаныне категории
+			if($category_list!=null){
+				$category_list = implode(" , ",$category_list);
+				$category_list = " `cat` IN (".$category_list.") "; 
+			}
+
+			if(empty($search) OR $search==-1 ){				
+				if($category_list==null){
+					Oxs::G("DBLIB.IDE")->DB()->AddQ("SELECT `#__img`.* , `#__img_cat`.`name` AS `cat_name` , `#__img_cat`.`path` AS `cat_path` FROM `#__img` , `#__img_cat` WHERE `#__img`.`cat` = `#__img_cat`.`id`" );	
+					$All  = Oxs::G("DBLIB.IDE")->DB()->Exec();
+
+					Oxs::G("DBLIB.IDE")->DB()->AddQ( "SELECT `#__img`.* , `#__img_cat`.`name` AS `cat_name` , `#__img_cat`.`path` AS `cat_path` FROM `#__img` , `#__img_cat` WHERE `#__img`.`cat` = `#__img_cat`.`id` ORDER BY `id` DESC LIMIT ".(($page*$postsInPage)-$postsInPage.",".($postsInPage)) );
+					$R = Oxs::G("DBLIB.IDE")->DB()->Exec();
+				}else{
+					Oxs::G("DBLIB.IDE")->DB()->AddQ("SELECT `#__img`.* , `#__img_cat`.`name` AS `cat_name` , `#__img_cat`.`path` AS `cat_path` FROM `#__img` , `#__img_cat` WHERE `#__img`.`cat` = `#__img_cat`.`id` and ".$category_list );	
+					$All  = Oxs::G("DBLIB.IDE")->DB()->Exec();
+
+					Oxs::G("DBLIB.IDE")->DB()->AddQ( "SELECT `#__img`.* , `#__img_cat`.`name` AS `cat_name` , `#__img_cat`.`path` AS `cat_path` FROM `#__img` , `#__img_cat` WHERE `#__img`.`cat` = `#__img_cat`.`id` and ".$category_list." ORDER BY `id` DESC LIMIT ".(($page*$postsInPage)-$postsInPage.",".($postsInPage)) );
+					$R = Oxs::G("DBLIB.IDE")->DB()->Exec();
+				}				
+
+			}else{				
+				Oxs::G("DBLIB.IDE")->DB()->AddQ("SELECT `#__img`.* , `#__img_cat`.`name` AS `cat_name` , `#__img_cat`.`path` AS `cat_path` FROM `#__img` , `#__img_cat` WHERE `#__img`.`cat` = `#__img_cat`.`id` and `cat` = 'oxs:id'" , $search );	
 				$All  = Oxs::G("DBLIB.IDE")->DB()->Exec();
 
-				Oxs::G("DBLIB.IDE")->DB()->AddQ( "SELECT * FROM `#__img` ORDER BY `id` DESC LIMIT ".(($page*$postsInPage)-$postsInPage.",".($postsInPage)) );
-				$R = Oxs::G("DBLIB.IDE")->DB()->Exec();
-
-			}else{
-				Oxs::G("DBLIB.IDE")->DB()->AddQ("SELECT * FROM `#__img` WHERE `cat` = 'oxs:id'" , $search );	
-				$All  = Oxs::G("DBLIB.IDE")->DB()->Exec();
-
-				Oxs::G("DBLIB.IDE")->DB()->AddQ( "SELECT * FROM `#__img` WHERE `cat` = 'oxs:id' ORDER BY `id` DESC LIMIT ".(($page*$postsInPage)-$postsInPage.",".($postsInPage)) , $search );
-				$R = Oxs::G("DBLIB.IDE")->DB()->Exec();
+				Oxs::G("DBLIB.IDE")->DB()->AddQ( "SELECT `#__img`.* , `#__img_cat`.`name` AS `cat_name` , `#__img_cat`.`path` AS `cat_path` FROM `#__img` , `#__img_cat` WHERE `#__img`.`cat` = `#__img_cat`.`id` and `cat` = 'oxs:id' ORDER BY `id` DESC LIMIT ".(($page*$postsInPage)-$postsInPage.",".($postsInPage)) , $search );
+				$R = Oxs::G("DBLIB.IDE")->DB()->Exec();								
 			}			
 
 			
@@ -48,7 +64,7 @@
 
 			for($i=0;$i<count($R);$i++){
 				
-				$T .= "<div class='oxs_img_display_item' data-file=\"".$R[$i]["file"]."\" data-id=\"".$R[$i]["id"]."\" style='cursor:pointer;margin:5px;display: inline-block; width:70px;height:70px;background-image: url(\"files/img/thumbs/".$R[$i]["file"]."\");background-size:cover;background-position: center center'></div>";;
+				$T .= "<div class='".$class_img."' data-file=\"".$R[$i]["file"]."\" data-id=\"".$R[$i]["id"]."\" style='cursor:pointer;margin:5px;display: inline-block; width:70px;height:70px;background-image: url(\"".$R[$i]["cat_path"]."/thumbs/".$R[$i]["file"]."\");background-size:cover;background-position: center center'></div>";;
 			}
 			////////////////////////////////////////////////////////////
 			
@@ -57,8 +73,9 @@
 			return "".$T."<div>".($Nav->show())."</div>";
 		}
 		
-		function get($name,$page,$search){							
+		function get($name,$page,$search,$category_list = null,$class_img = "oxs_img_display_item"){	
 			
+
 			Oxs::G("templatemanager:css")->loadCss("file_manager","default");
 			Oxs::G("templatemanager:css")->loadCss("file_manager","img");
 			Oxs::G("templatemanager:css")->loadCss("dialog","main");	
@@ -69,9 +86,9 @@
 		
 			Oxs::G("storage")->add("filter_value",array( 
 				"table" => "img_cat"
-			));
+			));					
 
-			$D->addHtml("<div class=oxs_img_add_box style=''><div class=oxs_img_add_box_cat>".(Oxs::G("default.tree:fieldsTyps")->cat_tree( array( "system_name" => "oxs_img_add_box_input" , "form_name" => "Категория" ),null))."</div><div class=oxs_img_add_box_inner>".($this->innerArea($page,$search))."</div></div>");
+			$D->addHtml("<div class=oxs_img_add_box style=''><div class=oxs_img_add_box_cat>".(Oxs::G("default.tree:fieldsTyps")->cat_tree( array( "system_name" => "oxs_img_add_box_input" , "form_name" => "Категория" , "cat_list" => $category_list ,  "add_option" => array("name" => "Все категории" , "id" => -1 ) ),null))."</div><div class=oxs_img_add_box_inner>".($this->innerArea($page,$search,$category_list,$class_img))."</div></div>");
 			echo $D->build();
 
 			//////////////////////////////////////////////	

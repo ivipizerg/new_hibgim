@@ -27,28 +27,23 @@
 						if(count($R)>1){
 							$this->Msg("Записей болье 1, не трогаем файл", "MESSAGE" );
 						}else{
-								
+							
 							$this->Msg("Запись 1, удаляем файл", "MESSAGE" );	
 
 							if(Oxs::G("file")->isExist("files/news_img/".$Param["file"])){
 								Oxs::G("file")->delete("files/news_img/".$Param["file"]);
-								$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $R[0]["file"] ),"GOOD.img_remove");
+								$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $Param["file"] ),"GOOD.img_remove");
 								$this->setAjaxCode(1);	
-							}
-							else{
-								$this->Msg(Oxs::G("languagemanager")->T("FILE_NOT_FOUND" , $R[0]["file"] ),"ERROR");
-								$this->setAjaxCode(-1);	
-							}
+							}							
 
 							if(Oxs::G("file")->isExist("files/news_img/thumbs/".$Param["file"])){
 								Oxs::G("file")->delete("files/news_img/thumbs/".$Param["file"]);
-								$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $R[0]["file"] ),"GOOD.img_remove");
+								$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $Param["file"] ),"GOOD.img_remove");
 								$this->setAjaxCode(1);	
-							}
-							else{
-								$this->Msg(Oxs::G("languagemanager")->T("FILE_NOT_FOUND" , $R[0]["file"] ),"ERROR");
-								$this->setAjaxCode(-1);	
-							}
+							}							
+
+							//	Удаляем запись из блока img
+							Oxs::G("DBLIB.IDE")->DB()->Remove("#__img", " WHERE `file` = 'oxs:sql' and `cat` = '6'" , $Param["file"] );
 						}
 						
 					}else{
@@ -56,11 +51,7 @@
 							Oxs::G("file")->delete("files/tmp/".$Param["file"]);
 							$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $R[0]["file"] ),"GOOD.img_remove");
 							$this->setAjaxCode(1);	
-						}
-						else{
-							$this->Msg(Oxs::G("languagemanager")->T("FILE_NOT_FOUND" , $R[0]["file"] ),"ERROR");
-							$this->setAjaxCode(-1);	
-						}
+						}						
 					}
 				break;
 				default : $this->setAjaxCode(-1);
@@ -79,16 +70,35 @@
 
 			if($this->getIds()!=null){
 				for($i=0;$i<count($this->getIds());$i++){
+					
 					//	Удаляем миникартинку
 					$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__".Oxs::G("datablocks_manager")->RealCurrentBlockName."` WHERE `id` = 'oxs:id'" , $this->getIds()[$i] );
 
-					if(Oxs::G("file")->isExist("files/news_img/".$R[0]["mini_img"])){
-						Oxs::G("file")->Delete("files/news_img/".$R[0]["mini_img"]);						
-					}
+					$H = hash_file('md5', Oxs::GetBack()."files/news_img/".$R[0]["mini_img"] );
+					$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__news` WHERE `img_hash` = 'oxs:sql'" , $H);
 
-					if(Oxs::G("file")->isExist("files/news_img/thumbs/".$R[0]["mini_img"])){
-						Oxs::G("file")->Delete("files/news_img/thumbs/".$R[0]["mini_img"]);						
-					}					
+					if(count($R)>1){
+							$this->Msg("Записей болье 1, не трогаем файл", "MESSAGE" );
+					}else{
+						
+						$this->Msg("Запись 1, удаляем файл", "MESSAGE" );	
+
+						if(Oxs::G("file")->isExist("files/news_img/".$R[0]["mini_img"])){
+							Oxs::G("file")->delete("files/news_img/".$R[0]["mini_img"]);
+							$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $R[0]["mini_img"] ),"GOOD.img_remove");
+							$this->setAjaxCode(1);	
+						}						
+
+						if(Oxs::G("file")->isExist("files/news_img/thumbs/".$R[0]["mini_img"])){
+							Oxs::G("file")->delete("files/news_img/thumbs/".$R[0]["mini_img"]);
+							$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $R[0]["mini_img"] ),"GOOD.img_remove");
+							$this->setAjaxCode(1);	
+						}						
+
+						//	Удаляем запись из блока img
+						//	так как она больше ни где не задейтвована
+						Oxs::G("DBLIB.IDE")->DB()->Remove("#__img", " WHERE `file` = 'oxs:sql' and `cat` = '6'" , $R[0]["mini_img"] );
+					}									
 				}
 			}
 

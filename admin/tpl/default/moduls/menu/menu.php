@@ -27,7 +27,7 @@
 			"ulstyle" => "main_menu sf-menu",
 			"Foo" => function($Item){
 				if($Item["section"] != 1)
-					return "<div class=oxs_active_menu style='cursor:pointer;width:180px;text-align:left;' data-route=".$Item["system_name"].":display>".$Item["name"]."</div>";				
+					return "<div class=oxs_active_menu style='cursor:pointer;text-align:left;' data-route=".$Item["system_name"].":display>".$Item["name"]."</div>";				
 				else
 					return "<div >".$Item["name"]." ⏷</div>";
 			}

@@ -11,7 +11,7 @@
 		} ) );	
 
 		Oxs::G("dom")->loadJsOnce("admin/tpl/default/JS/superfishmenu/superfish.min.js");
-		echo "<div class=oxs_header>Навигация</div>";
+		//echo "<div class=oxs_header>Навигация</div>";
 		echo $Tree->GetUl($UL,array(
 			"ulstyle" => "left_menu sf-menu sf-vertical sf-arrows",
 			"Foo" => function($Item){	

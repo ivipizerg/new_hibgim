@@ -17,13 +17,18 @@ oxs_news_js_mini_img_controller = function(name){
         		$('.show_mini_img_area').attr("data-fix","");
         		ex_storage.add("data-fix-file-name","");	   	
 
-        		aj_auth.Exec("news:remove",{action:"rm_rmp" , file: $('.show_mini_img_area').attr("data-file") , fix:ex_storage.get("fixingId") },function(I){                		
+        		aj_auth.Exec("news:remove",{action:"rm_rmp" , file: $('.show_mini_img_area').attr("data-file") , fix:ex_storage.get("fixingId") },function(I){
+                    ex_storage.add("data-file","");
+                    ex_storage.add("data-original-file","");                    		
             		oxs_message.show(I.Text);                		
             	});
         	}else{
         		console.log("Удаление при доабвлении");
         		aj_auth.Exec("news:remove",{action:"rm_rmp" , file: $('.show_mini_img_area').attr("data-original-file")},function(I){                		
-            		oxs_message.show(I.Text);                		
+            		oxs_message.show(I.Text);  
+
+                    ex_storage.add("data-file","");
+                    ex_storage.add("data-original-file","");              		
             	});
         	}                	
         });

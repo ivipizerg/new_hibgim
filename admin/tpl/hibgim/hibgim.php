@@ -11,10 +11,10 @@
 		<div class=wrapper>	
 			<oxs:tpl_head>			
 			<div>
-				<table><tr><td width="400" valign=top>
+				<table><tr><td width="250" valign=top>
 					<oxs:menu>	
 				</td><td valign=top>	
-					<oxs:content>
+					<div class=content_wraper><oxs:content></div>
 				</td></tr></table>
 			</div>
 			<div style='clear:both;'></div>							

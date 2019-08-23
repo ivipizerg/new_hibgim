@@ -34,7 +34,7 @@
 			Oxs::I("field");	
 
 			//	Обрабатываем данные, мы должны заменить специальыне записи на видимые теги
-			preg_match_all( "({OXS_FILE_DOCUMENT(.*?)})", $Data , $M );				
+			/*preg_match_all( "({OXS_FILE_DOCUMENT(.*?)})", $Data , $M );				
 
 			for($i=0;$i<count($M[0]);$i++){
 				//	Получаем данные о файле
@@ -42,7 +42,7 @@
 
 				//	Заменяем тег на секретный тег
 				$Data = str_replace($M[0][$i], "<span style='color:blue' class=oxs_file_insert data-id-oxs_file_insert=" . $M[1][$i] . ">Документ: " . $F[0]["name"] . "</span>" , $Data);
-			}	
+			}*/	
 
 			//	Подключаем едитор
 			Oxs::G("ckeditor")->getObject($Field["system_name"]);

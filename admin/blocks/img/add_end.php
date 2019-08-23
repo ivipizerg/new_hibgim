@@ -6,13 +6,13 @@
 
 	class img_add_end extends default_add_end{			
 
+		public $insertID = "";
+
 		function __construct($Path){
 			parent::__construct($Path);
 		}		
 
-		function ajaxExec($Param){
-
-			print_r($Param);
+		function ajaxExec($Param){		
 
 			switch($Param["action"]){
 				case "save_files": 
@@ -46,7 +46,7 @@
 
 							$access2 = false;
 							for($z=0;$z<count($Ext);$z++){
-								if(Oxs::G("url")->GetExt($Param["files"][$i])==$Ext[$z]){
+								if(strtolower(Oxs::G("url")->GetExt($Param["files"][$i]))==strtolower($Ext[$z])){
 									$access2 = true;
 								}
 							}
@@ -61,16 +61,19 @@
 								continue;
 							}
 
+							//	Получим даныне о категории, нам нужен путь
+							$Cat = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__img_cat` WHERE `id` = 'oxs:id'" , $Param["cat"] );
+
 							//	все гуд ищем свободное имя копируем заносим в базу
 							//	Ищем свободное имечко
 							$Name = Oxs::G("file")->GetFreeName($Param["files"][$i],"files/img");
 
-							if(Oxs::G("file")->copy("files/tmp/".$Param["files"][$i],"files/img/".$Name)){
+							if(Oxs::G("file")->copy("files/tmp/".$Param["files"][$i],$Cat[0]["path"].$Name)){
 								//	Отично скопировалось								
 								//	Делаем мини иконку
-								Oxs::G("files_manager:thumb")->make("files/img/".$Name);
+								Oxs::G("files_manager:thumb")->make($Cat[0]["path"].$Name);
 								//	Заносим в базу
-								Oxs::G("DBLIB.IDE")->DB()->Insert("#__img",array(
+								$this->insertID = Oxs::G("DBLIB.IDE")->DB()->Insert("#__img",array(
 									"sql:file" => $Name,
 									"id:cat" => $Param["cat"]
 								));

@@ -194,7 +194,7 @@
 									$Query[$i-1] = $this->str_replace_once($result[0][$j], $Tmp,  $Query[$i-1]);	
 									//echo "<br>После замены ".$Query[$i-1];								
 								}else{
-									$this->Msg("Флаг не соовтетсует типу ".str_replace("oxs:","",$result[0][$j])."(".$Query[$i+$j].") в маске ".$Query[$i-1] . $QueryString,"ERROR");
+									$this->Msg("Флаг не соовтетсует типу ".str_replace("oxs:","",$result[0][$j])."(".$Query[$i+$j].") в маске ".$Query[$i-1] . $QueryString ,"ERROR");
 									return 0;
 								}								
 							}							
@@ -269,6 +269,8 @@
 			$this->SetQ("INSERT INTO ");
 			$this->AddQ(" `".$Table."` ");
 
+			print_r($Data);
+
 			if($Data==NULL){
 				$this->Msg("Не переданы данные","ERROR");
 				return ;
@@ -293,7 +295,7 @@
 			for($i=0;$i<count($Keys);$i++){
 				// разбираем переданные параметры
 				if(strripos($Keys[$i],"int:")!==FALSE){
-					if($this->AddQ(" 'oxs:int' " , $Data[$Keys[$i]])==0) return 0;
+					if($this->AddQ(" 'oxs:int' " , $Data[$Keys[$i]])==0) {  return 0; }
 				}else if (strripos($Keys[$i],"~sql:")!==FALSE){
 					if($this->AddQ(" oxs:sql " , $Data[$Keys[$i]] )==0) return 0;
 				}else if (strripos($Keys[$i],"sql:")!==FALSE){

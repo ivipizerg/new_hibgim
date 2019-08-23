@@ -6,16 +6,26 @@
 
 	class news_add_end extends default_add_end{
 		
-		protected $CurrentID;		
+		public $CurrentID;		
 
 		function __construct($Path){	
 			parent::__construct($Path);			
 		}			
 		
-		function Exec(){		
-			
+		function Exec(){				
+
+			//	Если параметр data-file-form-img true занчит изображение выбрано из стандартных
+			//	ничего грухить не нужно, просто вписываем файл в базу и ставим поле standart_ico в 1
 			//	Смотрим есть ли миниизображение
-			if($this->getP("data-file")){
+			if($this->getP("data-file")){	
+
+
+				if($this->getP("data-file-form-img")=="false" || empty($this->getP("data-file-form-img"))){
+					$Path = "files/tmp/";
+				}else{
+					$Path = "files/img/";
+				}
+
 				$this->Msg("Обрабатываем иконку","MESSAGE");
 
 				//	Получаем настройки
@@ -27,11 +37,12 @@
 				$this->Msg($mime,"MESSAGE");
 				$mime = explode(",",trim($mime,"\""));	
 
-				if(Oxs::G("file")->isExist("files/tmp/".$this->getP("data-file"))){
+				if(Oxs::G("file")->isExist($Path.$this->getP("data-file"))){
+
 					//	ПРоверяем можно ли сохрнаить данный файл
 					$access = false;
 					for($z=0;$z<count($mime);$z++){
-						if(Oxs::G("file")->getMIME("/files/tmp/".$this->getP("data-file")) == $mime[$z]){
+						if(Oxs::G("file")->getMIME($Path.$this->getP("data-file")) == $mime[$z]){
 							$access = true;
 						}
 					}
@@ -62,19 +73,27 @@
 					$Name = Oxs::G("file")->GetFreeName($this->getP("data-file"),"files/news_img");
 
 					//	Проверим нет ли уже картинки с таким хешем
-					$H = hash_file('md5', Oxs::GetBack()."files/tmp/".$this->getP("data-file") );
+					$H = hash_file('md5', Oxs::GetBack().$Path.$this->getP("data-file") );
 					$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__news` WHERE `img_hash` = 'oxs:sql'" , $H);
 					if(  $R	 ){
 						$this->setD( "mini_img" , $R[0]["mini_img"] );		
 						$Hash = $R[0]["img_hash"];
 						$this->Msg("Файл иконки уже загружен, новый файл не будет скопирован","WARNING");
 					}else{
-						if(Oxs::G("file")->copy("files/tmp/".$this->getP("data-file"),"files/news_img/".$Name)){
+						if(Oxs::G("file")->copy($Path.$this->getP("data-file"),"files/news_img/".$Name)){
 							//	Отично скопировалось								
 							//	Делаем мини иконку
 							Oxs::G("files_manager:thumb")->make("files/news_img/".$Name);	
 							$this->setD( "mini_img" , $Name );		
-							$Hash = hash_file('md5', Oxs::GetBack()."/files/news_img/".$Name );			
+							$Hash = hash_file('md5', Oxs::GetBack()."/files/news_img/".$Name );	
+
+							if($this->getP("data-file-form-img")=="false" || empty($this->getP("data-file-form-img"))){
+								//	Добавляем картинку в блок img
+								Oxs::G("DBLIB.IDE")->DB()->Insert("#__img",array(
+								 	"sql:file" => $Name,
+								 	"id:cat" => 6
+								));	
+							}								
 						}else{
 							$this->Msg("Файл ".($this->getP("data-original-file"))." уже существует или неизвестная ошибка копирования","ERROR");
 							$this->setAjaxCode(-1);
@@ -83,27 +102,15 @@
 					}					
 				}
 			}
-
-			//	Обработка textarea_edit, нужно найти все втсавки файлов и вырезать ненужное
-			preg_match_all( "(<span.*?span>)", $this->getP("textarea_edit") , $M );	
 			
-			$txt = $this->getP("textarea_edit");
-
-			for($i=0;$i<count($M[0]);$i++){
-				preg_match_all( "/insert=\"(.*?)\"/", $M[0][$i] , $m );	
-
-				//	Заменяем тег на секретный тег
-				$txt = str_replace($M[0][$i], "{OXS_FILE_DOCUMENT ".$m[1][0]."}" , $txt);
-			}			
-
-			$this->setD( "text" , $txt );
-
+			$this->setD( "text" , $this->getP("textarea_edit") );
+			
 			parent::Exec();
-
+		
 			//	Упдатим Хэш иконки
 			Oxs::G("DBLIB.IDE")->DB()->Update("#__news",array(
 					"sql:img_hash" => $Hash
-			), " WHERE `id` ='oxs:id'" , $this->CurrentID ); 
+			), " WHERE `id` ='oxs:id'" , $this->CurrentID ); 	
 
 			//	Если были заданы даты то изменяем их
 			if(!empty($this->getD("create_data"))){
@@ -123,6 +130,6 @@
 				Oxs::G("DBLIB.IDE")->DB()->Update("#__news",array(
 					"update_data" => $C->getUnix()
 				), " WHERE `id` ='oxs:id'" , $this->CurrentID );
-			}
+			} 
 		}	
 	}

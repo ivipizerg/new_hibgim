@@ -51,8 +51,8 @@
 					else 
 						$T[$key.":".$Fields[$i]["system_name"]]=0;					
 				}			
-			}	
-			
+			}							
+
 			$this->CurrentID = Oxs::G("DBLIB.IDE")->DB()->Insert( "#__".Oxs::G("datablocks_manager")->RealCurrentBlockName, $T );
 
 			$C = Oxs::L("calendar");

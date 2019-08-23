@@ -88,6 +88,6 @@ oxs_ckeditor_start = function(name,base){
 
 	//	Обработка клика сохранить/добавить
 	oxs_events.add(".oxs_active","mouseenter",function(){		
-		ex_storage.add("textarea_edit",_this.b.getData());
+		ex_storage.add("textarea_edit",_this.b.getData(),1);
 	});
 }

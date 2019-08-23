@@ -11,17 +11,17 @@
 			
 
 			for($i=0;$i<count($Param["data"]);$i++){
-				$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__img` WHERE `id` = 'oxs:id'" , $Param["data"][$i] );
+				$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT `#__img`.* , `#__img_cat`.`path` AS `cat_path`  FROM `#__img` , `#__img_cat`  WHERE `#__img`.`cat` = `#__img_cat`.`id` and `#__img`.`id` = 'oxs:id'" , $Param["data"][$i] );
 
-				if(Oxs::G("file")->isExist("files/img/".$R[0]["file"])){
-					Oxs::G("file")->delete("files/img/".$R[0]["file"]);
+				if(Oxs::G("file")->isExist($R[0]["cat_path"].$R[0]["file"])){
+					Oxs::G("file")->delete($R[0]["cat_path"].$R[0]["file"]);
 					$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $R[0]["file"] ),"GOOD.img_remove");
 				}
 				else
 					$this->Msg(Oxs::G("languagemanager")->T("FILE_NOT_FOUND" , $R[0]["file"] ),"ERROR");
 				
-				if(Oxs::G("file")->isExist("files/img/thumbs/".$R[0]["file"])){
-					Oxs::G("file")->delete("files/img/thumbs/".$R[0]["file"]);
+				if(Oxs::G("file")->isExist($R[0]["cat_path"]."/thumbs/".$R[0]["file"])){
+					Oxs::G("file")->delete($R[0]["cat_path"]."/thumbs/".$R[0]["file"]);
 					$this->Msg(Oxs::G("languagemanager")->T("FILE_DELETED_SUCCESS" , $R[0]["file"] ),"GOOD.img_remove");
 				}
 				else

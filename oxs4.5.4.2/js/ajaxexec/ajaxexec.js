@@ -42,7 +42,7 @@ oxs_js_ajaxexec = function(Path,Code,SOURCES,WinObj,ajax_object){
 
 		Param = {};
 		Param.oxs_system_ajax_data = {};
-		
+
 		Param.P = Params;
 
 		Param.oxs_system_ajax_data.Lib = Lib;

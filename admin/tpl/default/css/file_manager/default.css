@@ -1,5 +1,5 @@
 .oxs_dialog_load_files_zone{
-	width: 400px;
+	max-width: 400px;
 	height: 70px;
 	text-align: center;
 }

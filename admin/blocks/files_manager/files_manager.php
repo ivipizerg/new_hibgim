@@ -26,11 +26,11 @@
 							return Oxs::G("files_manager.form:img")->get($Param["name"]);
 						break;
 						case "img_add_search":
-							echo  Oxs::G("files_manager.form:img_ckeditor")->innerArea($Param["page"],$Param["search"]);
+							echo  Oxs::G("files_manager.form:img_ckeditor")->innerArea($Param["page"],$Param["search"],$Param["category_list"],$Param["class_img"]);
 						break;
 
-						case "img_add_ckeditor":
-							return  Oxs::G("files_manager.form:img_ckeditor")->get($Param["name"],$Param["page"],$Param["search"]);
+						case "img_add_ckeditor":							
+							return  Oxs::G("files_manager.form:img_ckeditor")->get($Param["name"],$Param["page"],$Param["search"],$Param["category_list"],$Param["class_img"]);
 						break;
 
 						default: $this->setAjaxCode(-2);

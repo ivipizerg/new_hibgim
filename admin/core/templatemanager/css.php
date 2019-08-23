@@ -13,7 +13,7 @@
 			$template_name = Oxs::G("templatemanager")->getTemplateName();	
 
 			//	GetDefaultTemplateName тут должно быть CurrentName	
-			echo Oxs::G("dom")->LoadCssOnce( "admin/tpl/" . $template_name . "/css/" . $dir . "/" . $nameFile.".css");
+			echo Oxs::G("dom")->LoadCss( "admin/tpl/" . $template_name . "/css/" . $dir . "/" . $nameFile.".css");
 			
 		}	
 	} 

@@ -5,12 +5,12 @@
 		?>
 			<table width=100%><tr><td width=170>
 				<div style='display:inline-block;padding:15px 25px 0px 25px;'>
-					<img width=120 src=admin/tpl/hibgim/img/logotip.png>
+					<img width=130 src=admin/tpl/hibgim/img/logotip.png>
 				</div>
 			</td><td>
 				<div style='display:inline-block;'>					
 					<div style='display:inline-block;'>
-						<b>МБОУ "Хибинская гимназия"</b>
+						<b><br>Муниципальное бюджетное общеобразовательное учреждение "Хибинская гимназия"</b>
 					</div>
 					<br>
 					<div style='display:inline-block;'>
@@ -48,5 +48,5 @@
 				}
 				));	
 
-		echo "<hr>";	
+		echo "<hr style='margin-bottom:10px;'>";	
 	}

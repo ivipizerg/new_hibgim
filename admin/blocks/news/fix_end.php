@@ -21,7 +21,14 @@
 
 			//	Смотрим есть ли миниизображение
 			if($this->getP("data-file")!=""){
+				
 				$this->Msg("Обрабатываем иконку","MESSAGE");
+
+				if($this->getP("data-file-form-img")=="false" || empty($this->getP("data-file-form-img"))){
+					$Path = "files/tmp/";
+				}else{
+					$Path = "files/img/";
+				}
 
 				//	Получаем настройки
 				$Ext = Oxs::G("img_settings:model")->get("extention");
@@ -32,11 +39,11 @@
 				$this->Msg($mime,"MESSAGE");
 				$mime = explode(",",trim($mime,"\""));	
 
-				if(Oxs::G("file")->isExist("files/tmp/".$this->getP("data-file"))){
+				if(Oxs::G("file")->isExist($Path.$this->getP("data-file"))){
 					//	ПРоверяем можно ли сохрнаить данный файл
 					$access = false;
 					for($z=0;$z<count($mime);$z++){
-						if(Oxs::G("file")->getMIME("/files/tmp/".$this->getP("data-file")) == $mime[$z]){
+						if(Oxs::G("file")->getMIME($Path.$this->getP("data-file")) == $mime[$z]){
 							$access = true;
 						}
 					}
@@ -56,7 +63,7 @@
 					}
 
 					if( !$access){					
-						$this->Msg( Oxs::G("languagemanager")->T("WRONG_MIME_FILE" , $this->getP("data-original-file") , Oxs::G("file")->getMIME("/files/tmp/".$this->getP("data-original-file")) ) ,"ERROR");
+						$this->Msg( Oxs::G("languagemanager")->T("WRONG_MIME_FILE" , $this->getP("data-original-file") , Oxs::G("file")->getMIME($Path.$this->getP("data-original-file")) ) ,"ERROR");
 						$this->setAjaxCode(-1);
 						$this->SetAjaxText(Oxs::G("message_window")->ErrorUl("ERROR").Oxs::G("message_window")->GoodUl("ERROR"));
 						return FALSE;
@@ -67,19 +74,28 @@
 					$Name = Oxs::G("file")->GetFreeName($this->getP("data-file"),"files/news_img");
 
 					//	Проверим нет ли уже картинки с таким хешем
-					$H = hash_file('md5', Oxs::GetBack()."files/tmp/".$this->getP("data-file") );
+					$H = hash_file('md5', Oxs::GetBack().$Path.$this->getP("data-file") );
 					$R = Oxs::G("DBLIB.IDE")->DB()->Exec("SELECT * FROM `#__news` WHERE `img_hash` = 'oxs:sql' and `id` != 'oxs:id'" , $H , $this->getP("fixingId") );
 					if(  $R	 ){
 						$this->setD( "mini_img" , $R[0]["mini_img"] );		
 						$Hash = $R[0]["img_hash"];
 						$this->Msg("Файл иконки уже загружен, новый файл не будет скопирован","WARNING");
 					}else{
-						if(Oxs::G("file")->copy("files/tmp/".$this->getP("data-file"),"files/news_img/".$Name)){
+						if(Oxs::G("file")->copy($Path.$this->getP("data-file"),"files/news_img/".$Name)){
 							//	Отично скопировалось								
 							//	Делаем мини иконку
 							Oxs::G("files_manager:thumb")->make("files/news_img/".$Name);	
 							$this->setD( "mini_img" , $Name );		
-							$Hash = hash_file('md5', Oxs::GetBack()."/files/news_img/".$Name );			
+							$Hash = hash_file('md5', Oxs::GetBack()."/files/news_img/".$Name );	
+
+							//	Добавляем картинку в блок img
+							if($this->getP("data-file-form-img")=="false" || empty($this->getP("data-file-form-img"))){
+								 Oxs::G("DBLIB.IDE")->DB()->Insert("#__img",array(
+								 	"sql:file" => $Name,
+								 	"id:cat" => 6
+								 ));	
+							}
+
 						}else{
 							$this->Msg("Файл ".($this->getP("data-original-file"))." уже существует или неизвестная ошибка копирования","ERROR");
 							$this->setAjaxCode(-1);
@@ -91,10 +107,12 @@
 				Oxs::G("DBLIB.IDE")->DB()->Update("#__news",array(
 					"sql:img_hash" => $Hash
 				), " WHERE `id` ='oxs:id'" , $this->getP("fixingId") ); 
+			}else{
+				$this->Msg("Нет иконки" . $this->getD( "mini_img" ),"MESSAGE");
 			}
 
 			//	Обработка textarea_edit, нужно найти все втсавки файлов и вырезать ненужное
-			preg_match_all( "(<span.*?span>)", $this->getP("textarea_edit") , $M );	
+			/*preg_match_all( "(<span.*?span>)", $this->getP("textarea_edit") , $M );	
 			
 			$txt = $this->getP("textarea_edit");
 
@@ -104,8 +122,8 @@
 				//	Заменяем тег на секретный тег
 				$txt = str_replace($M[0][$i], "{OXS_FILE_DOCUMENT ".$m[1][0]."}" , $txt);
 			}			
-
-			$this->setD( "text" , $txt );
+*/
+			$this->setD( "text" , $this->getP("textarea_edit") );
 
 			parent::Exec();				
 
